@@ -7,11 +7,52 @@
 
 /* --- CSS 自訂屬性 (Design Tokens) --- */
 :root {
+  /* ── Brand ── */
   --sun:  #F5A623;
   --dark: #1A1A1A;
-  --grey: #222;
+  --grey: #222222;
   --w:    #FAFAFA;
-  --t:    rgba(255, 255, 255, .7);
+  --t:    rgba(255,255,255,.7);
+
+  /* ── Surface & Border ── */
+  --surface-faint: rgba(255,255,255,.04);   /* 卡片底色 */
+  --surface-low:   rgba(255,255,255,.06);   /* 卡片邊框、輕底色 */
+  --divider:       rgba(255,255,255,.08);   /* 分隔線 */
+  --border-soft:   rgba(255,255,255,.10);   /* 選單分隔 */
+  --nav-bg:        rgba(26,26,26,.95);
+
+  /* ── Sun Tint ── */
+  --sun-bg:     rgba(245,166,35,.08);   /* 區塊底色 */
+  --sun-bg-md:  rgba(245,166,35,.12);   /* badge、pill 底色 */
+  --sun-border: rgba(245,166,35,.25);   /* 邊框 */
+
+  /* ── Type Scale ── */
+  --fs-2xs:  .68rem;   /* 來源引用、極小標籤 */
+  --fs-xs:   .78rem;   /* 標籤、說明文 */
+  --fs-sm:   .85rem;   /* 按鈕、caption */
+  --fs-md:   .92rem;   /* 卡片內文 */
+  --fs-base: .95rem;   /* 主要內文 */
+  --fs-lg:   1rem;     /* 導覽、強調 */
+  --fs-xl:   1.3rem;   /* 小標題 */
+  --fs-2xl:  1.75rem;  /* 區塊標題 */
+  --fs-3xl:  2.2rem;   /* Hero 標題 */
+  --fs-stat: 2rem;     /* 數字展示 */
+
+  /* ── Spacing ── */
+  --section-py: 52px;
+  --section-px: 20px;
+  --card-py:    22px;
+  --card-px:    18px;
+  --gap-sm:     10px;
+  --gap-md:     12px;
+
+  /* ── Border Radius ── */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   14px;
+  --r-lg:   20px;
+  --r-pill: 24px;
+  --r-full: 50%;
 }
 
 /* --- 基礎 HTML / Body --- */
@@ -27,6 +68,33 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; }
+
+/* --- 跳至主要內容連結（無障礙） --- */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 0;
+  z-index: 9999;
+  padding: 10px 20px;
+  background: var(--sun);
+  color: var(--dark);
+  font-weight: 700;
+  font-size: .95rem;
+  text-decoration: none;
+  border-radius: 0 0 6px 0;
+  transition: top .2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* --- 鍵盤聚焦樣式（無障礙） --- */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--sun);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 /* --- 動畫 --- */
 @keyframes fu {
