@@ -1,0 +1,192 @@
+/* =============================================
+   SECTIONS.CSS — 各區塊專屬樣式
+   01 nav / 02 hero / 03 intro / 04 stories
+   05 stats / 06 video / 07 quick-links
+   08 footer / 09 disclaimer
+   ============================================= */
+
+/* ---- 01 導覽列 ---- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(26,26,26,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 3px solid var(--sun);
+}
+.nl {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 900; font-size: 1rem;
+  color: var(--sun); text-decoration: none;
+}
+.nr { display: flex; align-items: center; gap: 10px; }
+
+/* Mobile Menu Overlay */
+.mo {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--dark);
+  display: flex; flex-direction: column;
+  padding: 80px 28px 40px;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+}
+.mo.open { transform: translateX(0); }
+.mc {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none;
+  color: var(--w); font-size: 2rem; cursor: pointer; line-height: 1;
+}
+.mo a {
+  display: block; padding: 18px 0;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--w); text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.mo a:hover { color: var(--sun); }
+.ms { font-size: .8rem; color: var(--t); font-weight: 400; display: block; margin-top: 3px; }
+.msoc {
+  margin-top: auto; display: flex; gap: 16px; padding-top: 20px;
+}
+.msoc a {
+  border: none; font-size: .9rem; padding: 0;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* ---- 02 Hero 首屏 ---- */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 100px 24px 48px;
+  background: linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.4) 40%,rgba(0,0,0,.15) 100%),
+              url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80') center/cover no-repeat;
+}
+.hb {
+  display: inline-block; background: var(--sun); color: var(--dark);
+  padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: .85rem;
+  margin-bottom: 14px; width: fit-content; animation: fu .8s ease both;
+}
+.hero h1 { font-size: 2.2rem; font-weight: 900; line-height: 1.3; margin-bottom: 12px; animation: fu .8s .15s ease both; }
+.hl { background: var(--sun); color: var(--dark); padding: 2px 8px; display: inline; }
+.hero p { font-size: 1.05rem; color: var(--t); line-height: 1.7; animation: fu .8s .3s ease both; }
+.sh {
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  animation: bo 2s infinite; color: var(--t); font-size: .75rem; text-align: center;
+}
+.sh span { display: block; font-size: 1.2rem; }
+
+/* ---- 03 通用 section 標頭 ---- */
+section { padding: 52px 20px; }
+.sl { color: var(--sun); font-weight: 700; font-size: .85rem; letter-spacing: 2px; margin-bottom: 8px; }
+.st { font-size: 1.7rem; font-weight: 900; line-height: 1.3; margin-bottom: 10px; }
+.sd { color: var(--t); font-size: .95rem; line-height: 1.7; margin-bottom: 28px; }
+
+/* ---- 03 三要三不區塊 ---- */
+.pr { background: var(--grey); border-radius: 20px; padding: 24px 20px; margin-bottom: 32px; }
+.pr h3 { font-size: 1.05rem; font-weight: 900; margin-bottom: 14px; color: var(--sun); }
+.pg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pi { padding: 13px 10px; border-radius: 12px; text-align: center; font-size: .88rem; font-weight: 700; }
+.pd { background: rgba(245,166,35,.12); color: var(--sun); border: 1px solid rgba(245,166,35,.25); }
+.pn { background: rgba(255,255,255,.04); color: var(--t); border: 1px solid rgba(255,255,255,.08); }
+
+/* ---- 04 標籤列 ---- */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.tags a {
+  padding: 7px 16px; border-radius: 20px;
+  border: 1.5px solid rgba(255,255,255,.2);
+  color: var(--w); text-decoration: none;
+  font-size: .85rem; font-weight: 700; transition: .2s;
+}
+.tags a:hover, .tags a.active { background: var(--sun); color: var(--dark); border-color: var(--sun); }
+
+/* ---- 04 真實故事 (horizontal scroll) ---- */
+.ss {
+  display: flex; gap: 14px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; padding-bottom: 8px;
+}
+.ss::-webkit-scrollbar { display: none; }
+.sc {
+  flex: 0 0 78%; scroll-snap-align: start;
+  background: var(--grey); border-radius: 16px;
+  padding: 22px 18px; border: 1px solid rgba(255,255,255,.06);
+}
+.sc .sq { font-size: .92rem; line-height: 1.7; margin-bottom: 12px; color: var(--t); font-style: italic; }
+.sc .sn { font-weight: 700; font-size: .85rem; color: var(--sun); }
+.sc .sdd { font-size: .76rem; color: var(--t); margin-top: 2px; }
+
+/* ---- 04 Quote Banner ---- */
+.qs { background: var(--sun); color: var(--dark); text-align: center; padding: 48px 24px; }
+.qs blockquote { font-size: 1.4rem; font-weight: 900; line-height: 1.4; margin-bottom: 10px; }
+.qs cite { font-size: .85rem; font-style: normal; opacity: .7; }
+
+/* ---- 05 影響力數字 ---- */
+.sr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.sb { background: rgba(255,255,255,.04); border-radius: 16px; padding: 22px 14px; text-align: center; border: 1px solid rgba(255,255,255,.06); }
+.sb .nm { font-size: 2rem; font-weight: 900; color: var(--sun); display: block; }
+.sb .lb { font-size: .78rem; color: var(--t); margin-top: 4px; }
+
+/* ---- 06 影音專區 ---- */
+.vs { background: var(--grey); }
+.vg {
+  display: flex; gap: 14px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; padding-bottom: 8px;
+}
+.vg::-webkit-scrollbar { display: none; }
+.vi {
+  flex: 0 0 70%; scroll-snap-align: start;
+  border-radius: 14px; overflow: hidden;
+  text-decoration: none; color: var(--w);
+  display: block; transition: transform .3s;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.vi:active { transform: scale(.97); }
+.vi .vth { aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; position: relative; }
+.vi .vt { padding: 12px 14px; font-size: .85rem; font-weight: 700; line-height: 1.4; background: var(--dark); }
+.vi .vt small { display: block; font-size: .72rem; font-weight: 400; color: var(--t); margin-top: 3px; }
+
+/* ---- 07 快速連結 Icon Grid ---- */
+.il { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 28px; }
+.ik {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 18px 6px;
+  background: rgba(255,255,255,.04); border-radius: 14px;
+  text-decoration: none; color: var(--w);
+  border: 1px solid rgba(255,255,255,.06); transition: .25s;
+}
+.ik:hover { border-color: var(--sun); background: rgba(245,166,35,.06); }
+.ic { width: 44px; height: 44px; border-radius: 50%; background: var(--sun); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+.ik span { font-size: .75rem; font-weight: 700; text-align: center; line-height: 1.3; }
+
+/* ---- 08 Footer ---- */
+footer { padding: 36px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,.08); }
+footer .fs { display: flex; justify-content: center; gap: 14px; margin-bottom: 18px; }
+footer .fs a {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--w); text-decoration: none; font-size: .85rem; font-weight: 700; transition: .2s;
+}
+footer .fs a:hover { background: var(--sun); color: var(--dark); }
+footer p { font-size: .72rem; color: var(--t); line-height: 1.9; }
+footer .fl { display: flex; justify-content: center; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+footer .fl a { color: var(--t); font-size: .78rem; text-decoration: none; }
+footer .fl a:hover { color: var(--sun); }
+
+/* ---- 09 免責聲明 ---- */
+.disclaimer {
+  background: rgba(255,255,255,.03);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 24px 20px; margin: 0;
+}
+.disclaimer summary {
+  font-size: .75rem; color: rgba(255,255,255,.35);
+  cursor: pointer; text-align: center;
+  list-style: none; letter-spacing: 1px;
+}
+.disclaimer summary::-webkit-details-marker { display: none; }
+.disclaimer summary::before { content: '⚠ '; }
+.disclaimer .disc-content { margin-top: 14px; font-size: .72rem; color: rgba(255,255,255,.3); line-height: 1.8; text-align: center; }
+.disclaimer .disc-content a { color: rgba(245,166,35,.5); text-decoration: none; }

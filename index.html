@@ -5,71 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>臉部平權 | 陽光社會福利基金會</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--sun:#F5A623;--dark:#1A1A1A;--grey:#222;--w:#FAFAFA;--t:rgba(255,255,255,.7)}
-html{font-size:16px;scroll-behavior:smooth}body{font-family:'Noto Sans TC',sans-serif;background:var(--dark);color:var(--w);overflow-x:hidden;-webkit-font-smoothing:antialiased}a{color:inherit}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(26,26,26,.95);backdrop-filter:blur(12px);border-bottom:3px solid var(--sun)}
-.nl{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1rem;color:var(--sun);text-decoration:none}.nr{display:flex;align-items:center;gap:10px}.bc{background:var(--sun);color:var(--dark);padding:8px 16px;border-radius:24px;font-weight:700;font-size:.85rem;text-decoration:none}.bm{background:none;border:none;cursor:pointer;width:40px;height:40px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px}.bm span{display:block;width:24px;height:2.5px;background:var(--w);border-radius:2px}
-.mo{position:fixed;inset:0;z-index:200;background:var(--dark);display:flex;flex-direction:column;padding:80px 28px 40px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}.mo.open{transform:translateX(0)}.mc{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--w);font-size:2rem;cursor:pointer;line-height:1}.mo a{display:block;padding:18px 0;font-size:1.3rem;font-weight:700;color:var(--w);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.1)}.mo a:hover{color:var(--sun)}.ms{font-size:.8rem;color:var(--t);font-weight:400;display:block;margin-top:3px}.msoc{margin-top:auto;display:flex;gap:16px;padding-top:20px}.msoc a{border:none;font-size:.9rem;padding:0;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);display:inline-flex;align-items:center;justify-content:center}
-.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 24px 48px;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.4) 40%,rgba(0,0,0,.15) 100%),url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80') center/cover no-repeat}
-.hb{display:inline-block;background:var(--sun);color:var(--dark);padding:6px 16px;border-radius:20px;font-weight:700;font-size:.85rem;margin-bottom:14px;width:fit-content;animation:fu .8s ease both}.hero h1{font-size:2.2rem;font-weight:900;line-height:1.3;margin-bottom:12px;animation:fu .8s .15s ease both}.hl{background:var(--sun);color:var(--dark);padding:2px 8px;display:inline}.hero p{font-size:1.05rem;color:var(--t);line-height:1.7;animation:fu .8s .3s ease both}.sh{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);animation:bo 2s infinite;color:var(--t);font-size:.75rem;text-align:center}.sh span{display:block;font-size:1.2rem}
-section{padding:52px 20px}.sl{color:var(--sun);font-weight:700;font-size:.85rem;letter-spacing:2px;margin-bottom:8px}.st{font-size:1.7rem;font-weight:900;line-height:1.3;margin-bottom:10px}.sd{color:var(--t);font-size:.95rem;line-height:1.7;margin-bottom:28px}
-.pr{background:var(--grey);border-radius:20px;padding:24px 20px;margin-bottom:32px}.pr h3{font-size:1.05rem;font-weight:900;margin-bottom:14px;color:var(--sun)}.pg{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pi{padding:13px 10px;border-radius:12px;text-align:center;font-size:.88rem;font-weight:700}.pd{background:rgba(245,166,35,.12);color:var(--sun);border:1px solid rgba(245,166,35,.25)}.pn{background:rgba(255,255,255,.04);color:var(--t);border:1px solid rgba(255,255,255,.08)}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}.tags a{padding:7px 16px;border-radius:20px;border:1.5px solid rgba(255,255,255,.2);color:var(--w);text-decoration:none;font-size:.85rem;font-weight:700;transition:.2s}.tags a:hover,.tags a.active{background:var(--sun);color:var(--dark);border-color:var(--sun)}
-.cg{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:var(--w);transition:transform .3s}.card:active{transform:scale(.97)}.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}.card.logo-card img{object-fit:contain;background:#fff;padding:12px}.card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 40%,transparent 60%);z-index:1}.cb{position:relative;z-index:2;padding:14px 12px 16px}.cb h3{font-size:1rem;font-weight:900;margin-bottom:4px;line-height:1.3}.cb p{font-size:.76rem;color:var(--t);line-height:1.45}
-.ss{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:8px}.ss::-webkit-scrollbar{display:none}.sc{flex:0 0 78%;scroll-snap-align:start;background:var(--grey);border-radius:16px;padding:22px 18px;border:1px solid rgba(255,255,255,.06)}.sc .sq{font-size:.92rem;line-height:1.7;margin-bottom:12px;color:var(--t);font-style:italic}.sc .sn{font-weight:700;font-size:.85rem;color:var(--sun)}.sc .sdd{font-size:.76rem;color:var(--t);margin-top:2px}
-.qs{background:var(--sun);color:var(--dark);text-align:center;padding:48px 24px}.qs blockquote{font-size:1.4rem;font-weight:900;line-height:1.4;margin-bottom:10px}.qs cite{font-size:.85rem;font-style:normal;opacity:.7}
-.sr{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}.sb{background:rgba(255,255,255,.04);border-radius:16px;padding:22px 14px;text-align:center;border:1px solid rgba(255,255,255,.06)}.sb .nm{font-size:2rem;font-weight:900;color:var(--sun);display:block}.sb .lb{font-size:.78rem;color:var(--t);margin-top:4px}
-.il{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}.ik{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 6px;background:rgba(255,255,255,.04);border-radius:14px;text-decoration:none;color:var(--w);border:1px solid rgba(255,255,255,.06);transition:.25s}.ik:hover{border-color:var(--sun);background:rgba(245,166,35,.06)}.ic{width:44px;height:44px;border-radius:50%;background:var(--sun);display:flex;align-items:center;justify-content:center;font-size:1.3rem}.ik span{font-size:.75rem;font-weight:700;text-align:center;line-height:1.3}
-/* VIDEO — horizontal scroll */
-.vs{background:var(--grey)}.vg{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:8px}.vg::-webkit-scrollbar{display:none}
-.vi{flex:0 0 70%;scroll-snap-align:start;border-radius:14px;overflow:hidden;text-decoration:none;color:var(--w);display:block;transition:transform .3s;border:1px solid rgba(255,255,255,.06)}.vi:active{transform:scale(.97)}
-.vi .vth{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative}
-.vi .vt{padding:12px 14px;font-size:.85rem;font-weight:700;line-height:1.4;background:var(--dark)}
-.vi .vt small{display:block;font-size:.72rem;font-weight:400;color:var(--t);margin-top:3px}
-footer{padding:36px 20px;text-align:center;border-top:1px solid rgba(255,255,255,.08)}footer .fs{display:flex;justify-content:center;gap:14px;margin-bottom:18px}footer .fs a{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:var(--w);text-decoration:none;font-size:.85rem;font-weight:700;transition:.2s}footer .fs a:hover{background:var(--sun);color:var(--dark)}footer p{font-size:.72rem;color:var(--t);line-height:1.9}footer .fl{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}footer .fl a{color:var(--t);font-size:.78rem;text-decoration:none}footer .fl a:hover{color:var(--sun)}
-@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}@keyframes bo{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}.reveal{opacity:0;transform:translateY(28px);transition:all .6s ease}.reveal.visible{opacity:1;transform:translateY(0)}
-.link{color:var(--sun);text-decoration:underline;font-size:.76rem}
-
-/* Detail page overlays */
-.detail-page{position:fixed;inset:0;z-index:300;background:var(--dark);overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);padding-bottom:60px}
-.detail-page.open{transform:translateX(0)}
-.dp-back{position:fixed;top:14px;left:16px;z-index:310;background:var(--sun);color:var(--dark);border:none;padding:8px 16px;border-radius:20px;font-weight:700;font-size:.85rem;cursor:pointer;display:none}
-.detail-page.open~.dp-back,.detail-page.open .dp-back-inner{display:block}
-.dp-back-inner{position:sticky;top:14px;z-index:310;background:var(--sun);color:var(--dark);border:none;padding:8px 16px;border-radius:20px;font-weight:700;font-size:.85rem;cursor:pointer;margin:14px 0 0 16px;width:fit-content}
-.dp-hero{position:relative;min-height:44vh;display:flex;flex-direction:column;justify-content:flex-end;padding:80px 24px 32px;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.4) 50%,rgba(0,0,0,.2) 100%)}
-.dp-hero .dp-tag{display:inline-block;background:var(--sun);color:var(--dark);padding:4px 14px;border-radius:16px;font-weight:700;font-size:.78rem;margin-bottom:10px;width:fit-content}
-.dp-hero h1{font-size:1.8rem;font-weight:900;line-height:1.35;margin-bottom:8px}
-.dp-hero p{font-size:.95rem;color:var(--t);line-height:1.7}
-.dp-body{padding:28px 22px}
-.dp-body h2{font-size:1.25rem;font-weight:900;margin:28px 0 12px;color:var(--sun);line-height:1.4;border-left:3px solid var(--sun);padding-left:12px}
-.dp-body h2:first-child{margin-top:0}
-.dp-body p{font-size:.92rem;color:var(--t);line-height:1.85;margin-bottom:16px}
-.dp-body strong{color:var(--w);font-weight:700}
-.dp-body .dp-quote{background:rgba(245,166,35,.08);border-left:3px solid var(--sun);padding:16px 18px;margin:20px 0;border-radius:0 12px 12px 0;font-style:italic;color:var(--t);line-height:1.8;font-size:.9rem}
-.dp-body .dp-quote cite{display:block;margin-top:8px;font-style:normal;font-weight:700;color:var(--sun);font-size:.82rem}
-.dp-body .dp-stat{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
-.dp-body .dp-stat-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 12px;text-align:center}
-.dp-body .dp-stat-item .dp-num{font-size:1.6rem;font-weight:900;color:var(--sun);display:block}
-.dp-body .dp-stat-item .dp-label{font-size:.75rem;color:var(--t);margin-top:4px}
-.dp-body .dp-list{margin:12px 0 16px}
-.dp-body .dp-list-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.9rem;color:var(--t);line-height:1.7}
-.dp-body .dp-list-item strong{color:var(--sun)}
-.dp-body .dp-cta{display:inline-block;background:var(--sun);color:var(--dark);padding:10px 22px;border-radius:24px;font-weight:700;font-size:.88rem;text-decoration:none;margin-top:16px;transition:.2s}
-.dp-body .dp-cta:active{transform:scale(.97)}
-.dp-body .dp-divider{height:1px;background:rgba(255,255,255,.08);margin:28px 0}
-
-.disclaimer{background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.06);padding:24px 20px;margin:0}
-.disclaimer summary{font-size:.75rem;color:rgba(255,255,255,.35);cursor:pointer;text-align:center;list-style:none;letter-spacing:1px}
-.disclaimer summary::-webkit-details-marker{display:none}
-.disclaimer summary::before{content:'⚠ '}
-.disclaimer .disc-content{margin-top:14px;font-size:.72rem;color:rgba(255,255,255,.3);line-height:1.8;text-align:center}
-.disclaimer .disc-content a{color:rgba(245,166,35,.5);text-decoration:none}
-</style>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/components.css">
 </head>
 <body>
 
+
+<!-- ======================================
+     01 HERO & NAV
+     導覽列、漢堡選單、Hero 首屏
+====================================== -->
 <nav><a href="https://www.sunshine.org.tw/" target="_blank" class="nl">☀ 陽光基金會</a><div class="nr"><a href="https://www.sunshine.org.tw/service/equal_rights" target="_blank" class="bc">臉部平權</a><button class="bm" onclick="toggleMenu()"><span></span><span></span><span></span></button></div></nav>
 
 <div class="mo" id="m">
@@ -90,13 +36,21 @@ footer{padding:36px 20px;text-align:center;border-top:1px solid rgba(255,255,255
 <div class="sh"><span>↓</span>向下探索</div>
 </section>
 
-<!-- 三要三不 -->
+
+<!-- ======================================
+     02 INTRO & PRINCIPLES
+     三要三不互動原則、新手理解區
+====================================== -->
 <section>
 <div class="reveal"><div class="sl">▍與顏損朋友相處</div><div class="st">「三要三不」互動原則</div><div class="sd">用自然、尊重的態度，與燒傷或顏損朋友相處。</div></div>
 <div class="pr reveal"><h3>✓ 三要</h3><div class="pg" style="margin-bottom:14px"><div class="pi pd">要以平常心對待</div><div class="pi pd">要自然地互動</div><div class="pi pd" style="grid-column:1/-1">要正面鼓勵與支持</div></div><h3 style="color:var(--t)">✗ 三不</h3><div class="pg"><div class="pi pn">不盯著看</div><div class="pi pn">不問隱私傷疤</div><div class="pi pn" style="grid-column:1/-1">不指指點點</div></div></div>
 </section>
 
-<!-- 議題卡片 6張對齊 -->
+
+<!-- ======================================
+     03 SIX CARDS & OVERLAY
+     六張議題卡片 + dp1-dp6 詳情覆蓋層
+====================================== -->
 <section>
 <div class="reveal"><div class="sl">▍我們關注的議題</div><div class="st">當外貌偏見發生，<br>我們挺身而出，<span class="hl" style="font-size:inherit">勇敢發聲</span>。</div></div>
 
@@ -110,7 +64,12 @@ footer{padding:36px 20px;text-align:center;border-top:1px solid rgba(255,255,255
 </div>
 </section>
 
-<!-- 真實故事 — 每則都有連結 -->
+
+<!-- ======================================
+     04 STORIES, VIDEO & QUICK LINKS
+     真實故事・名言・影響力數字・影音・快速連結
+====================================== -->
+<!-- 真實故事 -->
 <section>
 <div class="reveal"><div class="sl">▍真實的聲音</div><div class="st">他們的故事，讓改變發生</div><div class="sd">← 左右滑動查看更多</div></div>
 <div class="ss reveal">
@@ -179,6 +138,11 @@ footer{padding:36px 20px;text-align:center;border-top:1px solid rgba(255,255,255
 </section>
 
 
+
+<!-- ======================================
+     05 FOOTER
+     免責聲明、版權資訊、社群連結
+====================================== -->
 <!-- 免責聲明 -->
 <section class="disclaimer">
 <details>
@@ -196,52 +160,14 @@ footer{padding:36px 20px;text-align:center;border-top:1px solid rgba(255,255,255
 <div class="fl"><a href="https://www.sunshine.org.tw/" target="_blank">官方網站</a><a href="https://www.sunshine.org.tw/donate/financial" target="_blank">財務報告</a><a href="https://www.sunshine.org.tw/about/honor" target="_blank">榮譽紀錄</a><a href="https://www.sunshine.org.tw/about/esg" target="_blank">永續報告</a></div>
 </footer>
 
-<script>
-function toggleMenu(){document.getElementById('m').classList.toggle('open')}
-function openDetail(id){
-  var el=document.getElementById(id);
-  el.classList.add('open');
-  document.body.style.overflow='hidden';
-  el.scrollTop=0;
-  setupSwipe(el,id);
-}
-function closeDetail(id){
-  var el=document.getElementById(id);
-  el.style.transform='';
-  el.style.transition='transform .4s cubic-bezier(.4,0,.2,1)';
-  el.classList.remove('open');
-  document.body.style.overflow='';
-}
-function setupSwipe(el,id){
-  var startX=0,startY=0,dx=0,isSwipe=false;
-  el.ontouchstart=function(e){
-    startX=e.touches[0].clientX;
-    startY=e.touches[0].clientY;
-    dx=0;isSwipe=false;
-    el.style.transition='none';
-  };
-  el.ontouchmove=function(e){
-    var mx=e.touches[0].clientX-startX;
-    var my=e.touches[0].clientY-startY;
-    if(!isSwipe&&Math.abs(mx)>10&&Math.abs(mx)>Math.abs(my)){isSwipe=true;}
-    if(isSwipe&&mx>0){dx=mx;el.style.transform='translateX('+dx+'px)';e.preventDefault();}
-  };
-  el.ontouchend=function(){
-    el.style.transition='transform .3s ease';
-    if(dx>80){closeDetail(id);}
-    else{el.style.transform='translateX(0)';dx=0;}
-  };
-}
-document.querySelectorAll('.reveal').forEach(function(el){
-  new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  },{threshold:0.15}).observe(el);
-});
-</script>
 
-<!-- ===== DETAIL PAGES ===== -->
+<script src="js/main.js"></script>
+
+
+<!-- ======================================
+     03-DETAIL  詳情覆蓋層 dp1–dp6
+     （歸屬 03 六卡區塊，集中於此方便維護）
+====================================== -->
 <div class="detail-page" id="dp1">
 <button class="dp-back-inner" onclick="closeDetail('dp1')">← 返回</button>
 <div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#4CAF50,#F5A623)">
