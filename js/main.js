@@ -30,12 +30,19 @@ function openDetail(id) {
   var el = document.getElementById(id);
   el.classList.add('open');
   el.setAttribute('aria-hidden', 'false');
+
+  /* 鎖住背景捲動（iOS Safari 相容：fixed + top 偏移） */
   document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + _scrollPos + 'px';
+  document.body.style.width = '100%';
+
   el.scrollTop = 0;
 
-  /* 將焦點移至 overlay 內的關閉按鈕 */
+  /* 將焦點移至 overlay 內的關閉按鈕，並啟用焦點陷阱 */
   var closeBtn = el.querySelector('.dp-back-inner');
   if (closeBtn) closeBtn.focus();
+  trapFocus(el);
 
   setupSwipe(el, id);
 }
@@ -47,7 +54,13 @@ function closeDetail(id) {
   el.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1)';
   el.classList.remove('open');
   el.setAttribute('aria-hidden', 'true');
+  releaseFocus(el);
+
+  /* 解除背景鎖捲，還原捲動位置 */
   document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
   window.scrollTo(0, _scrollPos);
 
   /* 將焦點還給觸發的卡片 */
@@ -97,7 +110,29 @@ function setupSwipe(el, id) {
   };
 }
 
-/* ---- 04 Scroll Reveal（IntersectionObserver） ---- */
+/* ---- 04 焦點陷阱（dialog 無障礙） ---- */
+function trapFocus(el) {
+  var focusable = el.querySelectorAll(
+    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  );
+  var first = focusable[0];
+  var last = focusable[focusable.length - 1];
+  el._trapFn = function (e) {
+    if (e.key !== 'Tab') return;
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  };
+  el.addEventListener('keydown', el._trapFn);
+}
+
+function releaseFocus(el) {
+  if (el._trapFn) { el.removeEventListener('keydown', el._trapFn); el._trapFn = null; }
+}
+
+/* ---- 05 Scroll Reveal（IntersectionObserver） ---- */
 document.querySelectorAll('.reveal').forEach(function (el) {
   new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
