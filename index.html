@@ -1,26 +1,46 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>臉部平權 | 陽光社會福利基金會</title>
-<meta name="description" content="臉部平權是指無論顏面外觀如何，每個人都應被尊重、公平對待，不因外表遭受歧視或限制機會。透過八個重點快速認識這個議題。">
+<title>什麼是臉部平權？1 分鐘看懂 | 淡江大學學生自製</title>
+<meta name="description" content="臉部平權是什麼？為什麼跟你有關？你能做什麼？1 分鐘看懂這個議題，外貌傷者在台灣一起尊嚴。本網站由淡江大學學生整理，引用陽光基金會公開資料。" />
+<link rel="canonical" href="https://your-domain.netlify.app/" />
 
 <!-- Open Graph（FB / LINE 分享預覽） -->
-<!-- 提醒：og:url 與 og:image 請在部署後替換為正式網域的完整 URL -->
-<meta property="og:type"        content="website">
-<meta property="og:title"       content="臉部平權 | 陽光社會福利基金會">
-<meta property="og:description" content="每 5 人就有 1 人曾因外貌遭不友善對待。用八個問題，快速認識臉部平權。">
-<meta property="og:image"       content="https://your-domain.netlify.app/assets/images/og-cover.jpg">
-<meta property="og:url"         content="https://your-domain.netlify.app/">
-<meta property="og:locale"      content="zh_TW">
-<meta property="og:site_name"   content="臉部平權 | 陽光社會福利基金會">
+<!-- 提醒：og:url 請在部署後替換為正式網域；{{OG_IMAGE_URL}} 請替換為實際圖片完整 URL -->
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="什麼是臉部平權？1 分鐘看懂" />
+<meta property="og:description" content="每 5 人就有 1 人因外貌受到不公平的對待。這不是少數人的事。" />
+<meta property="og:image"       content="{{OG_IMAGE_URL}}" />
+<meta property="og:url"         content="https://your-domain.netlify.app/" />
+<meta property="og:locale"      content="zh_TW" />
 
 <!-- Twitter Card -->
-<meta name="twitter:card"        content="summary_large_image">
-<meta name="twitter:title"       content="臉部平權 | 陽光社會福利基金會">
-<meta name="twitter:description" content="每 5 人就有 1 人曾因外貌遭不友善對待。用八個問題，快速認識臉部平權。">
-<meta name="twitter:image"       content="https://your-domain.netlify.app/assets/images/og-cover.jpg">
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="什麼是臉部平權？1 分鐘看懂" />
+<meta name="twitter:description" content="每 5 人就有 1 人因外貌受到不公平的對待。" />
+<meta name="twitter:image"       content="{{OG_IMAGE_URL}}" />
+
+<!-- JSON-LD 結構化資料 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "什麼是臉部平權？",
+  "description": "臉部平權，指的是不以外貌評斷一個人的價值，讓每張臉都能在生活、就學、就業中被公平對待。",
+  "inLanguage": "zh-TW",
+  "author": {
+    "@type": "Organization",
+    "name": "淡江大學學生自製"
+  },
+  "isBasedOn": {
+    "@type": "Organization",
+    "name": "財團法人陽光社會福利基金會",
+    "url": "{{SUNSHINE_OFFICIAL_URL}}"
+  }
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/sections.css">
@@ -33,7 +53,7 @@
      01 HERO & NAV
      導覽列、漢堡選單、Hero 首屏
 ====================================== -->
-<a class="skip-link" href="#main-content">跳至主要內容</a>
+<a href="#main" class="skip-link">跳至主要內容</a>
 
 <div class="utility-bar" role="banner" aria-label="網站身份聲明">
   <span class="ub-date"><span aria-hidden="true">📅 </span>5/17 臉部平權日</span>
@@ -41,147 +61,298 @@
   <span class="ub-note">非官方知識整理頁・由淡江大學學生製作</span>
 </div>
 
-<nav aria-label="主要導覽"><a href="https://www.sunshine.org.tw/" target="_blank" rel="noopener" class="nl">☀ 陽光基金會｜臉部平權</a><div class="nr"><a href="#cards" class="bc">先看八大重點</a><button class="bm" id="hamburger" aria-label="開啟選單" aria-expanded="false" aria-controls="m" onclick="toggleMenu()"><span></span><span></span><span></span></button></div></nav>
+<nav aria-label="主要導覽"><a href="https://www.sunshine.org.tw/" target="_blank" rel="noopener noreferrer" class="nl">☀ 陽光基金會｜臉部平權</a><div class="nr"><a href="#cards" class="bc">先看八大重點</a><button class="bm" id="hamburger" aria-label="開啟選單" aria-expanded="false" aria-controls="m" onclick="toggleMenu()"><span></span><span></span><span></span></button></div></nav>
 
 <div class="mo" id="m" role="navigation" aria-label="行動選單" aria-hidden="true">
 <button class="mc" onclick="toggleMenu()" aria-label="關閉選單">✕</button>
 <p class="mo-hint">透過<strong>八個重點</strong>快速認識臉部平權</p>
-<a href="https://www.sunshine.org.tw/service/equal_rights" target="_blank" rel="noopener" onclick="toggleMenu()">臉部平權<small class="ms">認識每年 5/17 臉部平權日</small></a>
-<a href="https://www.sunshine.org.tw/news/index/NEWS202400517-1" target="_blank" rel="noopener" onclick="toggleMenu()">職場臉部平權指引</a>
-<a href="https://www.sunshine.org.tw/" target="_blank" rel="noopener" onclick="toggleMenu()">陽光基金會官網</a>
-<div class="msoc"><a href="https://www.facebook.com/Sunshine.Taiwan/" target="_blank" rel="noopener" aria-label="陽光基金會 Facebook">FB</a><a href="https://www.instagram.com/sunshine.org.tw/" target="_blank" rel="noopener" aria-label="陽光基金會 Instagram">IG</a><a href="https://www.youtube.com/channel/UCHi-MRsIjAMe_8jy-BSU7DQ" target="_blank" rel="noopener" aria-label="陽光基金會 YouTube">YT</a></div>
+<a href="#cards" onclick="toggleMenu()">先看八大重點<small class="ms">從 8 個問題開始了解臉部平權</small></a>
+<a href="https://www.sunshine.org.tw/service/equal_rights" target="_blank" rel="noopener noreferrer" onclick="toggleMenu()">臉部平權<small class="ms">認識每年 5/17 臉部平權日</small></a>
+<a href="https://www.sunshine.org.tw/news/index/NEWS202400517-1" target="_blank" rel="noopener noreferrer" onclick="toggleMenu()">職場臉部平權指引</a>
+<a href="https://www.sunshine.org.tw/" target="_blank" rel="noopener noreferrer" onclick="toggleMenu()">陽光基金會官網</a>
+<div class="msoc"><a href="https://www.facebook.com/Sunshine.Taiwan/" target="_blank" rel="noopener noreferrer" aria-label="陽光基金會 Facebook">FB</a><a href="https://www.instagram.com/sunshine.org.tw/" target="_blank" rel="noopener noreferrer" aria-label="陽光基金會 Instagram">IG</a><a href="https://www.youtube.com/channel/UCHi-MRsIjAMe_8jy-BSU7DQ" target="_blank" rel="noopener noreferrer" aria-label="陽光基金會 YouTube">YT</a></div>
 </div>
 
-<main id="main-content">
+<main id="main">
 <section class="hero" aria-label="認識臉部平權">
-<div class="hb">🌞 5/17 臉部平權日 · 陽光基金會</div>
-<h1>什麼是臉部平權？<br><span class="hl">不要看一張臉，要看一個人</span></h1>
-<p>臉部平權是指無論顏面外觀如何，每個人都應被尊重、公平對待，不因外表遭受歧視或限制機會。台灣每 5 人就有 1 人曾因外貌遭不友善對待——這個議題，比你想的更近。</p>
-<div class="hero-actions">
-  <a class="btn-primary" href="#cards">從 8 個問題開始</a>
-  <a class="btn-secondary" href="#video">看兩分鐘介紹</a>
-</div>
+  <p class="hero-credibility">本頁由淡江大學學生整理，引用陽光基金會公開資料</p>
+  <div class="hero-eyebrow">5/17 臺灣臉部平權日</div>
+  <h1>什麼是臉部平權？<br><span class="hl">不要看一張臉，看一個人。</span></h1>
+  <p class="hero-def">臉部平權，指的是不以外貌評斷一個人的價值，讓每張臉都能在生活、就學、就業中被公平對待。</p>
+  <p class="hero-bridge">你不一定認識顏面傷者，但你一定生活在「以貌取人」的社會裡。</p>
+  <ul class="hero-bullets" aria-label="三個關鍵訊息">
+    <li>這不是少數人的事</li>
+    <li>外貌歧視就在日常裡</li>
+    <li>你現在就能開始改變</li>
+  </ul>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#cards">1 分鐘看懂</a>
+    <a class="btn-secondary" href="#do-section">想要知道怎麼做</a>
+  </div>
+  <a class="hero-video-link" href="{{VIDEO_URL}}" target="_blank" rel="noopener noreferrer">想看影片嗎？看 2 分鐘簡短紀錄片 →</a>
 </section>
 
 
 <!-- ======================================
-     01b WHAT WE DO
-     我們在做什麼・三件核心說明
+     03 CARDS — Accordion（8 張問題卡）
+     前 4 張預設展開，後 4 張預設收合
 ====================================== -->
-<section id="what-we-do" aria-label="我們在做什麼">
+<section id="cards" aria-label="8 個問題認識臉部平權">
 <div class="reveal">
-  <div class="sl"><span aria-hidden="true">▍</span>我們在做什麼</div>
-  <h2 class="st">三件事，讓你五秒看懂這個網站</h2>
+  <div class="sl"><span aria-hidden="true">▍</span>認識臉部平權</div>
+  <h2 class="st">用 8 個問題，快速認識臉部平權</h2>
+  <p class="sd">如果你是第一次接觸這個主題，不到十分鐘，就能從「是什麼」一路到「我可以做什麼」。</p>
 </div>
-<div class="wwd-grid reveal">
-  <div class="wwd-item">
-    <div class="wwd-num">01</div>
-    <h3 class="wwd-q">臉部平權是什麼？</h3>
-    <p class="wwd-a">無論顏面外觀如何，每個人都應被尊重、公平對待，不因外表（如燒傷、顏損、疤痕等）遭受歧視或限制機會。</p>
-  </div>
-  <div class="wwd-item">
-    <div class="wwd-num">02</div>
-    <h3 class="wwd-q">社會誤解有多普遍？</h3>
-    <p class="wwd-a">台灣社會常將顏損者聯想為「自卑、孤僻」等負面特質。2025 年調查（1,123 人）顯示，每 5 人就有 1 人曾因外貌遭不友善對待。</p>
-  </div>
-  <div class="wwd-item">
-    <div class="wwd-num">03</div>
-    <h3 class="wwd-q">這頁面能幫你做什麼？</h3>
-    <p class="wwd-a">透過八個問題，帶你系統認識臉部平權：從定義議題、拆解迷思、真實處境、行動指引，到成功故事與年度活動。</p>
-  </div>
+<a class="acc-video-link reveal" href="{{VIDEO_URL}}" target="_blank" rel="noopener noreferrer">想看影片嗎？看 2 分鐘簡短紀錄片 →</a>
+
+<div class="acc-list reveal">
+
+  <details class="acc-card" open>
+    <summary class="acc-summary">
+      <h3 class="acc-title">什麼是臉部平權？</h3>
+      <span class="acc-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="acc-body">
+      <p>不是忽視差異，而是不以外貌評斷一個人的價值，讓每張臉都能被公平對待。</p>
+      <p>臉部平權的核心很直接：外貌不應該成為評價一個人能力、性格或價值的依據。當一個人的臉上有燒傷、疤痕、先天差異或疾病痕跡，他依然和其他人一樣，應該被平等看待、被公平對待。</p>
+      <p>如果用一句話記住：<strong>不是每張臉都一樣，但每個人都一樣值得被尊重。</strong></p>
+      <p class="acc-source">本站依陽光基金會公開資料整理</p>
+    </div>
+  </details>
+
+  <details class="acc-card" open>
+    <summary class="acc-summary">
+      <h3 class="acc-title">為什麼這件事和你有關？</h3>
+      <span class="acc-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="acc-body">
+      <p>你每天的言行、玩笑和態度，都可能讓一個人感到被排除，或被一次又一次傷害。</p>
+      <p>外貌歧視不只發生在明顯的惡意裡，更常見的是那些「看起來沒什麼」的反應——多看幾眼、刻意迴避、把外貌當玩笑。這些不一定出於壞心，卻讓人清楚感覺到距離。</p>
+      <p><strong>你的每一個選擇，都在形塑這個社會的氣氛。</strong></p>
+    </div>
+  </details>
+
+  <details class="acc-card" open>
+    <summary class="acc-summary">
+      <h3 class="acc-title">這種事常發生嗎？</h3>
+      <span class="acc-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="acc-body">
+      <p>在台灣，<strong>每 5 人就有 1 人</strong>曾因外貌受到不公平的對待——被嘲笑、被評論，或在求職中受到歧視。</p>
+      <p>這不是少數人的特殊遭遇，而是社會裡實際存在的問題。它發生在職場、校園、捷運、便利商店，就在你我的日常裡。</p>
+      <p class="acc-source">陽光基金會 2025 年「台灣新視角的外貌文化與遭遇調查」，n=1,123，18 歲以上全台 22 縣市</p>
+    </div>
+  </details>
+
+  <details class="acc-card" open>
+    <summary class="acc-summary">
+      <h3 class="acc-title">有些傷害，為什麼真的傷到人？</h3>
+      <span class="acc-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="acc-body">
+      <p>「只是開玩笑」、「只是多看一眼」，看起來無傷大雅，但對當事人可能是一次又一次的累積傷害。</p>
+      <p>當這些反應每天都在發生，人不一定會崩潰，但會慢慢變得疲憊、開始懷疑自己，甚至縮小自己的生活圈，以避開那些讓人不舒服的目光。</p>
+      <p><strong>傷害的程度，不由施加者決定，而由承受者感受。</strong></p>
+    </div>
+  </details>
+
+  <details class="acc-card">
+    <summary class="acc-summary">
+      <h3 class="acc-title">顏面傷者的日常，面對到什麼？</h3>
+      <span class="acc-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="acc-body">
+      <p>從求職到社交，外貌差異常常讓人承受無聲的壓力，在別人的目光和先入為主的判斷中，一次又一次被限制。</p>
+      <ul class="acc-items">
+        <li><strong>職場：</strong>履歷符合條件，卻因外貌在面試時被「重新評估」，甚至被建議轉到不需要面對人的職位。</li>
+        <li><strong>校園：</strong>綽號、竊笑，被當成「只是開玩笑」，但對當事人是持續的孤立。</li>
+        <li><strong>日常：</strong>搭車時旁邊的位置最後才被坐下，去便利商店被多看幾眼——這些細節，每天都在累積。</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="acc-card">
+    <summary class="acc-summary">
+      <h3 class="acc-title">第一次遇到，我可以怎麼做？</h3>
+      <span class="acc-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="acc-body">
+      <p>自然地相處、不追問外貌的由來、把注意力放到對話本身，就是很好的開始。</p>
+      <ul class="acc-items">
+        <li><strong>不盯視：</strong>移開視線後，把注意力放到對話本身。</li>
+        <li><strong>不追問：</strong>對方沒有義務解釋自己的外貌，好奇不等於提問的權利。</li>
+        <li><strong>不拿外貌當玩笑：</strong>你以為在緩和氣氛，對方可能只是在忍著。</li>
+      </ul>
+      <p><strong>不需要完美，只要記住這幾件事，就已經很有幫助。</strong></p>
+    </div>
+  </details>
+
+  <details class="acc-card">
+    <summary class="acc-summary">
+      <h3 class="acc-title">在生活裡，我可以做哪些改變？</h3>
+      <span class="acc-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="acc-body">
+      <p>從少說一句外貌評論開始，多一點同理，你就能幫助讓環境變得更包容。</p>
+      <ul class="acc-items">
+        <li><strong>職場：</strong>面試時把焦點放在能力，不讓外貌影響判斷。</li>
+        <li><strong>校園：</strong>有人被取笑時，一句「這不好笑」可以打斷那種默默發生的孤立。</li>
+        <li><strong>社群：</strong>選擇不轉傳、不放大外貌相關的評論或嘲諷。</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="acc-card">
+    <summary class="acc-summary">
+      <h3 class="acc-title">如果想更深入，從哪裡開始？</h3>
+      <span class="acc-icon" aria-hidden="true"></span>
+    </summary>
+    <div class="acc-body">
+      <p>你可以繼續閱讀文章、觀看影片、了解陽光基金會的服務，探索這個議題如何走進真實的生活。</p>
+      <ul class="acc-items">
+        <li><a href="https://www.sunshine.org.tw/service/equal_rights" target="_blank" rel="noopener noreferrer">臉部平權倡議說明 →（陽光基金會）</a></li>
+        <li><a href="https://www.sunshine.org.tw/news/index/NEWS202400517-1" target="_blank" rel="noopener noreferrer">職場臉部平權指引 →</a></li>
+        <li><a href="{{SUNSHINE_OFFICIAL_URL}}" target="_blank" rel="noopener noreferrer">陽光基金會官網 →</a></li>
+      </ul>
+    </div>
+  </details>
+
 </div>
 </section>
 
 
 <!-- ======================================
-     03 SIX CARDS & OVERLAY
-     八張議題卡片 + ic1-ic8 詳情覆蓋層
+     03 STORIES
+     真實故事（縱排 3 則）
 ====================================== -->
-<section id="cards" aria-label="八大重點">
-<div class="reveal"><div class="sl"><span aria-hidden="true">▍</span>認識臉部平權</div><h2 class="st">用 8 個問題，<br>快速<span class="hl" style="font-size:inherit">了解</span>臉部平權。</h2><div class="sd">從定義、迷思、真實場景到行動方式，依序排列，讓你更容易了解。</div></div>
-
-<div class="guide-intro reveal">
-  <strong>新手導覽</strong>｜卡片已按理解順序排列，建議依序閱讀：認識概念 → 了解場景 → 日常行動 → 延伸參考
+<section id="stories" aria-label="真實故事">
+<div class="reveal">
+  <h2 class="st">這些情境，可能發生在你我身邊</h2>
+  <p class="sd">某些傷害不是意外，而是社會太習慣用外貌看一個人。</p>
+  <p class="sd">從面試、校園到日常對話，這些故事也許離你沒有那麼遠。</p>
 </div>
-
-<div class="cards-groups">
-<div class="card-group reveal">
-<div class="card-group-hd"><span class="card-group-dot" style="background:#42A5F5"></span>認識概念</div>
-<div class="cg">
-<a class="card" href="javascript:void(0)" onclick="openDetail('ic1')" aria-label="概念：什麼是臉部平權？，展開問題"><div class="card-bg" style="background:linear-gradient(135deg,#1B5E20,#F9A825)"></div><div class="cb"><span class="card-tag">概念</span><h3>什麼是臉部平權？</h3><p>每個人都不該因臉部外觀不同，而被差異地對待或失去機會。</p><span class="card-cta">展開問題</span></div></a>
-<a class="card" href="javascript:void(0)" onclick="openDetail('ic2')" aria-label="迷思：外觀歧視有哪些常見誤解？，展開問題"><div class="card-bg" style="background:linear-gradient(135deg,#1565C0,#7B1FA2)"></div><div class="cb"><span class="card-tag">迷思</span><h3>外觀歧視有哪些常見誤解？</h3><p>外觀不代表弱者、能力不足或難以相處，許多偏見其實來自不了解。</p><span class="card-cta">展開問題</span></div></a>
+<div class="story-list reveal">
+  <article class="story-card">
+    <img src="{{STORY_1_IMAGE}}" alt="求職現場：顏面傷者在職場遭遇外貌歧視的情境" class="story-img" loading="lazy">
+    <div class="story-body">
+      <h3 class="story-scene">求職現場</h3>
+      <p class="story-harm">面試完的履歷，就放著。面試時被問：「疤痕這麼恐怖，輪值夜班會不會嚇到人？」</p>
+      <p class="story-law">根據就業服務法第 5 條，雇主不得以容貌歧視求職者。</p>
+    </div>
+  </article>
+  <article class="story-card">
+    <img src="{{STORY_2_IMAGE}}" alt="校園生活：顏面傷者在校園面對同儕目光與言語霸凌的情境" class="story-img" loading="lazy">
+    <div class="story-body">
+      <h3 class="story-scene">校園生活</h3>
+      <p class="story-harm">每天去到教室，都是一道關要過。外貌差異常常成為孤立或言語霸凌的起因。</p>
+      <p class="story-law">教育部統計：校園霸凌通報件數五年內增加近五倍，外貌相關霸凌是顏面傷者的常見遭遇。</p>
+    </div>
+  </article>
+  <article class="story-card">
+    <img src="{{STORY_3_IMAGE}}" alt="公共場所：顏面傷者在日常生活中面對異樣目光的情境" class="story-img" loading="lazy">
+    <div class="story-body">
+      <h3 class="story-scene">公共場所</h3>
+      <p class="story-harm">一句玩笑、一個眼神，你以為在緩和氣氛，當事人可能只是在忍著。</p>
+    </div>
+  </article>
 </div>
-</div>
-<div class="card-group reveal">
-<div class="card-group-hd"><span class="card-group-dot" style="background:#FFC107"></span>了解場景</div>
-<div class="cg">
-<a class="card" href="javascript:void(0)" onclick="openDetail('ic3')" aria-label="場景：外觀歧視在日常生活中有哪些感受？，展開問題"><div class="card-bg" style="background:linear-gradient(135deg,#BF360C,#E65100)"></div><div class="cb"><span class="card-tag">場景</span><h3>外觀歧視在日常生活中有哪些感受？</h3><p>從求職篩選到校園日常，外觀差異常常讓人承受無聲的壓力與距離感。</p><span class="card-cta">展開問題</span></div></a>
-<a class="card" href="javascript:void(0)" onclick="openDetail('ic4')" aria-label="背景：為什麼台灣需要臉部平權立法？，展開問題"><div class="card-bg" style="background:linear-gradient(135deg,#00695C,#1B5E20)"></div><div class="cb"><span class="card-tag">背景</span><h3>為什麼台灣需要臉部平權立法？</h3><p>因為外觀歧視不是個案，而是一直存在於社會文化中的日常問題。</p><span class="card-cta">展開問題</span></div></a>
-</div>
-</div>
-<div class="card-group reveal">
-<div class="card-group-hd"><span class="card-group-dot" style="background:#FF9800"></span>日常行動</div>
-<div class="cg">
-<a class="card" href="javascript:void(0)" onclick="openDetail('ic5')" aria-label="行動：第一次接觸到這類情況，可以怎麼互動？，展開問題"><div class="card-bg" style="background:linear-gradient(135deg,#F57F17,#E64A19)"></div><div class="cb"><span class="card-tag">行動</span><h3>第一次接觸到這類情況，可以怎麼互動？</h3><p>不評論、不訕笑、不瞄視，要尊重、給予平等機會。</p><span class="card-cta">展開問題</span></div></a>
-<a class="card" href="javascript:void(0)" onclick="openDetail('ic6')" aria-label="行動：你可以從日常生活做哪些改變？，看案例與建議"><div class="card-bg" style="background:linear-gradient(135deg,#01579B,#00695C)"></div><div class="cb"><span class="card-tag">行動</span><h3>你可以從日常生活做哪些改變？</h3><p>在校園、職場、社群及日常對話裡，每個人都能停止複製外觀偏見。</p><span class="card-cta">看案例與建議</span></div></a>
-</div>
-</div>
-<div class="card-group reveal">
-<div class="card-group-hd"><span class="card-group-dot" style="background:#EF5350"></span>延伸參考</div>
-<div class="cg">
-<a class="card" href="javascript:void(0)" onclick="openDetail('ic7')" aria-label="事例：當事人的真實遭遇，告訴了我們什麼？，看案例與建議"><div class="card-bg" style="background:linear-gradient(135deg,#6A1B9A,#AD1457)"></div><div class="cb"><span class="card-tag">事例</span><h3>當事人的真實遭遇，告訴了我們什麼？</h3><p>當我們聽見當事人的遭遇，更能明白偏見不是抽象概念，而是真實日常。</p><span class="card-cta">看案例與建議</span></div></a>
-<a class="card" href="javascript:void(0)" onclick="openDetail('ic8')" aria-label="資源：5 月 17 日臉部平權日，可以怎麼參與？，展開問題"><div class="card-bg" style="background:linear-gradient(135deg,#F57F17,#BF360C)"></div><div class="cb"><span class="card-tag">資源</span><h3>5 月 17 日臉部平權日，可以怎麼參與？</h3><p>從閱讀、分享、參與活動到支持議題，每個人都能成為改變的一部分。</p><span class="card-cta">展開問題</span></div></a>
-</div>
-</div>
+<div class="story-more reveal">
+  <a href="#footer" class="btn-stories-more">看更多真實故事 →</a>
 </div>
 </section>
 
 
 <!-- ======================================
-     02 INTERACTION GUIDE
-     三要三不互動原則（移至卡片之後）
+     04 INTERACTION GUIDE
+     互動原則（場景版，三要三不 + 四情境卡）
 ====================================== -->
 <section id="interaction-guide" aria-label="互動原則">
 <div class="reveal">
-  <div class="sl"><span aria-hidden="true">▍</span>看完議題，立刻可以做的第一步</div>
-  <h2 class="st">第一次接觸到這類情況，<br>可以怎麼互動？</h2>
-  <div class="sd">用自然、尊重的態度相處，其實比想像中容易。</div>
+  <div class="sl"><span aria-hidden="true">▍</span>看完故事，知道怎麼做</div>
+  <h2 class="st">如果你不知道怎麼做，<br>先記住這幾件事</h2>
+  <p class="sd">不需要完美，只要避免容易讓人受傷的動作，就已經很重要。</p>
 </div>
 <div class="ig-columns reveal">
-  <div class="ig-col ig-col--do">
-    <div class="ig-col-hd">✓ 要</div>
+  <div class="ig-col ig-col--do" role="region" aria-label="要做的事">
+    <div class="ig-col-hd"><span aria-hidden="true">✓</span> 要</div>
     <div class="ig-item">
-      <div class="ig-title ig-t-do">以平常心對待</div>
-      <div class="ig-desc">把對方當普通朋友，不需要特別小心翼翼</div>
-      <div class="ig-why">因為過度謹慎本身就是一種距離感</div>
+      <div class="ig-title ig-t-do"><span aria-hidden="true">✓</span> 自然地看待並對待對方</div>
+      <div class="ig-desc">用一般相處的方式說話、互動，不需要刻意迎合，也不要刻意迴避。</div>
     </div>
     <div class="ig-item">
-      <div class="ig-title ig-t-do">自然地互動</div>
-      <div class="ig-desc">正常眼神接觸、正常對話，就是最好的尊重</div>
-      <div class="ig-why">因為「特別對待」往往讓人感到更孤立</div>
+      <div class="ig-title ig-t-do"><span aria-hidden="true">✓</span> 讓對方自己決定要不要說</div>
+      <div class="ig-desc">如果對方想說，就讓他說；如果不想說，也應該被尊重。</div>
     </div>
     <div class="ig-item">
-      <div class="ig-title ig-t-do">正面鼓勵與支持</div>
-      <div class="ig-desc">關注他的能力與興趣，而非外貌上的差異</div>
-      <div class="ig-why">因為每個人都希望被看見真正的自己</div>
+      <div class="ig-title ig-t-do"><span aria-hidden="true">✓</span> 把注意力放到人本身</div>
+      <div class="ig-desc">看的是對方是誰，而不是他臉上的差異。</div>
     </div>
   </div>
-  <div class="ig-col ig-col--dont">
-    <div class="ig-col-hd">✗ 不要</div>
+  <div class="ig-col ig-col--dont" role="region" aria-label="不要做的事">
+    <div class="ig-col-hd"><span aria-hidden="true">✗</span> 不要</div>
     <div class="ig-item">
-      <div class="ig-title ig-t-dont">盯著看</div>
-      <div class="ig-desc">避免讓對方感到被放大審視</div>
-      <div class="ig-why">因為持續的目光會讓人一整天都無法放鬆</div>
+      <div class="ig-title ig-t-dont"><span aria-hidden="true">✗</span> 不要一直盯著看</div>
+      <div class="ig-desc">對大家只是瞥一眼，對當事人可能是壓力。</div>
+      <div class="ig-better"><span class="ig-better-label">更好的方式：</span>移開視線後放到對話本身。</div>
     </div>
     <div class="ig-item">
-      <div class="ig-title ig-t-dont">詢問隱私傷疤</div>
-      <div class="ig-desc">除非對方主動分享，否則不追問經歷</div>
-      <div class="ig-why">因為這些問題可能每天被問，每次都是傷</div>
+      <div class="ig-title ig-t-dont"><span aria-hidden="true">✗</span> 不要追著問發生什麼事</div>
+      <div class="ig-desc">好奇不等於有義務回答，對方沒有義務解釋自己的外貌。</div>
+      <div class="ig-better"><span class="ig-better-label">更好的方式：</span>等對方願意說再說。</div>
     </div>
     <div class="ig-item">
-      <div class="ig-title ig-t-dont">指指點點</div>
-      <div class="ig-desc">包含竊笑、眼神示意，都會造成傷害</div>
-      <div class="ig-why">因為即使沒有惡意，也會讓人感到被排除</div>
+      <div class="ig-title ig-t-dont"><span aria-hidden="true">✗</span> 不要拿外貌當玩笑</div>
+      <div class="ig-desc">你以為在緩和氣氛，對方可能只是在忍著。</div>
+      <div class="ig-better"><span class="ig-better-label">更好的方式：</span>找一個和外貌無關的話題。</div>
+    </div>
+  </div>
+</div>
+<div class="ig-scenarios reveal">
+  <h3 class="ig-scenarios-hd">日常情境，遇到了怎麼辦？</h3>
+  <div class="ig-scenario-grid">
+    <div class="ig-scenario-card">
+      <div class="ig-scenario-title"><span aria-hidden="true">👀</span> 在捷運遇到了</div>
+      <div class="ig-scenario-item ig-scenario-dont">
+        <span class="ig-sc-badge ig-sc-badge--dont"><span aria-hidden="true">✗</span> 不要</span>
+        <span>盯著看、交頭接耳讓身邊的人也看</span>
+      </div>
+      <div class="ig-scenario-item ig-scenario-do">
+        <span class="ig-sc-badge ig-sc-badge--do"><span aria-hidden="true">✓</span> 要</span>
+        <span>像對其他乘客一樣，自然移開視線</span>
+      </div>
+    </div>
+    <div class="ig-scenario-card">
+      <div class="ig-scenario-title"><span aria-hidden="true">👦</span> 孩子直接問「他怎麼了？」時</div>
+      <div class="ig-scenario-item ig-scenario-dont">
+        <span class="ig-sc-badge ig-sc-badge--dont"><span aria-hidden="true">✗</span> 不要</span>
+        <span>叫孩子走開、責怪孩子不該看</span>
+      </div>
+      <div class="ig-scenario-item ig-scenario-do">
+        <span class="ig-sc-badge ig-sc-badge--do"><span aria-hidden="true">✓</span> 要</span>
+        <span>簡單回答「每個人的臉都不一樣」，不讓差異成為秘密</span>
+      </div>
+    </div>
+    <div class="ig-scenario-card">
+      <div class="ig-scenario-title"><span aria-hidden="true">💼</span> 面試時</div>
+      <div class="ig-scenario-item ig-scenario-dont">
+        <span class="ig-sc-badge ig-sc-badge--dont"><span aria-hidden="true">✗</span> 不要</span>
+        <span>讓外貌影響對職業能力的判斷</span>
+      </div>
+      <div class="ig-scenario-item ig-scenario-do">
+        <span class="ig-sc-badge ig-sc-badge--do"><span aria-hidden="true">✓</span> 要</span>
+        <span>把焦點放在履歷和回答</span>
+      </div>
+    </div>
+    <div class="ig-scenario-card">
+      <div class="ig-scenario-title"><span aria-hidden="true">🙄</span> 朋友或同事拿外貌當玩笑時</div>
+      <div class="ig-scenario-item ig-scenario-dont">
+        <span class="ig-sc-badge ig-sc-badge--dont"><span aria-hidden="true">✗</span> 不要</span>
+        <span>跟著笑、假裝沒聽到</span>
+      </div>
+      <div class="ig-scenario-item ig-scenario-do">
+        <span class="ig-sc-badge ig-sc-badge--do"><span aria-hidden="true">✓</span> 要</span>
+        <span>輕盈但明確地截斷：「欸，這種玩笑不好笑。」</span>
+      </div>
     </div>
   </div>
 </div>
@@ -191,449 +362,123 @@
 </section>
 
 
+
+
 <!-- ======================================
-     04 STORIES, VIDEO & QUICK LINKS
-     真實故事・名言・影響力數字・影音・快速連結
+     05 DO-SECTION
+     現在就能做（三個具體動作）
 ====================================== -->
-<!-- 真實故事 -->
-<section aria-label="真實的聲音">
-<div class="reveal"><div class="sl"><span aria-hidden="true">▍</span>真實的聲音</div><h2 class="st">這些情境，真的會發生</h2><div class="sd"><span aria-hidden="true">← </span>左右滑動查看更多</div></div>
-<div class="ss reveal" role="region" aria-label="真實故事卡片，可左右滑動瀏覽">
-<div class="sc">
-<div class="sc-stag">在求職時被外貌篩選</div>
-<div class="sq">「面試時被問說疤痕這麼恐怖，輪值中夜班會不會嚇到人？」選才不是選美，能力才是關鍵。</div>
-<div class="sn">職場歧視真實案例</div>
-<div class="sdd"><a class="link" href="https://www.sunshine.org.tw/news/index/NEWS202400517-1" target="_blank" rel="noopener">了解職場平權 →</a></div>
+<section id="do-section" aria-label="現在就能做">
+<div class="reveal">
+  <div class="sl"><span aria-hidden="true">▍</span>行動轉換</div>
+  <h2 class="st">現在就能做的一件事</h2>
+  <p class="sd">不用等到變成達人，從今天開始就可以改變。</p>
 </div>
-<div class="sc">
-<div class="sc-stag">在求職時被拒於門外</div>
-<div class="sq">采瑀9歲時因火災導致顏面嚴重燒傷。應徵服裝店時，面試人員一看到她的臉就愣住，十分鐘後說「抱歉這個職缺沒了」。她說：「為什麼不是看我的實力？」</div>
-<div class="sn">采瑀 — 求職歷程</div>
-<div class="sdd"><a class="link" href="https://www.sunshine.org.tw/news/index/NEWS202400517-1" target="_blank" rel="noopener">了解職場行動指引 →</a></div>
-</div>
-<div class="sc">
-<div class="sc-stag">一本書，改變了一個社會</div>
-<div class="sq">燒傷者沈曉亞撰寫『怕見陽光的人』，道盡顏面損傷朋友的坎坷，引起廣大迴響，催生了陽光基金會。這是台灣臉部平權倡議的起點。</div>
-<div class="sn">沈曉亞 — 陽光的起點</div>
-<div class="sdd"><a class="link" href="https://www.sunshine.org.tw/about/index/story" target="_blank" rel="noopener">閱讀陽光基金會起源 →</a></div>
-</div>
-<div class="sc">
-<div class="sc-stag">在復健路上重返日常</div>
-<div class="sq">全身71%燒傷的小芳說：「一開始打擊很大，從沒想過連摸臉、穿襪子都做得很吃力。」經過一年復健，她已重返職場：「陽光趕走黑暗，讓我回到應該走的路。」</div>
-<div class="sn">小芳 — 重返職場的力量</div>
-<div class="sdd"><a class="link" href="https://www.sunshine.org.tw/news/index/news20220425" target="_blank" rel="noopener">看互動原則，如何給予支持 →</a></div>
-</div>
-<div class="sc">
-<div class="sc-stag">面對日常的異樣目光</div>
-<div class="sq">阿蕎全身25%燒傷後，常常被人注意或指指點點。她說：「希望社會大眾多去了解燒傷顏損朋友，不要投射異樣眼光，要尊重每個不一樣的人。」</div>
-<div class="sn">阿蕎 — 面對社會眼光</div>
-<div class="sdd"><a class="link" href="https://www.tcnews.com.tw/news/item/22803.html" target="_blank" rel="noopener">了解三不三要互動原則 →</a></div>
-</div>
-</div>
+<ol class="do-list reveal">
+  <li class="do-item">
+    <div class="do-num" aria-hidden="true">1</div>
+    <div class="do-content">
+      <h3 class="do-title">今天開始，看人看這個人，不看臉</h3>
+      <p class="do-desc">在捷運、辦公室、餐廳，試試把目光放在人本身。</p>
+    </div>
+  </li>
+  <li class="do-item">
+    <div class="do-num" aria-hidden="true">2</div>
+    <div class="do-content">
+      <h3 class="do-title">分享給一位你覺得該看的朋友</h3>
+      <p class="do-desc">多一個人的理解，就多一點改變。</p>
+      <button class="do-share-btn" type="button" aria-label="分享這個頁面給朋友">分享這頁</button>
+    </div>
+  </li>
+  <li class="do-item">
+    <div class="do-num" aria-hidden="true">3</div>
+    <div class="do-content">
+      <h3 class="do-title">看看自己和身邊人的玩笑，減少一句外貌評論</h3>
+      <p class="do-desc">某些玩笑你以為無傷大雅，對當事人卻是一次又一次的傷害。</p>
+    </div>
+  </li>
+</ol>
+<div class="share-toast" id="share-toast" role="status" aria-live="polite" aria-atomic="true">連結已複製</div>
 </section>
-
-<section class="qs reveal" aria-label="核心引言"><blockquote>「臉部平權，是不因外貌而差別對待任何人。」<cite>— 臉部平權核心定義</cite></blockquote><p class="qs-source">資料整理參考：陽光社會福利基金會 臉部平權倡議計畫・最後更新 2026 年 4 月</p></section>
-
-<!-- 影響力 -->
-<section aria-label="影響力數據">
-<div class="reveal"><div class="sl"><span aria-hidden="true">▍</span>數據與影響力</div><h2 class="st">數字背後，是真實的處境與改變</h2><div class="sd">以下數據整理源自陽光基金會公開研究與年度服務報告。</div></div>
-<div class="sr reveal">
-  <div class="sb">
-    <span class="nm">1/5</span>
-    <span class="lb">每 5 人中，就有 1 人曾歷經至少一項因外觀造成的不公平對待</span>
-    <span class="sb-what">→ 這代表什麼</span>
-    <span class="sb-note">外貌歧視不是個案，而是台灣社會普遍存在的日常困境。</span>
-    <span class="sb-src">陽光基金會，2025 年「台灣新視對外觀的感受與遭遇調查」，n=1,123，18 歲以上全台 22 縣市</span>
-  </div>
-  <div class="sb">
-    <span class="nm">9,000+</span>
-    <span class="lb">已陪伴超過 9,000 名受傷者，走過重建歷程</span>
-    <span class="sb-what">→ 這代表什麼</span>
-    <span class="sb-note">每一個數字背後，都是一段真實存在的生命故事，而不只是統計數字。</span>
-    <span class="sb-src">陽光社會福利基金會，2024 永續報告書（多年累計服務統計）</span>
-  </div>
-  <div class="sb sb--full">
-    <span class="nm">45 年</span>
-    <span class="lb">從 1981 年起，長期為外觀差異者提供支持與社會倡議</span>
-    <span class="sb-what">→ 這代表什麼</span>
-    <span class="sb-note">台灣推動臉部平權的時間，比多數人以為的更長、更深。</span>
-    <span class="sb-src">陽光社會福利基金會，創立於 1981 年</span>
-  </div>
-</div>
-</section>
-
-<!-- 影音專區 — 代表影片 + 折疊更多 -->
-<section class="vs" id="video">
-<div class="reveal"><div class="sl"><span aria-hidden="true">▍</span>影音專區</div><h2 class="st">用 2 分鐘，認識臉部平權</h2></div>
-
-<!-- 代表影片 -->
-<div class="vf reveal">
-  <a class="vf-thumb" href="https://youtu.be/2xgfpWBJQCM" target="_blank" rel="noopener" aria-label="觀看影片：臉部平權 — 從心認識篇（YouTube）">
-    <div class="vf-img">
-      <img src="https://img.youtube.com/vi/2xgfpWBJQCM/hqdefault.jpg" alt="臉部平權 — 從心認識篇 影片縮圖">
-      <span class="vf-play" aria-hidden="true">▶</span>
-    </div>
-  </a>
-  <div class="vf-info">
-    <div class="vf-badges">
-      <span class="vf-badge">約 2 分鐘</span>
-      <span class="vf-badge vf-badge--cc">字幕可開啟</span>
-    </div>
-    <div class="vf-title">臉部平權 — 從心認識篇</div>
-    <p class="vf-desc">社會習慣用外表快速判斷一個人。這支影片探討外貌偏見如何在日常中悄悄運作，呼籲以理解取代評判，以尊重替代迴避——先看見人，再看見外表。</p>
-  </div>
-</div>
-
-<!-- 文字摘要（不方便觀看影片者） -->
-<div class="vs-summary reveal">
-  <div class="vs-summary-label">不方便播放聲音？</div>
-  <p>影片核心：當一張臉「不符合社會預期」，那個人往往在還沒開口之前就被評價了。臉部平權提醒我們，每個人都值得被當作完整的人來看待，而不只是一張臉。</p>
-</div>
-
-<!-- 更多影片（折疊） -->
-<details class="vs-more reveal">
-  <summary>更多相關影片 <span aria-hidden="true">▾</span></summary>
-  <ul class="vs-more-list">
-    <li><a href="https://youtu.be/4nRCrToOkB0" target="_blank" rel="noopener">臉部平權 — 口罩篇</a><span>告別口罩後，你會開心還是憂心？</span></li>
-    <li><a href="https://youtu.be/tM7P_WUZEec" target="_blank" rel="noopener">臉部平權 — 面試篇</a><span>外表不該是職場受挫的主因</span></li>
-    <li><a href="https://youtu.be/i_QptzuawQg" target="_blank" rel="noopener">愛從1開始 — 助學培力</a><span>任容萱邀您支持燒傷顏損孩子</span></li>
-    <li><a href="https://youtu.be/NqWTp25M9Y8" target="_blank" rel="noopener">勇敢迎向陽光</a><span>燒傷生心理重建服務，陪你一步步前行</span></li>
-  </ul>
-</details>
-
-<div class="vs-channel reveal">
-  <a href="https://www.youtube.com/channel/UCHi-MRsIjAMe_8jy-BSU7DQ" target="_blank" rel="noopener">前往 YouTube 頻道 →</a>
-</div>
-</section>
-
-<!-- 延伸資源 — 在影音之後，作為主內容的延伸出口 -->
-<section id="resources" aria-label="延伸資源">
-<div class="reveal"><div class="sl"><span aria-hidden="true">▍</span>延伸資源</div><h2 class="st">依需求，深入認識臉部平權</h2><div class="sd">依照你的興趣或角色，選擇適合的方向繼續了解。</div></div>
-<div class="rs-grid reveal">
-
-  <div class="rs-group">
-    <div class="rs-group-hd">📋 官方資源</div>
-    <div class="rs-links">
-      <a class="rs-item" href="https://www.sunshine.org.tw/service/equal_rights" target="_blank" rel="noopener">
-        <span class="rs-item-title">臉部平權倡議說明</span>
-        <span class="rs-item-desc">陽光基金會官方立場與核心主張完整說明</span>
-      </a>
-      <a class="rs-item" href="https://www.sunshine.org.tw/" target="_blank" rel="noopener">
-        <span class="rs-item-title">陽光基金會官網</span>
-        <span class="rs-item-desc">了解基金會 45 年服務使命與各項計畫</span>
-      </a>
-      <a class="rs-item" href="https://www.sunshine.org.tw/about/film" target="_blank" rel="noopener">
-        <span class="rs-item-title">影音教育資源</span>
-        <span class="rs-item-desc">可下載、轉分享的倡議素材與教學影片</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="rs-group">
-    <div class="rs-group-hd">📚 深入閱讀</div>
-    <div class="rs-links">
-      <a class="rs-item" href="https://www.sunshine.org.tw/about/index/story" target="_blank" rel="noopener">
-        <span class="rs-item-title">陽光基金會的故事</span>
-        <span class="rs-item-desc">從一本書開始，45 年臉部平權倡議的起源</span>
-      </a>
-      <a class="rs-item" href="https://www.sunshine.org.tw/about/esg" target="_blank" rel="noopener">
-        <span class="rs-item-title">2024 永續報告書</span>
-        <span class="rs-item-desc">影響力數據：9,000+ 陪伴人次與服務成果</span>
-      </a>
-      <a class="rs-item" href="https://www.sunshine.org.tw/about/honor" target="_blank" rel="noopener">
-        <span class="rs-item-title">榮譽與信任紀錄</span>
-        <span class="rs-item-desc">陽光基金會的公信力與外部評比資料</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="rs-group">
-    <div class="rs-group-hd">✊ 立刻參與</div>
-    <div class="rs-links">
-      <a class="rs-item" href="https://www.sunshine.org.tw/donate" target="_blank" rel="noopener">
-        <span class="rs-item-title">捐款支持陽光基金會</span>
-        <span class="rs-item-desc">陪伴更多外觀差異者走過重建與倡議歷程</span>
-      </a>
-      <a class="rs-item" href="https://www.facebook.com/Sunshine.Taiwan/" target="_blank" rel="noopener">
-        <span class="rs-item-title">追蹤基金會 Facebook</span>
-        <span class="rs-item-desc">接收最新倡議動態，在社群中擴散議題</span>
-      </a>
-      <a class="rs-item" href="https://www.youtube.com/channel/UCHi-MRsIjAMe_8jy-BSU7DQ" target="_blank" rel="noopener">
-        <span class="rs-item-title">訂閱 YouTube 頻道</span>
-        <span class="rs-item-desc">轉分享倡議影片，讓更多人有機會認識臉部平權</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="rs-group">
-    <div class="rs-group-hd">👥 給特定角色</div>
-    <div class="rs-links">
-      <a class="rs-item" href="https://www.sunshine.org.tw/news/index/NEWS202400517-1" target="_blank" rel="noopener">
-        <span class="rs-item-title">給 HR 與企業主管</span>
-        <span class="rs-item-desc">職場外貌平等：招募、面試與日常互動的具體建議</span>
-      </a>
-      <a class="rs-item" href="https://www.sunshine.org.tw/service/equal_rights" target="_blank" rel="noopener">
-        <span class="rs-item-title">給教師與家長</span>
-        <span class="rs-item-desc">如何在校園環境中建立尊重與包容的互動文化</span>
-      </a>
-      <a class="rs-item" href="#interaction-guide">
-        <span class="rs-item-title">給一般民眾</span>
-        <span class="rs-item-desc">三不三要互動原則，從日常最小的選擇做起</span>
-      </a>
-    </div>
-  </div>
-
-</div>
-</section>
-
 
 
 <!-- ======================================
-     05 FOOTER
+     06 FOOTER
      免責聲明、版權資訊、社群連結
 ====================================== -->
 </main>
 
-<!-- 免責聲明 -->
-<section class="disclaimer">
-<details>
-<summary>免責聲明與製作資訊</summary>
-<div class="disc-content">
-<p>本網站為<strong>淡江大學</strong>學生基於公益宣導目的獨立製作，僅供陽光基金會「臉部平權」議題之非營利推廣使用，與陽光社會福利基金會無官方合作或代理關係。</p>
-<p>網站內容參考自陽光基金會官方網站及公開資料，所有資料之著作權歸原單位所有。部分圖片取自 Unsplash 免費圖庫，非基金會實際活動照片。如有任何內容疑慮或需要更正，請來信聯繫。</p>
-<p>聯絡信箱：<a href="mailto:minglunhan199@gmail.com">minglunhan199@gmail.com</a></p>
-</div>
-</details>
-</section>
-<footer>
 
-  <!-- 總結導引 -->
-  <p class="ft-lead">從理解開始，讓每張臉都被公平對待。</p>
+<footer id="footer">
 
-  <!-- 分組連結 -->
-  <div class="ft-links">
-    <div class="ft-group">
-      <div class="ft-group-title">認識議題</div>
-      <a href="https://www.sunshine.org.tw/service/equal_rights" target="_blank" rel="noopener">臉部平權倡議說明</a>
-      <a href="https://www.sunshine.org.tw/news/index/NEWS202400517-1" target="_blank" rel="noopener">職場外貌歧視研究</a>
-      <a href="https://www.sunshine.org.tw/about/film" target="_blank" rel="noopener">影音教育資源</a>
-    </div>
-    <div class="ft-group">
-      <div class="ft-group-title">延伸資源</div>
-      <a href="https://www.sunshine.org.tw/" target="_blank" rel="noopener">陽光基金會官網</a>
-      <a href="https://www.sunshine.org.tw/about/honor" target="_blank" rel="noopener">榮譽與信任紀錄</a>
-      <a href="https://www.sunshine.org.tw/about/esg" target="_blank" rel="noopener">永續發展報告</a>
-    </div>
-    <div class="ft-group">
-      <div class="ft-group-title">聯絡我們</div>
-      <a href="https://www.sunshine.org.tw/donate" target="_blank" rel="noopener">捐款支持陽光基金會</a>
-      <a href="mailto:sun@sunshine.org.tw">sun@sunshine.org.tw</a>
-      <span class="ft-tel">服務專線：02-2507-8006</span>
+  <!-- ── Layer 1：情感收尾 + CTA ── -->
+  <div class="ft-close">
+    <h2 class="ft-close-title">從理解開始，讓每張臉都被公平對待。</h2>
+    <p class="ft-close-desc">臉部平權不是要你小心翼翼，而是邀請我們一起改變「看外貌」和決定怎麼對待一個人的習慣。</p>
+    <div class="ft-cta-group">
+      <button class="ft-share-btn" type="button" aria-label="分享這個頁面給朋友">分享這頁給一個朋友</button>
+      <a class="ft-donate-link" href="{{SUNSHINE_DONATE_URL}}" target="_blank" rel="noopener noreferrer">支持陽光基金會 →</a>
     </div>
   </div>
 
-  <!-- 社群（保留 3 個最常用，移除 LINE） -->
-  <div class="fs">
-    <a href="https://www.facebook.com/Sunshine.Taiwan/" target="_blank" rel="noopener" aria-label="陽光基金會 Facebook">FB</a>
-    <a href="https://www.instagram.com/sunshine.org.tw/" target="_blank" rel="noopener" aria-label="陽光基金會 Instagram">IG</a>
-    <a href="https://www.youtube.com/channel/UCHi-MRsIjAMe_8jy-BSU7DQ" target="_blank" rel="noopener" aria-label="陽光基金會 YouTube">YT</a>
+  <!-- ── Layer 2：3 個出口 ── -->
+  <div class="ft-exits">
+    <h2 class="ft-exits-title">想繼續了解？選一條適合你的路</h2>
+    <ul class="ft-exits-list">
+      <li>
+        <span class="ft-exit-cue">我是第一次來</span>
+        <a href="#cards">看完整的引導版 →</a>
+      </li>
+      <li>
+        <span class="ft-exit-cue">我想知道怎麼做</span>
+        <a href="#interaction-guide">看更多日常情境和故事 →</a>
+      </li>
+      <li>
+        <span class="ft-exit-cue">我想支持陽光基金會</span>
+        <a href="{{SUNSHINE_OFFICIAL_URL}}" target="_blank" rel="noopener noreferrer">前往陽光官方網站 →</a>
+      </li>
+    </ul>
   </div>
 
-  <p class="ft-org">財團法人陽光社會福利基金會<br>104 臺北市中山區南京東路三段91號3樓</p>
+  <!-- ── Layer 3：關於本站 + 非官方聲明 + 資料來源 ── -->
+  <div class="ft-about">
+    <h2 class="ft-about-title">關於本站</h2>
+    <p class="ft-about-body">本網站由淡江大學學生編製</p>
+    <p class="ft-about-body">在實際生活中，我們可覺到一般人對這個議題的冷漠和疲乏，不過我以為這是正常的。因此我們檢視了自己的態度與語調，在之後的宣傳中特別注意這些方面，協助我們完成了現場宣傳活動。</p>
+    <p class="ft-about-body">但活動結束後我們意識到：現場那麼多人，真正被我們宣傳到的，也只是其中一小部分。</p>
+    <p class="ft-about-body">如果想要讓新面孔能夠了解這個概念，最快的方式就是製作一個網站──讓沒空的人能夠看了就走，在社群上傳播，在空間裡能夠慢慢閱讀。這就是我們設立這個網站的初衷。</p>
 
-  <!-- 資料來源引用 -->
-  <div class="ft-credits">
-    <p>資料來源：陽光社會福利基金會官網及公開倡議資料、外貌歧視民調（2025，n＝1,123）</p>
-    <p>圖片：Unsplash 免費圖庫　｜　影片：陽光基金會 YouTube 頻道</p>
-    <p>本頁為非官方知識整理頁，由淡江大學學生製作，與陽光社會福利基金會無官方合作關係</p>
-    <p>最後更新：2026 年 4 月 18 日</p>
+    <div class="ft-declaration">
+      <p>本網站為學生自發會，非陽光基金會官方網站。</p>
+      <p>內容引用陽光基金會公開資料，以推廣臉部平權概念為目的。</p>
+      <p>如需官方資訊請至<a href="{{SUNSHINE_OFFICIAL_URL}}" target="_blank" rel="noopener noreferrer">陽光基金會官方網站</a>。</p>
+    </div>
+
+    <div class="ft-sources">
+      <h3 class="ft-sources-title">資料來源總覽</h3>
+      <ul class="ft-sources-list">
+        <li>陽光基金會 2025 年「台灣新視角的外貌文化與遭遇調查」</li>
+        <li>社企刊新平台陽光基金會專書</li>
+        <li>陽光基金會臉部平權專頁</li>
+        <li>衛生福利部 2020 年統計</li>
+        <li>就業服務法第 5 條</li>
+        <li>教育部校園霸凌通報統計</li>
+        <li>Changing Faces 2019 年文件</li>
+        <li>HRReporter 2022 年資料</li>
+      </ul>
+    </div>
   </div>
 
-  <p class="ft-slogan">不要看一張臉，而是看一個人</p>
+  <!-- 社群連結 -->
+  <div class="fs" aria-label="社群連結">
+    <a href="https://www.facebook.com/Sunshine.Taiwan/" target="_blank" rel="noopener noreferrer" aria-label="陽光基金會 Facebook">FB</a>
+    <a href="https://www.instagram.com/sunshine.org.tw/" target="_blank" rel="noopener noreferrer" aria-label="陽光基金會 Instagram">IG</a>
+    <a href="https://www.youtube.com/channel/UCHi-MRsIjAMe_8jy-BSU7DQ" target="_blank" rel="noopener noreferrer" aria-label="陽光基金會 YouTube">YT</a>
+  </div>
 
 </footer>
 
 
 <script src="js/main.js"></script>
-
-
-<!-- ======================================
-     IC 八張知識卡片 Overlay（ic1–ic8）
-====================================== -->
-<div class="detail-page" id="ic1" role="dialog" aria-modal="true" aria-hidden="true" aria-label="什麼是臉部平權？">
-<button class="dp-back-inner" onclick="closeDetail('ic1')">← 返回八大重點</button>
-<div class="dp-breadcrumb">首頁 <span>/</span> 八大重點 <span>/</span> 認識概念</div>
-<div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#1B5E20,#F9A825)">
-<div class="dp-tag">認識</div>
-<h1>什麼是臉部平權？</h1>
-<p>解釋核心概念：不因顏面外觀歧視，每張臉都值得尊重。</p>
-</div>
-<div class="dp-body">
-<p>有些人只是走在路上，就會被多看一眼；不是因為他做了什麼，而是因為他的臉「不一樣」。那一眼，可能沒有惡意，卻足以讓人一整天都無法自在呼吸。</p>
-<p>臉部平權，說的其實不是外貌，而是「人被怎麼看待」。當一個人的臉上有燒傷、疤痕、先天差異或疾病痕跡時，社會往往先看到的是「異常」，而不是「這是一個人」。臉部平權的核心，就是把這個順序翻過來——先看見人，再看見外表。</p>
-<p>它主張一件很直接但常被忽略的事：外貌不應該成為評價一個人能力、性格或價值的依據。你不會因為一個人戴眼鏡就懷疑他的能力，但很多人卻會因為臉上的差異，對他產生預設立場。這種落差，本身就是不平等。</p>
-<p>更深一層來看，臉部平權其實在挑戰一種很根深蒂固的文化——「以貌取人」。這不只是個人偏見，而是一整套社會默契：誰比較「正常」、誰比較「好看」、誰比較「適合出現在某些位置」。當這套標準運作時，那些不符合的人，往往在還沒開口之前，就已經被排除在外。</p>
-<p>臉部平權想做的，不只是要求「不要歧視」，而是改變我們觀看彼此的方式。它提醒我們：每一張臉，都承載著一段生命經驗。有些是意外、有些是疾病、有些是出生就如此——但這些都不該變成他被定義、被限制的理由。</p>
-<p>如果用一句話記住這個概念，那會是：<strong>不是每張臉都一樣，但每個人都一樣值得被尊重。</strong></p>
-<div class="dp-divider"></div>
-<div class="dp-nav-footer">
-<button class="dp-nav-next" onclick="openDetail('ic2')">下一張：外貌歧視的常見誤解 →</button>
-<button class="dp-nav-back" onclick="closeDetail('ic1')">← 回到八大重點</button>
-</div>
-</div>
-</div>
-<div class="detail-page" id="ic2" role="dialog" aria-modal="true" aria-hidden="true" aria-label="外觀歧視有哪些常見誤解？">
-<button class="dp-back-inner" onclick="closeDetail('ic2')">← 返回八大重點</button>
-<div class="dp-breadcrumb">首頁 <span>/</span> 八大重點 <span>/</span> 認識概念</div>
-<div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#1565C0,#7B1FA2)">
-<div class="dp-tag">迷思</div>
-<h1>外觀歧視有哪些常見誤解？</h1>
-<p>外觀不代表弱者、能力不足或難以相處，許多偏見其實來自不了解。</p>
-</div>
-<div class="dp-body">
-<p>有些人沒有說出口的傷，是從別人的眼神開始的。不是被罵、不是被拒絕，而是那種多停留一秒的注視，像在確認「你怎麼會長這樣」。</p>
-<p>很多人以為，外貌歧視只發生在明顯的惡意裡，比如嘲笑或霸凌。但更常見的，其實是那些被包裝成「正常反應」的行為——多看幾眼、刻意避開、或過度小心翼翼地對待。這些行為不一定出於壞心，卻會讓人清楚感覺到：自己被當成「不一樣的人」。</p>
-<p>其中一個最深的誤解，是把外貌差異和個人特質直接連結。有人會下意識覺得，臉上有疤的人比較自卑、比較脆弱，甚至不適合面對人群。但這其實只是旁觀者的投射，而不是當事人的真實。外貌的改變，並不等於能力的降低，更不代表性格的缺陷。</p>
-<p>另一個常見迷思，是把好奇當作無害。有些人會問：「這是怎麼受傷的？」、「會痛嗎？」甚至直接盯著看，認為只是單純關心。但對當事人來說，這些問題可能每天被問無數次，每一次都像被迫重新經歷一次過去的傷。</p>
-<p>還有一種更隱性的誤解，是「我沒有惡意，所以沒關係」。但歧視不只來自惡意，也來自無意識的習慣。當社會普遍認為某種外貌比較正常、比較舒服，其他樣貌自然就被推向邊緣。</p>
-<p>如果要拆解這些誤解，關鍵不在於變得「更小心」，而是重新理解：<strong>你看到的，不只是外表，而是一個正在生活的人。</strong></p>
-<div class="dp-divider"></div>
-<div class="dp-nav-footer">
-<button class="dp-nav-next" onclick="openDetail('ic3')">下一張：外觀歧視在日常生活中有哪些感受 →</button>
-<button class="dp-nav-back" onclick="closeDetail('ic2')">← 回到八大重點</button>
-</div>
-</div>
-</div>
-<div class="detail-page" id="ic3" role="dialog" aria-modal="true" aria-hidden="true" aria-label="外觀歧視在日常生活中有哪些感受？">
-<button class="dp-back-inner" onclick="closeDetail('ic3')">← 返回八大重點</button>
-<div class="dp-breadcrumb">首頁 <span>/</span> 八大重點 <span>/</span> 了解場景</div>
-<div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#BF360C,#E65100)">
-<div class="dp-tag">場景</div>
-<h1>外觀歧視在日常生活中有哪些感受？</h1>
-<p>從求職篩選到校園日常，外觀差異常常讓人承受無聲的壓力與距離感。</p>
-</div>
-<div class="dp-body">
-<p>有些人還沒開口介紹自己，就已經被決定了位置。面試還沒開始，對方的眼神停在臉上多了一秒，空氣就變了。</p>
-<p>在職場，挑戰往往出現在最前端。履歷明明符合條件，卻因外貌在面試時被「重新評估」；有些人甚至被直接建議轉到不需要面對人的職位，好像能力可以被外表重新分類。更隱性的情況，是同樣的表現，卻需要更長時間才被信任、被肯定。</p>
-<p>在校園，問題可能更直接。綽號、模仿、竊笑，常被當成「只是開玩笑」，但對當事人來說，那是一種持續的孤立。有人會刻意坐遠一點、少分組，甚至避免眼神接觸，讓人慢慢習慣把自己縮小。</p>
-<p>日常生活裡的細節，也不斷累積壓力。去便利商店被多看幾眼、搭車時旁邊的位置總是最後才被坐下、與人對話時對方視線游移。這些都不是明確的拒絕，卻讓人很清楚地感受到距離。</p>
-<p>更難的是，那些「看起來像關心」的時刻。被反覆詢問過去、被要求解釋自己的外貌，久了之後，人不一定會崩潰，但會變得疲憊，甚至開始懷疑：是不是只有變得不一樣，才比較容易被接受。</p>
-<p>臉部平權關注的，就是讓這條路，<strong>對每個人都一樣好走一點。</strong></p>
-<div class="dp-divider"></div>
-<div class="dp-nav-footer">
-<button class="dp-nav-next" onclick="openDetail('ic4')">下一張：為什麼台灣需要臉部平權立法 →</button>
-<button class="dp-nav-back" onclick="closeDetail('ic3')">← 回到八大重點</button>
-</div>
-</div>
-</div>
-<div class="detail-page" id="ic4" role="dialog" aria-modal="true" aria-hidden="true" aria-label="為什麼台灣需要臉部平權立法？">
-<button class="dp-back-inner" onclick="closeDetail('ic4')">← 返回八大重點</button>
-<div class="dp-breadcrumb">首頁 <span>/</span> 八大重點 <span>/</span> 了解場景</div>
-<div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#00695C,#1B5E20)">
-<div class="dp-tag">背景</div>
-<h1>為什麼台灣需要臉部平權立法？</h1>
-<p>因為外觀歧視不是個案，而是一直存在於社會文化中的日常問題。</p>
-</div>
-<div class="dp-body">
-<p>有些人不是做錯了什麼，而是長得「不夠符合期待」，就被推到邊緣。這種事情如果只發生在少數人身上，可能還會被當成個案；但當它一再出現，就變成一種被默許的日常。</p>
-<p>在台灣，很多人其實都曾經因外貌被評價、被比較、甚至被排擠。不是只有極端的案例，而是從小到大的環境裡，我們很習慣用「看起來怎樣」去快速判斷一個人。當這種文化存在，臉部有明顯差異的人，承受的壓力就會被放大。</p>
-<div class="dp-stat"><div class="dp-stat-item"><span class="dp-num">每 5 人</span><span class="dp-label">就有 1 人曾因外貌遭不友善對待</span></div><div class="dp-stat-item"><span class="dp-num">1,123</span><span class="dp-label">陽光基金會 2025 年調查樣本數</span></div></div>
-<p>更關鍵的是，這種以貌取人的習慣，會影響到實際機會的分配。誰比較容易被錄取、被信任、被代表公司、被放在前線位置，很多時候都和外貌有關。當外表開始影響一個人的選擇與未來，這就不再只是個人感受，而是結構性的問題。</p>
-<p>臉部平權運動的出現，是在試圖改變這種「看不見的規則」。它讓原本分散的經驗被說出來，讓那些被忽略的困境有了名字，也讓更多人開始意識到：原來那些習以為常的反應，可能正在傷害別人。</p>
-<p>臉部平權不是要否定外貌的存在，而是<strong>把「人」從外貌之下重新拉回來。</strong></p>
-<div class="dp-divider"></div>
-<div class="dp-nav-footer">
-<button class="dp-nav-next" onclick="openDetail('ic5')">下一張：第一次接觸可以怎麼互動 →</button>
-<button class="dp-nav-back" onclick="closeDetail('ic4')">← 回到八大重點</button>
-</div>
-</div>
-</div>
-<div class="detail-page" id="ic5" role="dialog" aria-modal="true" aria-hidden="true" aria-label="第一次接觸到這類情況，可以怎麼互動？">
-<button class="dp-back-inner" onclick="closeDetail('ic5')">← 返回八大重點</button>
-<div class="dp-breadcrumb">首頁 <span>/</span> 八大重點 <span>/</span> 日常行動</div>
-<div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#F57F17,#E64A19)">
-<div class="dp-tag">行動</div>
-<h1>第一次接觸到這類情況，可以怎麼互動？</h1>
-<p>不評論、不訕笑、不瞄視，要尊重、給予平等機會。</p>
-</div>
-<div class="dp-body">
-<p>有時候，傷人的不是一句惡意的話，而是一連串「看起來沒什麼」的反應。盯著看一下、笑一下、默默拉開距離——沒有一個動作特別嚴重，但加在一起，就變成一種被排除的感覺。</p>
-<p>「三不」，是先把那些會造成傷害的習慣停下來。<strong>不盯視</strong>，是讓對方不用時時刻刻意識到自己被放大檢視；<strong>不嘲笑</strong>，不只是避免玩笑，更是停止用外貌當作評論的素材；<strong>不排擠</strong>，則是在團體裡不讓任何人因為長相被邊緣化，不被邀請、不被記得。</p>
-<p>但光是「不做」，還不夠。「三要」是在告訴我們，可以主動做些什麼去改變氣氛。<strong>要尊重</strong>，是把對方當作完整的人，而不是被外貌定義的存在；<strong>要傾聽</strong>，是在對方願意分享時，給予空間；<strong>要提供機會</strong>，則是在關鍵時刻不因外表預設限制，讓每個人都能站在同樣的起點上。</p>
-<p>這些行動看起來很小，但它們會慢慢累積出一種差異。當一個人不用擔心被盯著看、被當話題、被自動排除，他就可以把力氣放回生活本身，而不是一直應對別人的目光。</p>
-<p>「三不三要」的意義，就在這裡。<strong>不是口號，而是一種讓人可以安心存在的方式。</strong></p>
-<div class="dp-divider"></div>
-<div class="dp-nav-footer">
-<button class="dp-nav-next" onclick="openDetail('ic6')">下一張：你可以從日常生活做哪些改變 →</button>
-<button class="dp-nav-back" onclick="closeDetail('ic5')">← 回到八大重點</button>
-</div>
-</div>
-</div>
-<div class="detail-page" id="ic6" role="dialog" aria-modal="true" aria-hidden="true" aria-label="你可以從日常生活做哪些改變？">
-<button class="dp-back-inner" onclick="closeDetail('ic6')">← 返回八大重點</button>
-<div class="dp-breadcrumb">首頁 <span>/</span> 八大重點 <span>/</span> 日常行動</div>
-<div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#01579B,#00695C)">
-<div class="dp-tag">行動</div>
-<h1>你可以從日常生活做哪些改變？</h1>
-<p>在校園、職場、社群及日常對話裡，每個人都能停止複製外觀偏見。</p>
-</div>
-<div class="dp-body">
-<p>有時候改變不會從一個口號開始，而是從一個很小的瞬間——你沒有多看那一眼，或是你選擇讓一個人留下來，而不是被忽略。</p>
-<p>在職場，一個簡單的差別是，你把注意力放在哪裡。面試時專注在能力，而不是外貌；與同事互動時，不讓對方的臉成為話題或標籤。當一個人不需要為自己的外表多做解釋，他就有更多空間被看見真正的專業。</p>
-<p>在校園，改變常常來自「有沒有人站出來」。當有人被取笑或被排擠時，一句「這不好笑」或一個願意一起分組的選擇，都可能打斷那種默默發生的孤立。霸凌之所以能持續，很多時候不是因為大家同意，而是因為沒有人出聲。</p>
-<p>在日常互動裡，也有很多細節值得留意。比如，不主動詢問對方外貌的來歷，除非對方願意分享；對話時維持自然的眼神，而不是閃躲或過度關注；把對方當成一個普通的人，而不是一個需要特別對待的例外。</p>
-<p>在社群媒體上，你的選擇同樣有影響力。轉發什麼樣的故事、按讚什麼樣的內容，都在塑造一種價值：我們是繼續放大單一審美，還是開始讓不同的樣貌被看見、被理解。</p>
-<p>當越來越多這樣的瞬間出現，環境就會慢慢變得不一樣。<strong>不是因為世界突然改變了，而是因為有人在每一天，做了不一樣的選擇。</strong></p>
-<div class="dp-divider"></div>
-<div class="dp-nav-footer">
-<button class="dp-nav-next" onclick="openDetail('ic7')">下一張：當事人的真實遭遇 →</button>
-<button class="dp-nav-back" onclick="closeDetail('ic6')">← 回到八大重點</button>
-</div>
-</div>
-</div>
-<div class="detail-page" id="ic7" role="dialog" aria-modal="true" aria-hidden="true" aria-label="當事人的真實遭遇，告訴了我們什麼？">
-<button class="dp-back-inner" onclick="closeDetail('ic7')">← 返回八大重點</button>
-<div class="dp-breadcrumb">首頁 <span>/</span> 八大重點 <span>/</span> 延伸參考</div>
-<div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#6A1B9A,#AD1457)">
-<div class="dp-tag">事例</div>
-<h1>當事人的真實遭遇，告訴了我們什麼？</h1>
-<p>當我們聽見當事人的遭遇，更能明白偏見不是抽象概念，而是真實日常。</p>
-</div>
-<div class="dp-body">
-<p>有些人被記住，不是因為他「克服了外貌」，而是因為他一直在做自己該做的事。只是這個社會，太習慣先看到臉，才會把那份堅持誤解成「特別勵志」。</p>
-<p>當我們談顏損者的故事，很容易不小心把焦點放在「他怎麼撐過來」，好像重點是苦難本身。但真正讓人留下來的，往往不是傷，而是那個人在傷之外，依然持續生活、工作、選擇的樣子。</p>
-<p>在台灣，有些燒傷或顏面差異者成為講師、社工、甚至站上第一線與人互動的工作者。他們不是因為「戰勝外貌」才被看見，而是在一次次被質疑、被拒絕之後，還是選擇留下來，用自己的專業和經驗讓別人理解這個世界可以不一樣。</p>
-<p>也有人把自身經驗轉化成影響力。走進校園分享、參與公共倡議、出現在媒體上，不是為了博取同情，而是讓更多人有機會重新認識「差異」。當一張曾經被迴避的臉，開始被專心聆聽，那本身就是一種改變。</p>
-<p>但同時，它們也提醒我們一件事——不是每個人都需要成為「榜樣」才值得被尊重。有些人只是安靜地過生活，沒有站上舞台，也沒有說出自己的故事。那樣的人生，一樣完整，一樣應該被好好對待。</p>
-<p>當這種觀看方式出現，故事就不再只是勵志，而是讓人重新理解：<strong>每一張臉背後，都是一個不需要被簡化的人。</strong></p>
-<div class="dp-divider"></div>
-<div class="dp-nav-footer">
-<button class="dp-nav-next" onclick="openDetail('ic8')">下一張：5/17 臉部平權日 →</button>
-<button class="dp-nav-back" onclick="closeDetail('ic7')">← 回到八大重點</button>
-</div>
-</div>
-</div>
-<div class="detail-page" id="ic8" role="dialog" aria-modal="true" aria-hidden="true" aria-label="5 月 17 日臉部平權日，可以怎麼參與？">
-<button class="dp-back-inner" onclick="closeDetail('ic8')">← 返回八大重點</button>
-<div class="dp-breadcrumb">首頁 <span>/</span> 八大重點 <span>/</span> 延伸參考</div>
-<div class="dp-hero" style="background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 100%),linear-gradient(135deg,#F57F17,#BF360C)">
-<div class="dp-tag">資源</div>
-<h1>5 月 17 日臉部平權日，可以怎麼參與？</h1>
-<p>從閱讀、分享、參與活動到支持議題，每個人都能成為改變的一部分。</p>
-</div>
-<div class="dp-body">
-<p>有些改變，需要一個被記住的日子。不是為了紀念，而是為了讓更多人停下來想一想：我們平常怎麼看人，真的理所當然嗎？</p>
-<p>每年的 5 月 17 日，有些人會主動站出來，把自己的臉展示在鏡頭前。那不是一種勇敢的表演，而是一種選擇——選擇不再躲，選擇讓差異被看見，也被理解。</p>
-<p>你不一定需要站在最前面，但你可以用自己的方式參與這一天。有人選擇簽署支持臉部平權的宣言，讓這個議題被更多人看見；有人在社群分享相關故事或資訊，把原本只停留在少數人之間的經驗，帶進更大的視野。</p>
-<p>也有一些行動更直接。參與公益團體舉辦的活動，例如陽光基金會的線上串聯或實體快閃，走進公共空間，用一種溫和但清楚的方式告訴大家：這些臉，一直都在這個社會裡，只是你可能沒有真正看過。</p>
-<p>但最重要的，往往不是那一天你做了什麼，而是那一天之後，你有沒有帶走一點不同。你是否開始少看一眼、多想一秒？是否在別人被當成話題時，願意換一種方式回應？</p>
-<p>5 月 17 日不是終點，它比較像一個開口。<strong>讓更多人有機會參與，讓改變有機會發生。而那個「有機會」，就差你在不在裡面。</strong></p>
-<a class="dp-cta" href="https://www.sunshine.org.tw/service/equal_rights" target="_blank" rel="noopener" aria-label="了解臉部平權日活動（陽光基金會，另開新視窗）">了解臉部平權日活動 →</a>
-<div class="dp-divider"></div>
-<div class="dp-nav-footer">
-<button class="dp-nav-back" onclick="closeDetail('ic8')">← 回到八大重點</button>
-</div>
-</div>
-</div>
 </body>
 </html>

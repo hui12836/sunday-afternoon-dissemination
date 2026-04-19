@@ -7,36 +7,59 @@
 
 /* --- CSS 自訂屬性 (Design Tokens) --- */
 :root {
-  /* ── Brand ── */
-  --sun:  #F5A623;
-  --dark: #1A1A1A;
-  --grey: #222222;
-  --w:    #FAFAFA;
-  --t:    rgba(255,255,255,.7);
+  /* ══ Warm Editorial Advocacy — 正式色票（v3.1）══ */
 
-  /* ── Surface & Border ── */
-  --surface-faint: rgba(255,255,255,.04);   /* 卡片底色 */
-  --surface-low:   rgba(255,255,255,.06);   /* 卡片邊框、輕底色 */
-  --divider:       rgba(255,255,255,.08);   /* 分隔線 */
-  --border-soft:   rgba(255,255,255,.10);   /* 選單分隔 */
-  --nav-bg:        rgba(26,26,26,.95);
+  /* ── 背景系 ── */
+  --bg:          #F7F2EA;   /* 主背景：米白 */
+  --bg-soft:     #F1E9DE;   /* 次背景：交錯區塊 */
+  --card:        #FCF8F3;   /* 卡片背景：奶油白 */
+  --card-strong: #2E2925;   /* 深色區塊：頁尾、覆蓋層 */
 
-  /* ── Sun Tint ── */
-  --sun-bg:     rgba(245,166,35,.08);   /* 區塊底色 */
-  --sun-bg-md:  rgba(245,166,35,.12);   /* badge、pill 底色 */
-  --sun-border: rgba(245,166,35,.25);   /* 邊框 */
+  /* ── 文字系 ── */
+  --text:         #26211D;   /* 主文字：深灰棕 */
+  --text-muted:   #6E655B;   /* 次文字：暖灰 */
+  --text-soft:    #8A8075;   /* 註記字 */
+  --text-inverse: #FAF6F0;   /* 深底上的亮白字 */
+
+  /* ── 強調系 ── */
+  --primary:       #C97B1E;   /* 主強調：枯木橙 */
+  --primary-hover: #AF6612;
+  --primary-soft:  #F3DEC2;
+
+  /* ── 輔助系 ── */
+  --secondary:      #42685A;   /* 輔助：沉穩墨綠 */
+  --secondary-soft: #DCE7E1;
+
+  /* ── 警示與邊框 ── */
+  --warning: #A95C3B;
+  --border:  #DDD3C6;
+  --divider: #E8DFD4;
+
+  /* ══ 相容別名（映射至新色票，讓舊規則仍可解析）══ */
+  --sun:          var(--primary);
+  --dark:         var(--card-strong);
+  --grey:         var(--bg-soft);
+  --w:            var(--text-inverse);
+  --t:            var(--text-muted);
+  --surface-faint: rgba(201,123,30,.06);
+  --surface-low:   var(--border);
+  --border-soft:   var(--border);
+  --nav-bg:        rgba(247,242,234,.96);
+  --sun-bg:        rgba(201,123,30,.08);
+  --sun-bg-md:     var(--primary-soft);
+  --sun-border:    rgba(201,123,30,.30);
 
   /* ── Type Scale ── */
-  --fs-2xs:  .68rem;   /* 來源引用、極小標籤 */
-  --fs-xs:   .78rem;   /* 標籤、說明文 */
-  --fs-sm:   .85rem;   /* 按鈕、caption */
-  --fs-md:   .92rem;   /* 卡片內文 */
-  --fs-base: .95rem;   /* 主要內文 */
-  --fs-lg:   1rem;     /* 導覽、強調 */
-  --fs-xl:   1.3rem;   /* 小標題 */
-  --fs-2xl:  1.75rem;  /* 區塊標題 */
-  --fs-3xl:  2.2rem;   /* Hero 標題 */
-  --fs-stat: 2rem;     /* 數字展示 */
+  --fs-2xs:  .68rem;
+  --fs-xs:   .78rem;
+  --fs-sm:   .85rem;
+  --fs-md:   .92rem;
+  --fs-base: .95rem;
+  --fs-lg:   1rem;
+  --fs-xl:   1.3rem;
+  --fs-2xl:  1.75rem;
+  --fs-3xl:  2.2rem;
+  --fs-stat: 2rem;
 
   /* ── Spacing ── */
   --section-py: 52px;
@@ -59,11 +82,12 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  scroll-padding-top: 94px; /* utility-bar 34px + nav ~60px */
 }
 body {
   font-family: 'Noto Sans TC', sans-serif;
-  background: var(--dark);
-  color: var(--w);
+  background: var(--bg);
+  color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
