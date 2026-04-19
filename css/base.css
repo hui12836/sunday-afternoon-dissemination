@@ -84,6 +84,9 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 94px; /* utility-bar 34px + nav ~60px */
 }
+section[id] {
+  scroll-margin-top: 96px;
+}
 body {
   font-family: 'Noto Sans TC', sans-serif;
   background: var(--bg);
