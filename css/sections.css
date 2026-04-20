@@ -21,7 +21,7 @@
 
 /* ---- 01 導覽列 ---- */
 nav {
-  position: fixed; top: 34px; left: 0; right: 0; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px var(--section-px);
   background: rgba(247,242,234,.96);
@@ -534,5 +534,134 @@ details[open] .acc-icon { transform: rotate(45deg); }
 @media (max-width: 600px) {
   .do-item { padding: 16px 18px; gap: 14px; }
   .do-num { min-width: 32px; }
+}
+
+/* ---- do-ending 結語 ---- */
+.do-ending {
+  margin-top: 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--r-md);
+  padding: 20px 24px;
+}
+.do-ending p {
+  font-size: var(--fs-base);
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin: 0;
+}
+.do-ending strong { color: var(--text); }
+
+/* ---- Story Card 點擊樣式 ---- */
+.story-card {
+  cursor: pointer;
+  transition: box-shadow .2s, transform .15s;
+}
+.story-card:hover,
+.story-card:focus-visible {
+  box-shadow: 0 4px 24px rgba(201,123,30,.18);
+  transform: translateY(-2px);
+  outline: none;
+}
+.story-card:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+.story-card-title {
+  font-size: var(--fs-md);
+  font-weight: 900;
+  color: var(--text);
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+.story-cta-hint {
+  font-size: var(--fs-xs);
+  color: var(--primary-hover);
+  font-weight: 700;
+  margin: 10px 0 0;
+}
+
+/* ---- ig-core 按鈕 ---- */
+.ig-core-btn {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+/* ---- Story Overlay Modal ---- */
+.story-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(46,41,37,.88);
+  overflow-y: auto;
+  padding: 24px 16px;
+}
+.story-overlay.open {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.overlay-box {
+  background: var(--card);
+  border-radius: var(--r-lg);
+  max-width: 680px; width: 100%;
+  padding: 40px 36px;
+  position: relative;
+  margin: auto;
+}
+.overlay-close {
+  position: absolute; top: 16px; right: 16px;
+  background: none; border: none;
+  font-size: 1.4rem; cursor: pointer;
+  color: var(--text-muted);
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--r-full);
+  transition: background .2s;
+}
+.overlay-close:hover { background: var(--primary-soft); color: var(--text); }
+.overlay-main-title {
+  font-size: var(--fs-xl); font-weight: 900;
+  color: var(--text); margin: 0 0 28px; line-height: 1.4;
+  padding-right: 48px;
+}
+.overlay-section { margin-bottom: 22px; }
+.overlay-sub-title {
+  font-size: 1.02rem; font-weight: 900;
+  color: var(--text); margin: 0 0 8px; line-height: 1.4;
+}
+.overlay-body {
+  font-size: var(--fs-base); color: var(--text-muted);
+  line-height: 1.78; margin: 0;
+}
+.overlay-body p { margin: 0 0 6px; }
+.overlay-body p:last-child { margin: 0; }
+.overlay-summary {
+  font-size: 1.02rem; font-weight: 900;
+  color: var(--primary-hover);
+  border-top: 2px solid var(--primary-soft);
+  padding-top: 20px; margin-top: 28px;
+  line-height: 1.5;
+}
+.overlay-source {
+  font-size: var(--fs-2xs); color: var(--text-soft);
+  border-top: 1px solid var(--divider);
+  padding-top: 14px; margin-top: 20px;
+  line-height: 1.7;
+}
+.overlay-source a {
+  color: var(--primary-hover);
+  word-break: break-all;
+  text-decoration: none;
+}
+.overlay-source a:hover { text-decoration: underline; }
+.overlay-disclaimer {
+  font-size: .65rem; color: var(--text-soft);
+  margin-top: 10px; line-height: 1.5;
+}
+@media (max-width: 600px) {
+  .overlay-box { padding: 28px 20px; }
+  .overlay-main-title { font-size: var(--fs-lg); }
+  .overlay-sub-title { font-size: var(--fs-base); }
 }
 

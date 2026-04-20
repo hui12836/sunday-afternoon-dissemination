@@ -69,3 +69,46 @@ document.querySelectorAll('.reveal').forEach(function (el) {
     });
   }, { threshold: 0.15 }).observe(el);
 });
+
+/* ---- 04 Story Overlay ---- */
+(function () {
+  function openOverlay(id) {
+    var ol = document.getElementById(id);
+    if (!ol) return;
+    ol.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    var closeBtn = ol.querySelector('.overlay-close');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeOverlay(ol) {
+    ol.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.story-overlay').forEach(function (ol) {
+    ol.addEventListener('click', function (e) {
+      if (e.target === ol) closeOverlay(ol);
+    });
+    var closeBtn = ol.querySelector('.overlay-close');
+    if (closeBtn) closeBtn.addEventListener('click', function () { closeOverlay(ol); });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.story-overlay.open').forEach(closeOverlay);
+    }
+  });
+
+  document.querySelectorAll('[data-overlay]').forEach(function (card) {
+    card.addEventListener('click', function () {
+      openOverlay(card.getAttribute('data-overlay'));
+    });
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openOverlay(card.getAttribute('data-overlay'));
+      }
+    });
+  });
+})();
