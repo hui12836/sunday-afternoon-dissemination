@@ -64,7 +64,7 @@ nav {
   border-bottom: 1px solid rgba(250,246,240,.12);
 }
 .mo a:hover { color: #E3B15F; }
-.ms { font-size: var(--fs-xs); color: rgba(250,246,240,.55); font-weight: 400; display: block; margin-top: 3px; }
+.ms { font-size: max(0.75rem, 12px); color: rgba(250,246,240,.55); font-weight: 400; display: block; margin-top: 3px; line-height: 1.4; }
 .msoc {
   margin-top: auto; display: flex; gap: 16px; padding-top: 20px;
 }
@@ -197,6 +197,15 @@ section { padding: var(--section-py) var(--section-px); }
   border-radius: var(--r-md);
   border: 1px solid var(--border);
   overflow: hidden;
+  position: relative;
+}
+.story-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%);
+  border-radius: inherit;
+  pointer-events: none;
 }
 .story-img {
   display: block;
@@ -207,6 +216,8 @@ section { padding: var(--section-py) var(--section-px); }
 }
 .story-body {
   padding: var(--card-py) var(--card-px);
+  position: relative;
+  z-index: 1;
 }
 .story-scene {
   font-size: var(--fs-xs);
@@ -656,7 +667,7 @@ details[open] .acc-icon { transform: rotate(45deg); }
 }
 .overlay-source a:hover { text-decoration: underline; }
 .overlay-disclaimer {
-  font-size: .65rem; color: var(--text-soft);
+  font-size: max(0.75rem, 12px); color: var(--text-soft);
   margin-top: 10px; line-height: 1.5;
 }
 @media (max-width: 600px) {

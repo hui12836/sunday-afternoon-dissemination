@@ -152,4 +152,14 @@
 - [ ] 卡片 `<a href="javascript:void(0)">` 語意上應為 `<button>`（動作觸發，非頁面導覽）；後續若重構 CSS，可改為 `<button class="card">` 並補 `type="button"`
 - [ ] 橫向滑動故事區（`.ss`）僅靠 touch 滑動，鍵盤用戶無法捲動；可補左右方向鍵事件讓鍵盤也能切換故事卡
 
-*最後更新：2026-04-19（Step 8 v3.1 完成，新增「現在就能做」區塊＋Web Share API）*
+## 後續建議（Code Review 修正後，2026-04-26）
+
+- [ ] **【必做】部署後將 `og:image` 與 `twitter:image` 中的 `your-domain.netlify.app` 替換為正式網域**（目前已填入圖片路徑 `assets/images/og-cover.jpg`，但網域仍為佔位符）
+- [ ] **問題 5 手動驗證**：以 [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) 逐一確認下列元素對比度 ≥ 4.5:1：
+  - `.hero-credibility`（hero 頂部可信度小字）
+  - `.acc-source`（卡片資料來源）
+  - `.story-cta-hint`（「點擊閱讀完整故事 →」）
+  - `.overlay-disclaimer`（Overlay 免責聲明，字體已改為 `max(0.75rem, 12px)`）
+- [ ] 故事卡漸層遮罩（`.story-card::after`）目前覆蓋整張卡片，若視覺上底部文字區暗化效果過重，可考慮將漸層收窄至僅覆蓋圖片的底部 30%（調整 `inset` 或限制 `::after` 高度至圖片範圍內）
+
+*最後更新：2026-04-26（Code Review 12 項問題修正）*

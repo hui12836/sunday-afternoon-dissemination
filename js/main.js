@@ -23,16 +23,19 @@ function toggleMenu() {
     if (!toast) return;
     toast.textContent = msg;
     toast.classList.add('show');
-    setTimeout(function () { toast.classList.remove('show'); }, 2500);
+    setTimeout(function () {
+      toast.classList.remove('show');
+      toast.textContent = '';
+    }, 2500);
   }
 
   function copyFallback() {
     var url = window.location.href;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(url).then(function () {
-        showToast('連結已複製');
+        showToast('連結已複製 ✓');
       }).catch(function () {
-        showToast('請手動複製連結');
+        showToast('複製失敗，請手動複製網址');
       });
     } else {
       var ta = document.createElement('textarea');
@@ -40,8 +43,8 @@ function toggleMenu() {
       ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); showToast('連結已複製'); }
-      catch (e) { showToast('請手動複製連結'); }
+      try { document.execCommand('copy'); showToast('連結已複製 ✓'); }
+      catch (e) { showToast('複製失敗，請手動複製網址'); }
       document.body.removeChild(ta);
     }
   }

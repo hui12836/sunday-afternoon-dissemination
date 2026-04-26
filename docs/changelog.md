@@ -2,6 +2,70 @@
 
 ---
 
+## [2026-04-26] Code Review 修正（12 項問題，共 10 項程式碼修改）
+
+**目標**：依 code-review.md 工程師審查報告，修正效能、無障礙、錯誤回饋共 10 項可執行問題（問題 8 已存在、問題 10 已達標、問題 5 需手動驗證）。
+
+### 修改項目
+
+#### 問題 1 🔴 — 替換 `{{OG_IMAGE_URL}}` 佔位符
+- **修改**：`index.html`
+  - `og:image` 與 `twitter:image` 的 `{{OG_IMAGE_URL}}` 改為 `https://your-domain.netlify.app/assets/images/og-cover.jpg`
+  - 圖片路徑指向已存在的 `assets/images/og-cover.jpg`；網域佔位符 `your-domain.netlify.app` 部署後仍需替換
+
+#### 問題 2 🟠 — 新增 `preconnect` 字型預連線
+- **修改**：`index.html`
+  - Google Fonts `<link>` 前加入 `<link rel="preconnect" href="https://fonts.googleapis.com">` 與 `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>`
+
+#### 問題 3 🟠 — `<script>` 加入 `defer`
+- **修改**：`index.html`
+  - `<script src="js/main.js">` → `<script src="js/main.js" defer>`
+
+#### 問題 4 🟠 — 故事卡加入漸層遮罩
+- **修改**：`css/sections.css`
+  - `.story-card` 加 `position: relative`
+  - 新增 `.story-card::after` 半透明黑色漸層（`to top`，底部 0.65 至頂部 transparent at 50%），`pointer-events: none`
+  - `.story-body` 加 `position: relative; z-index: 1` 確保文字在遮罩之上
+
+#### 問題 6 🟡 — `.ms` 最小字體保護
+- **修改**：`css/sections.css`
+  - `.ms` 的 `font-size` 改為 `max(0.75rem, 12px)`，補 `line-height: 1.4`
+
+#### 問題 7 🟡 — `.overlay-disclaimer` 最小字體保護
+- **修改**：`css/sections.css`
+  - `.overlay-disclaimer` 的 `font-size: .65rem` 改為 `max(0.75rem, 12px)`，防止 iOS Safari 自動放大
+
+#### 問題 8 🔴 — 已修正（無需更動）
+- 目前 `js/main.js` 中 `[data-overlay]` 卡片已有 `keydown` 監聽（Enter/Space），無需重複加入
+
+#### 問題 9 🟠 — 故事卡圖片加 `width` / `height`
+- **修改**：`index.html`
+  - 三張故事卡圖片（`frame_0000.jpg`、`frame_0094.jpg`、`frame_0191.jpg`）均加 `width="1280" height="720"`（依實際尺寸）
+
+#### 問題 10 🟡 — 已達標（無需更動）
+- `.overlay-close` 已有 `width: 44px; height: 44px`，符合 WCAG 2.5.5 觸控目標要求
+
+#### 問題 11 🟠 — Toast 初始內容清空
+- **修改**：`index.html`
+  - `#share-toast` 初始文字 `連結已複製` 移除，改為空字串，由 JS 動態填入
+- **修改**：`js/main.js`
+  - `showToast()` 在動畫結束後同時清除 `toast.textContent = ''`，確保螢幕閱讀器不重複讀出
+
+#### 問題 12 🔴 — 分享失敗顯示錯誤訊息
+- **修改**：`js/main.js`
+  - 成功複製：`'連結已複製'` → `'連結已複製 ✓'`
+  - 失敗訊息：`'請手動複製連結'` → `'複製失敗，請手動複製網址'`（兩處，clipboard API 與 execCommand 各一）
+
+### 未修改項目說明
+- **問題 5**（次要文字對比度）：需以 WebAIM Contrast Checker 在瀏覽器人工驗證，非程式碼邏輯問題，已記入 todo.md
+
+### 修改檔案
+- `index.html` — 問題 1、2、3、9、11（HTML 部分），共 9 處
+- `css/sections.css` — 問題 4、6、7，共 3 處
+- `js/main.js` — 問題 11（JS 部分）、12，共 3 處
+
+---
+
 ## [2026-04-19] Debug — 第十章驗收清單除錯
 
 **目標**：依第十章「上線後驗收清單」自我檢查，修正未通過項目。

@@ -12,7 +12,7 @@
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="什麼是臉部平權？1 分鐘看懂" />
 <meta property="og:description" content="每 5 人就有 1 人因外貌受到不公平的對待。這不是少數人的事。" />
-<meta property="og:image"       content="{{OG_IMAGE_URL}}" />
+<meta property="og:image"       content="https://your-domain.netlify.app/assets/images/og-cover.jpg" />
 <meta property="og:url"         content="https://your-domain.netlify.app/" />
 <meta property="og:locale"      content="zh_TW" />
 
@@ -20,7 +20,7 @@
 <meta name="twitter:card"        content="summary_large_image" />
 <meta name="twitter:title"       content="什麼是臉部平權？1 分鐘看懂" />
 <meta name="twitter:description" content="每 5 人就有 1 人因外貌受到不公平的對待。" />
-<meta name="twitter:image"       content="{{OG_IMAGE_URL}}" />
+<meta name="twitter:image"       content="https://your-domain.netlify.app/assets/images/og-cover.jpg" />
 
 <!-- JSON-LD 結構化資料 -->
 <script type="application/ld+json">
@@ -41,6 +41,8 @@
   }
 }
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/sections.css">
@@ -227,7 +229,7 @@
 <div class="story-list reveal">
 
   <article class="story-card" data-overlay="overlay-1" role="button" tabindex="0" aria-label="展開求職現場故事">
-    <img src="assets/frame_0000.jpg" alt="求職現場：顏面傷者在職場遭遇外貌歧視的情境" class="story-img" loading="lazy">
+    <img src="assets/frame_0000.jpg" alt="求職現場：顏面傷者在職場遭遇外貌歧視的情境" class="story-img" width="1280" height="720" loading="lazy">
     <div class="story-body">
       <h3 class="story-card-title">她的履歷沒問題，問題是她的臉</h3>
       <p class="story-harm">面試完的椅子還沒坐熱，結果就決定了<br>不是因為能力不夠，而是因為臉上有一道疤</p>
@@ -237,7 +239,7 @@
   </article>
 
   <article class="story-card" data-overlay="overlay-2" role="button" tabindex="0" aria-label="展開校園生活故事">
-    <img src="assets/frame_0094.jpg" alt="校園生活：顏面傷者在校園面對同儕目光與言語霸凌的情境" class="story-img" loading="lazy">
+    <img src="assets/frame_0094.jpg" alt="校園生活：顏面傷者在校園面對同儕目光與言語霸凌的情境" class="story-img" width="1280" height="720" loading="lazy">
     <div class="story-body">
       <h3 class="story-card-title">那個外號，從國小跟了她三年</h3>
       <p class="story-harm">教室是每天都得踏進去的地方，但對她來說，那扇門比任何人都重。<br>傷是早就結痂了，可是那些眼神，沒有。</p>
@@ -247,7 +249,7 @@
   </article>
 
   <article class="story-card" data-overlay="overlay-3" role="button" tabindex="0" aria-label="展開公共場所故事">
-    <img src="assets/frame_0191.jpg" alt="公共場所：顏面傷者在日常生活中面對異樣目光的情境" class="story-img" loading="lazy">
+    <img src="assets/frame_0191.jpg" alt="公共場所：顏面傷者在日常生活中面對異樣目光的情境" class="story-img" width="1280" height="720" loading="lazy">
     <div class="story-body">
       <h3 class="story-card-title">捷運上，那個位子永遠最後才有人坐</h3>
       <p class="story-harm">沒有人說什麼，也沒有人做什麼<br>只是沒有人坐過去<br>這種沉默，有時候比嘲笑更難承受</p>
@@ -580,7 +582,7 @@
 <div class="do-ending reveal">
   <p>改變「<strong>不需要從很大的地方開始，它可以是一個沒說出口的玩笑，一個沒有多停留的視線，一條傳出去的連結</strong>」</p>
 </div>
-<div class="share-toast" id="share-toast" role="status" aria-live="polite" aria-atomic="true">連結已複製</div>
+<div class="share-toast" id="share-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 </section>
 
 
@@ -662,6 +664,6 @@
 </footer>
 
 
-<script src="js/main.js"></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>
