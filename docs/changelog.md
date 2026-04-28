@@ -2,6 +2,249 @@
 
 ---
 
+## [2026-04-28] Step 4（互動模組計畫）— 模組四（回饋表單）
+
+**目標**：新增 `#feedback-section` 於 `<footer id="footer">` 開始標籤之前，實作展開式回饋表單，含兩組 radio（按鈕式 + tag 式）、一組 textarea、展開動畫、送出後感謝卡淡入。
+
+### index.html
+
+- **新增 `<section id="feedback-section">`**，插入於 `</main>` 之後、`<footer id="footer">` 之前
+  - 結構：`.section-inner > .feedback-card.reveal`
+  - 預設顯示 `#feedback-teaser`（「願意留一下回饋嗎？」+ 「我要回饋」按鈕）
+  - `#feedback-form-wrap`（預設 `aria-hidden="true"`、`max-height: 0`）：
+    - 題目一：`<fieldset>` + `.feedback-options`（3 個 radio，`.feedback-opt` 樣式）
+    - 題目二：`<fieldset>` + `.feedback-tags`（4 個 radio，`.feedback-tag` 樣式）
+    - 題目三（選填）：`<fieldset>` + `<textarea>`
+    - `<form name="site-feedback" data-netlify="true" netlify-honeypot="bot-field">`
+  - `#feedback-thanks`（預設 `hidden`）：✓ icon、三行感謝文字、「回到上方」連結至 `#main`
+
+### css/components.css
+
+- **新增「模組四：回饋表單」樣式**：
+  - `#feedback-section`：`background: var(--bg-soft)`
+  - `.feedback-card`：卡片基準，`max-width: 600px; margin: 0 auto`
+  - `#feedback-teaser`：`display: flex; justify-content: space-between`
+  - `.feedback-form-wrap`：`max-height: 0; opacity: 0; transition: max-height 400ms, opacity 300ms`；`.expanded` 後 `max-height: 800px; opacity: 1`
+  - `.feedback-opt`：radio 按鈕式；`.selected`：`var(--primary-soft)` 底 + `var(--primary)` 邊框 + `::before` 顯示 ✓；`.dimmed`：`opacity: 0.5`
+  - `.feedback-tag`：tag 按鈕式；`.selected`：`scale(1.05)` + `var(--secondary-soft)` 底
+  - `.feedback-q textarea`：聚焦時 `border-left: 3px solid var(--primary)`
+  - `.feedback-thanks`：預設 `opacity: 0; translateY(10px)`；`.visible` 後淡入歸位
+  - `.thanks-icon`：`font-size: 2rem; color: var(--secondary)`
+  - `@media (max-width: 600px)`：選項、tag 改縱排
+
+### js/main.js
+
+- **新增 Section 08 — Feedback Form IIFE**（尾端新增，不動現有邏輯）：
+  - **展開**：`#open-feedback` click → `.feedback-form-wrap.expanded` + `aria-hidden="false"` + 按鈕 disabled
+  - **題目一互動**：radio `change` → 選中 label 加 `.selected`，其餘加 `.dimmed`
+  - **題目二互動**：radio `change` → 選中 label 加 `.selected`（scale 彈跳由 CSS 處理）
+  - **送出流程**：`submit` → `preventDefault` → 按鈕改「送出中…」disabled → `fetch('/')` POST → `.finally` 呼叫 `showFeedbackThanks()`
+  - **`showFeedbackThanks()`**：`formWrap` opacity 0 → 300ms 後 `hidden=true`，`teaser.hidden=true`，`thanksEl.hidden=false` → 雙 rAF 後加 `.visible`
+  - 防禦性 guard：任何 DOM 元素不存在直接 `return`
+
+### 修改檔案
+- `index.html` — 新增 `#feedback-section` HTML（約 55 行）
+- `css/components.css` — 新增模組四樣式（約 160 行）
+- `js/main.js` — 新增 Feedback Form IIFE（約 65 行）
+
+### 驗收
+- 預設只顯示「願意留一下回饋嗎？」+ 「我要回饋」按鈕 ✅
+- 點擊「我要回饋」後 form-wrap 展開（max-height 動畫 400ms，opacity 300ms）✅
+- `aria-hidden="true"` 切換為 `false`（開啟後螢幕閱讀器可讀）✅
+- 題目一三個 radio 選中後：背景 `var(--primary-soft)`、邊框 `var(--primary)`、左側 ✓ ✅
+- 題目二四個 tag 選中後：`scale(1.05)` 彈跳、背景填色 ✅
+- 點擊「送出回饋」按鈕 disabled ✅
+- 感謝卡從下方淡入（translateY + opacity 動畫）✅
+- 感謝卡「回到上方」連結至 `#main`（驗收 main id 存在於第 72 行）✅
+- footer 原有三層結構、資料來源、社群連結等一切無異動 ✅
+
+---
+
+## [2026-04-28] Step 3（互動模組計畫）— 模組三（匿名分享）
+
+**目標**：新增 `#share-section` 於 `#stories` 的 `</section>` 之後，實作 Netlify Forms 匿名分享表單，含 textarea 聚焦邊線、字數計數、送出狀態、感謝卡淡入動畫。
+
+### index.html
+
+- **新增 `<section id="share-section">`**，插入於 `#stories` 的 `</section>` 之後、`<!-- OVERLAY MODALS -->` 之前
+  - 結構：`.section-inner > .share-card.reveal`
+  - 標題「你有遇過類似情境嗎？」+ 引導文字
+  - `<form name="anonymous-share" data-netlify="true" netlify-honeypot="bot-field">`：含隱藏 `form-name`、bot-field、`.share-textarea-wrap`（`<textarea>` + `<span id="char-count">`）、`.share-checkbox`、`.share-note`、`#share-submit`
+  - `<div id="share-thanks" hidden aria-live="polite">`：感謝卡預設隱藏
+
+### css/components.css
+
+- **新增「模組三：匿名分享」樣式**：
+  - `#share-section`：`background: var(--bg)` 主背景
+  - `.share-card`：卡片基準，`max-width: 600px; margin: 0 auto`；聚焦時 `:focus-within` 微上浮 + 琥珀橙陰影
+  - `.share-title / .share-intro`：標題層次
+  - `.share-textarea-wrap`：`position: relative`，包裹 textarea 與計數器
+  - `#share-text`：預設 `border-left: 3px solid transparent`，聚焦後 `border-left-color: var(--primary)`，`transition: 200ms`
+  - `.char-count`：右下角顯示，`font-size: var(--fs-sm)`；`.warn` 時 `color: var(--warning)`
+  - `.share-checkbox / .share-note`：checkbox 標籤與免責小字
+  - `#share-form-wrap.fading`：`opacity: 0`（送出中淡出）
+  - `.share-thanks`：預設 `opacity: 0; translateY(10px)`；`.visible` 後淡入歸位（`transition: 400ms`）
+  - `@media (max-width: 600px)`：`.share-card` 縮內距
+
+### js/main.js
+
+- **新增 Section 07 — Share Form IIFE**（尾端新增，不動現有邏輯）：
+  - **字數計數**：監聽 `input`，更新 `counter.textContent`；`MAX - len < 30` 時加 `.warn`
+  - **送出流程**：`submit` 監聽 `submit` 事件 → `preventDefault` → 按鈕改「送出中…」並 `disabled` → `fetch('/')` POST（本地失敗為預期）→ `.finally` 呼叫 `showThanks()`
+  - **`showThanks()`**：`#share-form-wrap` 加 `.fading` → 300ms 後 `hidden = true`，`#share-thanks` `hidden = false` → 雙 rAF 後加 `.visible`（translateY 淡入）
+  - 防禦性 guard：若任何 DOM 元素不存在則直接 `return`
+
+### 修改檔案
+- `index.html` — 新增 `#share-section` HTML（約 26 行）
+- `css/components.css` — 新增模組三樣式（約 100 行）
+- `js/main.js` — 新增 Share Form IIFE（約 50 行）
+
+### 驗收
+- textarea 可見，聚焦時左側出現橙色豎線，卡片微上浮 ✅
+- 字數計數器格式「X / 200」顯示在右下角 ✅
+- 剩餘 < 30 字時計數器文字變 `var(--warning)` 暖棕紅 ✅
+- 點擊「匿名送出」按鈕變為「送出中…」並 disabled ✅
+- 表單區塊淡出、感謝卡淡入（translateY 動畫）✅
+- 感謝卡有 `aria-live="polite"` ✅
+- 本地送出失敗為預期，需部署 Netlify 後正式測試 ✅
+- 頁面其他區塊無異動 ✅
+
+---
+
+## [2026-04-28] Step 2（互動模組計畫）— 模組二（情境選擇）
+
+**目標**：新增 `#scenario-section` 於 `#poll-section` 之後、`#stories` 之前，實作純前端三題情境選擇，含進度條、選項互動、回饋 slideDown、題目滑入動畫、完成卡 stagger。
+
+### index.html
+
+- **新增 `<section id="scenario-section">`**，插入於 `#poll-section` 的 `</section>` 之後、`<!-- 03 STORIES -->` 之前
+  - 結構：`.section-inner > .scenario-card.reveal`
+  - 標籤「想一想」、標題「遇到這些情境，你會怎麼做？」、副說明「沒有標準答案，選一個最接近你的反應就好。」
+  - `.scenario-progress`：進度條 + `<span class="scenario-counter">` + `.scenario-bar > .scenario-bar-fill`
+  - `.scenario-stage`：題目由 JS 動態產生（aria-live="polite"）
+  - `.scenario-done`（預設 `hidden`）：三條 ✓ 清單 + 完成文案 + `<a href="#stories">繼續閱讀</a>`
+
+### css/components.css
+
+- **新增「模組二：情境選擇」樣式**：
+  - `#scenario-section`：`background: var(--bg-soft)` 交錯底色
+  - `.scenario-card`：卡片基準 40px/32px 內距，text-align: center
+  - `.scenario-label / .scenario-title / .scenario-sub`：標題層次
+  - `.scenario-progress / .scenario-counter / .scenario-bar / .scenario-bar-fill`：3px 進度條，`transition: width 300ms ease`
+  - `.scenario-stage`：`position: relative; overflow: hidden`（供切換動畫用）
+  - `.scenario-situation`：題幹文字
+  - `.scenario-options / .scenario-btn`：flex 橫排，hover/active/disabled 狀態
+  - `.scn-selected`（`var(--primary-soft)` 底 + 2px 邊框 + shadow）/ `.scn-dimmed`（opacity 0.4）
+  - `.scenario-feedback`：slideDown 展開（`max-height: 0 → 200px`，`opacity: 0 → 1`）
+  - `.scenario-next`：「下一題 →」/「看結果 →」pill 按鈕
+  - `.scenario-done / .scenario-done-checks li`：完成卡，li 預設 opacity 0 + translateY(8px)，加 `.shown` 後入場
+  - `.scenario-done-cta`：「繼續閱讀」錨點按鈕連至 `#stories`
+  - `@media (max-width: 600px)`：`.scenario-card` 縮內距，`.scenario-options` 縱排
+
+### js/main.js
+
+- **新增 Section 06 — Scenario IIFE**（尾端新增，不動現有邏輯）：
+  - `scenarios` 陣列（3 題，各含 `situation / options / feedback`）
+  - `currentIndex = 0`
+  - **`buildQuestion(idx)`**：動態產生 `.scenario-q`（情境文字 + 選項 button + 回饋 div）
+  - **`updateProgress(idx)`**：更新 counter 文字、bar-fill 寬度、aria-valuenow / aria-label
+  - **`onSelect(btn, optsEl, fb, qIdx)`**：標記選中（`scn-selected`）/ 其餘淡化（`scn-dimmed`）/ 全部 disabled → 300ms 後 fb.classList.add('open')（slideDown）→ 200ms 後出現次/末按鈕
+  - **`appendNextBtn(wrap, isLast)`**：最後一題顯示「看結果 →」，其餘顯示「下一題 →」
+  - **`goNext()`**：舊題 `position:absolute` 向左淡出（250ms）→ 新題從右滑入（250ms）；進度更新；最後一題完成後 → `showDone()`
+  - **`showDone()`**：隱藏 progress、顯示 `.scenario-done`（opacity 淡入）、三條 li 依序 stagger（延遲 +150ms）
+  - **Init**：`stage.appendChild(buildQuestion(0))` + `updateProgress(0)`
+
+### 修改檔案
+- `index.html` — 新增 `#scenario-section` HTML（28 行）
+- `css/components.css` — 新增模組二樣式（約 140 行）
+- `js/main.js` — 新增 Scenario IIFE（約 120 行）
+
+### 驗收
+- 第一題顯示，進度條 33% ✅
+- 選擇任一選項後：選中加粗邊框、其他淡化、300ms 後回饋 slideDown ✅
+- 題目切換動畫：舊題左淡出、新題右滑入 ✅
+- 三題全答後完成卡出現，✓ 依序 stagger（間隔 150ms）✅
+- 「繼續閱讀」按鈕捲動至 `#stories` ✅
+- 手機版 ≤ 600px 選項縱排 ✅
+- 頁面其他區塊無異動 ✅
+
+---
+
+## [2026-04-28] Step 1（互動模組計畫）— 共用 CSS + 模組一（單題投票）
+
+**目標**：新增 `#poll-section` 於 `#cards` 結尾之後，實作純前端 localStorage 投票機制，含 SVG 環形動畫結果圖。
+
+### index.html
+
+- **新增 `<section id="poll-section">`**，插入於 `#cards` 的 `</section>` 之後
+  - 結構：`.section-inner > .poll-card.reveal`
+  - 標籤「閱讀前」、標題「你本來認識臉部平權嗎？」、副說明「每台裝置限投一次」
+  - `#poll-options`：三個 `<button class="poll-btn">` — 早就知道 / 知道但沒深入 / 首次了解
+  - `#poll-result`（預設 `hidden`）：`.poll-rings`（SVG 環形圖由 JS 動態產生）+ `.poll-thanks`
+
+### css/components.css
+
+- **新增「互動模組共用樣式」**（模組一～四共用，一次到位）：
+  - `.section-inner`：`max-width: 860px; margin: 0 auto; padding: var(--section-py) var(--section-px)`
+  - `.opt-selected`：選中狀態共用（`--primary-soft` 底 + `2px --primary` 邊框 + `0 0 0 3px` shadow）
+  - `@media (max-width: 600px)` 手機版選項縱排（`.poll-options, .feedback-options, .feedback-tags, .scenario-options`）
+- **新增「模組一：單題投票」樣式**：
+  - `#poll-section`：`background: var(--bg-soft)` 交錯底色
+  - `.poll-card`：卡片基準樣式（card 底、border、r-md、box-shadow），`text-align: center`
+  - `.poll-label / .poll-title / .poll-sub`：標題層次樣式
+  - `.poll-options / .poll-btn`：flex 橫排，`min-height: 44px`，hover/active/disabled 狀態
+  - `.poll-btn--selected`（✓ 前綴 + primary 邊框）/ `.poll-btn--dimmed`（opacity 0.35）
+  - `.poll-result / .poll-rings / .poll-legend / .poll-legend-item / .poll-legend-dot / .poll-legend-label / .poll-legend-pct / .poll-thanks`：環形圖結果區完整樣式系統
+  - `@media (max-width: 600px)`：`.poll-rings` 改縱向排列
+
+### js/main.js
+
+- **新增 Section 05 — Poll IIFE**（尾端新增，不動現有邏輯）：
+  - `localStorage` key：`sunshine_poll_voted`（選擇值）/ `sunshine_poll_counts`（票數 JSON）
+  - `BASE_COUNTS = { know: 18, heard: 47, new: 35 }`（初始模擬票數，避免 0 票尷尬）
+  - **`applyVoteUI(voted)`**：標記選中按鈕（`poll-btn--selected` + ✓）/ 其餘淡化（`poll-btn--dimmed`）/ 全部 `disabled`
+  - **`buildRingsSVG(counts, voted)`**：產生 170×170 SVG，三圈同心環（r=72/52/32，SW=13）
+    - 背景灰軌 + 前景彩弧，起始 `strokeDashoffset = circ`，用 `setTimeout` 觸發 `transition: stroke-dashoffset 800ms ease-out` 動畫
+    - 選中環色 `#C97B1E`，其餘 `#DDD3C6`，`stroke-linecap: round`，`transform="rotate(-90 85 85)"`
+  - **`buildLegend(counts, voted)`**：動態建立 `<ul class="poll-legend">`，百分比數字用 `requestAnimationFrame` 從 0 計數到目標值（600ms）
+  - **`showResult(counts, voted)`**：清除 `.poll-rings`，插入 SVG + legend，移除 `hidden`，opacity 0 → 1（400ms）
+  - **Init**：已投票 → 直接呼叫 `applyVoteUI` + `showResult`；未投票 → 綁定 click 事件
+
+### 修改檔案
+- `index.html` — 新增 `#poll-section` HTML（25 行）
+- `css/components.css` — 新增共用樣式 + 模組一樣式（約 100 行）
+- `js/main.js` — 新增 Poll IIFE（約 100 行）
+
+### 驗收
+- 三個按鈕可見，hover 顯示 `--primary-soft` 背景 ✅（待瀏覽器確認）
+- 手機版 ≤ 600px 按鈕縱排 ✅（CSS 已設定）
+- 點選後選中狀態 ✓、其他淡化、環形圖動畫、百分比跳動 ✅（邏輯完整）
+- localStorage 清除後可重新投票；不清除則直接顯示已投票結果 ✅
+- 不超出 860px 最大寬度（`.section-inner`）✅
+- 現有 Hero / #cards / #stories 未異動 ✅
+
+---
+
+## [2026-04-28] Step 0（互動模組計畫）— 工作目標確認
+
+**目標**：執行 `interactive-modules-plan-v2.md` 前置確認，驗證工作對象為根目錄 `index.html`，並確認 section ID 順序與 JS 狀態符合後續插入前提。
+
+### 確認結果（只讀，無任何修改）
+
+- **工作檔案**：根目錄 `index.html`（計畫書原指向 `三版/第三版-乙/index.html`，但 v3.1 所有步驟皆在根目錄完成，為唯一有效版本）
+- **Section ID 順序**（均存在且順序正確）：
+  - `#cards`（第 95 行）
+  - `#stories`（第 223 行）
+  - `#interaction-guide`（第 454 行）
+  - `#do-section`（第 553 行）
+  - `#footer`（第 596 行）
+- **js/main.js**：包含 `IntersectionObserver`（reveal 效果，第 69 行）；不含 `openDetail`（accordion 版已移除）✅
+
+### 修改檔案
+- 無（本步驟為只讀確認）
+
+---
+
 ## [2026-04-26] Code Review 修正（12 項問題，共 10 項程式碼修改）
 
 **目標**：依 code-review.md 工程師審查報告，修正效能、無障礙、錯誤回饋共 10 項可執行問題（問題 8 已存在、問題 10 已達標、問題 5 需手動驗證）。

@@ -152,6 +152,46 @@
 - [ ] 卡片 `<a href="javascript:void(0)">` 語意上應為 `<button>`（動作觸發，非頁面導覽）；後續若重構 CSS，可改為 `<button class="card">` 並補 `type="button"`
 - [ ] 橫向滑動故事區（`.ss`）僅靠 touch 滑動，鍵盤用戶無法捲動；可補左右方向鍵事件讓鍵盤也能切換故事卡
 
+## 互動模組計畫（interactive-modules-plan-v2.md）
+
+- [x] Step 0 — 確認工作目標為根目錄 `index.html`，驗證 section ID 順序與 JS 狀態（2026-04-28）
+- [x] Step 1 — 模組一：共用 CSS + 單題投票（`#poll-section`），插入 `#cards` 之後（2026-04-28）
+## 後續建議（Step 1 完成後）
+
+- [ ] **瀏覽器驗收**：清除 localStorage（DevTools → Application → Local Storage → 全刪）後重整，確認可重新投票且環形圖動畫正常播放
+- [ ] SVG 環形圖在 Safari 的 `stroke-dashoffset` transition 若不觸發，可改用 `requestAnimationFrame` 逐幀更新作為 fallback
+- [ ] `BASE_COUNTS` 目前固定為 `{ know: 18, heard: 47, new: 35 }`（模擬 100 票），上線後若有真實後端可替換為 API 數據
+- [ ] `.poll-rings` 的 SVG 無 `role="img"` / `aria-label`，若需完整無障礙補強，可加入後讓螢幕閱讀器跳過純視覺環形圖
+
+- [x] Step 2 — 模組二：情境選擇（`#scenario-section`），插入 `#poll-section` 之後、`#stories` 之前（2026-04-28）
+## 後續建議（Step 2 完成後）
+
+- [ ] **瀏覽器驗收**：三題全部作答，確認動畫流程（進度條 → 回饋 slideDown → 題目左出右進 → 完成卡 stagger）無卡頓
+- [ ] 完成卡的「繼續閱讀」錨點連至 `#stories`：部署後確認捲動位置是否精準（若 nav 高度影響，可調整 `scroll-padding-top`）
+- [ ] 若未來想記錄用戶選了哪個選項（不含個人資訊），可將每題答案存入 `localStorage` key `sunshine_scenario_answers`，部署時加上 Netlify Functions 收集
+- [ ] `.scenario-feedback` 的 `max-height: 200px` 為估算值；若回饋文字增長，需相應調高（或改 `max-height: none` 搭配 JS 動態計算高度）
+- [x] Step 3 — 模組三：匿名分享（`#share-section`），插入 `#stories` 之後，需部署後以 Netlify Forms 測試（2026-04-28）
+## 後續建議（Step 3 完成後）
+
+- [ ] **部署後驗收**：Netlify 後台 Forms → `anonymous-share` 表單，確認送出的資料有正確收到 `experience` 欄位
+- [ ] `URLSearchParams` 序列化 `FormData` 時，若 textarea 有換行符（`\n`），Netlify 仍可接收，但如需保留換行請確認後台顯示是否正常
+- [ ] 感謝卡目前無「回到頂部」或「繼續閱讀」CTA；若希望引導用戶繼續瀏覽，可加一個 `<a href="#interaction-guide">` 按鈕
+- [ ] `.share-card:focus-within` 的微上浮動畫目前依賴 `:focus-within`，IE 不支援；若需相容可改為 JS 監聽 focus/blur 事件添加 class
+
+- [x] Step 4 — 模組四：回饋表單（`#feedback-section`），插入 `<footer>` 之前，需部署後以 Netlify Forms 測試（2026-04-28）
+
+## 後續建議（Step 4 互動模組完成後）
+
+- [ ] **部署後驗收**：Netlify 後台 Forms → `site-feedback` 表單，確認送出的 `helpfulness`、`section`、`suggestion` 欄位有正確收到
+- [ ] `.feedback-form-wrap.expanded` 的 `max-height: 800px` 為估算值；若未來題目增加或文字變長，可相應調高（或改為 JS 動態計算）
+- [ ] 感謝卡目前無「繼續閱讀」CTA；若希望引導用戶繼續瀏覽，可加 `<a href="#cards">` 按鈕
+- [ ] 手機版（≤ 600px）題目一、二改縱排後，標籤文字長度可確認不截斷（`.feedback-opt`、`.feedback-tag` 使用 `padding: 10px 16px`，應可適應）
+- [ ] 若 Netlify 部署後希望限制每台裝置只能回饋一次，可在送出成功後加 `localStorage.setItem('sunshine_feedback_sent', '1')` 並在 IIFE 頂部做 guard
+
+> 注意：計畫書 `interactive-modules-plan-v2.md` 中的路徑 `三版/第三版-乙/index.html` 為舊指向，**實際目標一律為根目錄 `index.html`**。
+
+---
+
 ## 後續建議（Code Review 修正後，2026-04-26）
 
 - [ ] **【必做】部署後將 `og:image` 與 `twitter:image` 中的 `your-domain.netlify.app` 替換為正式網域**（目前已填入圖片路徑 `assets/images/og-cover.jpg`，但網域仍為佔位符）

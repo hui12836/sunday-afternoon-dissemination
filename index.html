@@ -215,6 +215,63 @@
 </div>
 </section>
 
+<!-- ======================================
+     POLL — 單題投票（模組一）
+     插入於 #cards 結尾之後
+====================================== -->
+<section id="poll-section" aria-label="投票區">
+  <div class="section-inner">
+    <div class="poll-card reveal">
+      <p class="poll-label">閱讀前</p>
+      <h2 class="poll-title">你本來認識臉部平權嗎？</h2>
+      <p class="poll-sub">每台裝置限投一次</p>
+
+      <div id="poll-options" class="poll-options" role="group" aria-label="投票選項">
+        <button class="poll-btn" data-value="know">早就知道</button>
+        <button class="poll-btn" data-value="heard">知道但沒深入</button>
+        <button class="poll-btn" data-value="new">首次了解</button>
+      </div>
+
+      <div id="poll-result" class="poll-result" hidden>
+        <div class="poll-rings" aria-hidden="true"><!-- SVG 環形圖由 JS 動態產生 --></div>
+        <p class="poll-thanks">謝謝你願意加入來認識這個議題。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     SCENARIO — 情境選擇（模組二）
+     插入於 #poll-section 之後、#stories 之前
+====================================== -->
+<section id="scenario-section" aria-label="情境選擇">
+  <div class="section-inner">
+    <div class="scenario-card reveal">
+      <p class="scenario-label">想一想</p>
+      <h2 class="scenario-title">遇到這些情境，你會怎麼做？</h2>
+      <p class="scenario-sub">沒有標準答案，選一個最接近你的反應就好。</p>
+
+      <div class="scenario-progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" aria-label="第 1 題 / 共 3 題">
+        <span class="scenario-counter">第 1 題 / 共 3 題</span>
+        <div class="scenario-bar"><div class="scenario-bar-fill"></div></div>
+      </div>
+
+      <div class="scenario-stage" aria-live="polite"><!-- JS 動態產生題目 --></div>
+
+      <div class="scenario-done" hidden>
+        <ul class="scenario-done-checks" aria-label="完成項目">
+          <li>✓ 你已想過第一個情境</li>
+          <li>✓ 你已想過第二個情境</li>
+          <li>✓ 你已想過第三個情境</li>
+        </ul>
+        <p class="scenario-done-text">你已經想過三個情境了。</p>
+        <p class="scenario-done-sub">真實的場景可能更複雜，但能停下來想一秒，就已經有意義。</p>
+        <a href="#stories" class="scenario-done-cta">繼續閱讀</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ======================================
      03 STORIES
@@ -258,6 +315,44 @@
   </article>
 
 </div>
+</section>
+
+<!-- ======================================
+     SHARE — 匿名分享（模組三）
+     插入於 #stories 之後
+====================================== -->
+<section id="share-section" aria-label="匿名分享區">
+  <div class="section-inner">
+    <div class="share-card reveal">
+      <h2 class="share-title">你有遇過類似情境嗎？</h2>
+      <p class="share-intro">如果你願意，可以匿名留下一句話。不一定要完整故事，一個場景、一種感受，都很需要。</p>
+
+      <div id="share-form-wrap">
+        <form name="anonymous-share" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="anonymous-share" />
+          <p hidden><input name="bot-field" /></p>
+          <div class="share-textarea-wrap">
+            <textarea id="share-text" name="experience"
+              maxlength="200" minlength="10" required
+              placeholder="例如：我旁邊的那個人一直瞪著對方的，當下其實覺得很不舒服。"
+              aria-label="分享你的情境"></textarea>
+            <span id="char-count" class="char-count" aria-live="polite">0 / 200</span>
+          </div>
+          <label class="share-checkbox">
+            <input type="checkbox" name="allow-display" value="yes" />
+            同意作為匿名統計
+          </label>
+          <p class="share-note">不留名字，這段內容只會以匿名方式整理，不會公開個人資訊。</p>
+          <button type="submit" id="share-submit" class="btn-primary">匿名送出</button>
+        </form>
+      </div>
+
+      <div id="share-thanks" class="share-thanks" hidden aria-live="polite">
+        <p>謝謝你願意留下這段話。</p>
+        <p>有些改變，就是從有人願意說「我也經歷過」開始。</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 
@@ -587,11 +682,77 @@
 
 
 <!-- ======================================
+     模組四：回饋表單
+====================================== -->
+<section id="feedback-section" aria-label="回饋表單">
+  <div class="section-inner">
+    <div class="feedback-card reveal">
+
+      <!-- 收起狀態 -->
+      <div id="feedback-teaser">
+        <p class="feedback-teaser-text">願意留一下回饋嗎？</p>
+        <button id="open-feedback" class="btn-outline" type="button" aria-expanded="false">我要回饋</button>
+      </div>
+
+      <!-- 展開後的表單，預設 max-height: 0, overflow: hidden -->
+      <div id="feedback-form-wrap" class="feedback-form-wrap" aria-hidden="true">
+        <h2 class="feedback-title">看完有感，如果你願意，留一下回饋給我們</h2>
+        <p class="feedback-intro">不需要很長，一句感想、一個建議，都很有幫助。</p>
+
+        <form name="site-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="site-feedback" />
+          <p hidden><input name="bot-field" /></p>
+
+          <!-- 題目一 -->
+          <fieldset class="feedback-q">
+            <legend>這個網站有幫助你更了解臉部平權嗎？</legend>
+            <div class="feedback-options" role="group">
+              <label class="feedback-opt"><input type="radio" name="helpfulness" value="very" required />很有幫助</label>
+              <label class="feedback-opt"><input type="radio" name="helpfulness" value="bit" />有一點點</label>
+              <label class="feedback-opt"><input type="radio" name="helpfulness" value="known" />早就知道</label>
+            </div>
+          </fieldset>
+
+          <!-- 題目二 -->
+          <fieldset class="feedback-q">
+            <legend>你最有感的是哪一部分？</legend>
+            <div class="feedback-tags" role="group">
+              <label class="feedback-tag"><input type="radio" name="section" value="data" />數據現象</label>
+              <label class="feedback-tag"><input type="radio" name="section" value="story" />情境故事</label>
+              <label class="feedback-tag"><input type="radio" name="section" value="action" />行動建議</label>
+              <label class="feedback-tag"><input type="radio" name="section" value="design" />整體設計</label>
+            </div>
+          </fieldset>
+
+          <!-- 題目三（選填） -->
+          <fieldset class="feedback-q">
+            <legend>如果有建議，歡迎留一句話（選填）</legend>
+            <textarea name="suggestion" maxlength="300"
+              placeholder="隨便說，一句話也可以" aria-label="建議文字"></textarea>
+          </fieldset>
+
+          <button type="submit" id="feedback-submit" class="btn-primary">送出回饋</button>
+        </form>
+      </div>
+
+      <!-- 送出成功後顯示，預設 hidden -->
+      <div id="feedback-thanks" class="feedback-thanks" hidden aria-live="polite">
+        <div class="thanks-icon" aria-hidden="true">✓</div>
+        <p>謝謝你的回饋。</p>
+        <p>你的意見有幫助這個議題被整理得更清楚，也讓更多人更容易理解這個議題。</p>
+        <p>謝謝你花時間閱讀。</p>
+        <a href="#main" class="btn-outline">回到上方</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
      06 FOOTER
      免責聲明、版權資訊、社群連結
 ====================================== -->
 </main>
-
 
 <footer id="footer">
 
