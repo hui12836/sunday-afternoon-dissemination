@@ -3,6 +3,10 @@
    01 漢堡選單  02 Reveal
    ============================================= */
 
+/* 確保每次進入頁面都從最頂端開始 */
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+if (!window.location.hash) window.scrollTo(0, 0);
+
 /* ---- 01 漢堡選單 ---- */
 function toggleMenu() {
   var menu = document.getElementById('m');

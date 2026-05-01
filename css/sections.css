@@ -392,6 +392,32 @@ footer {
 }
 .ft-sources-list li::before { content: '–'; position: absolute; left: 0; }
 
+/* 架站紀錄 */
+.ft-journal {
+  padding: 40px var(--section-px);
+  max-width: 720px; margin: 0 auto;
+  border-top: 1px solid rgba(250,246,240,.1);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+}
+.ft-journal-eyebrow {
+  font-size: var(--fs-xs); font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: #E3B15F; margin: 0;
+}
+.ft-journal-desc {
+  font-size: var(--fs-sm); color: #D8CEC2; line-height: 1.8; margin: 0;
+  max-width: 560px;
+}
+.ft-journal-link {
+  display: inline-flex; align-items: center;
+  font-size: var(--fs-sm); font-weight: 700;
+  color: #E3B15F; text-decoration: none;
+  padding: 10px 20px; border: 1px solid rgba(227,177,95,.35);
+  border-radius: var(--r-md); transition: background .2s, border-color .2s;
+}
+.ft-journal-link:hover {
+  background: rgba(227,177,95,.1); border-color: #E3B15F;
+}
+
 /* 社群圖示 */
 footer .fs {
   padding: 32px var(--section-px) 28px;
