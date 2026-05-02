@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python -c \"import imageio; print\\('imageio ok', imageio.__version__\\)\")"
-    ]
-  }
-}
