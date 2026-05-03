@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我用 AI 做了一個網站 | 學習紀錄</title>
+<meta name="description" content="淡江大學學生用 Perplexity + Claude 製作臉部平權宣傳網站，三次版本迭代的 AI 協作學習紀錄">
+<link rel="canonical" href="https://fapjsummary.netlify.app/" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="我用 AI 做了一個網站，中間失敗了三次 | 學習紀錄" />
+<meta property="og:description" content="用 Perplexity + Claude 製作倡議網站的三次失敗與學習紀錄。大一學生的 AI 協作完整紀錄。" />
+<meta property="og:image" content="https://fapjsummary.netlify.app/og-cover.png" />
+<meta property="og:url" content="https://fapjsummary.netlify.app/" />
+<meta property="og:locale" content="zh_TW" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="我用 AI 做了一個網站，中間失敗了三次" />
+<meta name="twitter:description" content="用 Perplexity + Claude 製作倡議網站的三次失敗與學習紀錄" />
+<meta name="twitter:image" content="https://fapjsummary.netlify.app/og-cover.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;color-scheme:light}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);line-height:1.75;overflow-x:hidden;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none;touch-action:manipulation}
+img{max-width:100%;display:block}
+summary{list-style:none;cursor:pointer;touch-action:manipulation}
+summary::-webkit-details-marker{display:none}
+p{text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+
+/* ── Design Tokens ── */
+:root{
+  --bg:#EEF6FF;
+  --bg-soft:#E3EFF9;
+  --card:#FFFFFF;
+  --primary:#4A8FC5;
+  --primary-dk:#2860A0;
+  --primary-lt:#C0DCF2;
+  --text:#0F2A45;
+  --text-muted:#3A6590;
+  --text-dim:#547AA0;
+  --border:rgba(80,140,200,0.18);
+  --border-strong:rgba(80,140,200,0.38);
+  --dark:#0F2A45;
+  --dark-deeper:#091E33;
+  --warn-bg:#F2DADA;
+  --warn-text:#7A2020;
+  --ok-bg:#D4ECD8;
+  --ok-text:#1E4D28;
+  --r:10px;
+  --r-lg:16px;
+  --sh:0 2px 16px rgba(20,60,110,0.08);
+  --sh-md:0 4px 28px rgba(20,60,110,0.13);
+}
+
+/* ── Skip Link ── */
+.skip{position:absolute;left:-9999px;top:4px;background:var(--primary);color:#fff;padding:8px 16px;border-radius:4px;z-index:9999;font-size:.875rem;font-weight:700}
+.skip:focus{left:4px}
+
+/* ── Nav ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.nav-back{display:flex;align-items:center;gap:7px;font-size:.875rem;font-weight:700;color:var(--primary);transition:opacity .2s;touch-action:manipulation}
+.nav-back:hover{opacity:.7}
+.nav-back:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
+.nav-back svg{width:14px;height:14px;flex-shrink:0}
+.nav-title{font-size:.825rem;font-weight:500;color:var(--text-muted);letter-spacing:.04em}
+
+/* ── Hero ── */
+.hero{position:relative;min-height:100svh;background:var(--dark);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:88px 28px 72px}
+.hero-inner{position:relative;z-index:2;max-width:740px;width:100%;margin:0 auto;text-align:center}
+.hero-tag{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary-lt);border:1px solid rgba(110,180,240,0.35);border-radius:99px;padding:5px 16px;margin-bottom:30px;opacity:0;animation:fadeUp .7s .1s ease both}
+.hero h1{font-size:clamp(1.75rem,4.5vw,2.7rem);font-weight:900;color:#fff;line-height:1.22;margin-bottom:22px;letter-spacing:-.01em;opacity:0;animation:fadeUp .7s .25s ease both}
+.hero-sub{font-size:clamp(1.05rem,2.5vw,1.22rem);color:rgba(192,220,242,0.85);margin-bottom:32px;font-weight:400;opacity:0;animation:fadeUp .7s .4s ease both}
+.hero-meta{font-size:.8rem;color:rgba(192,220,242,0.55);letter-spacing:.03em;margin-bottom:18px;opacity:0;animation:fadeUp .7s .52s ease both;line-height:1.6}
+.hero-audience{font-size:.82rem;color:rgba(192,220,242,0.75);margin-bottom:32px;opacity:0;animation:fadeUp .7s .58s ease both;font-style:italic}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#fff;font-weight:700;font-size:.925rem;padding:14px 30px;border-radius:99px;transition:background .2s,transform .18s;opacity:0;animation:fadeUp .7s .64s ease both;touch-action:manipulation}
+.hero-cta:hover{background:var(--primary-dk);transform:translateY(-2px)}
+.hero-cta:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:99px}
+.hero-cta svg{width:15px;height:15px}
+.hero-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:32px;opacity:0;animation:fadeUp .7s .78s ease both}
+.hnav{font-size:.78rem;font-weight:700;color:rgba(192,220,242,0.6);border:1px solid rgba(110,180,240,0.2);border-radius:99px;padding:5px 15px;transition:color .18s,border-color .18s,background .18s;touch-action:manipulation}
+.hnav:hover{color:rgba(255,255,255,0.9);border-color:rgba(110,180,240,0.5);background:rgba(91,160,216,0.14)}
+.hnav:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:99px}
+
+/* Geometric decorations */
+.geo{position:absolute;pointer-events:none;will-change:transform}
+.geo-1{top:8%;left:6%;width:180px;height:180px;border:1px solid rgba(255,255,255,0.045);border-radius:4px;transform:rotate(15deg)}
+.geo-2{bottom:12%;right:8%;width:240px;height:240px;border:1px solid rgba(91,160,216,0.1);border-radius:50%}
+.geo-3{top:40%;left:2%;width:80px;height:80px;border:1px solid rgba(255,255,255,0.05);border-radius:3px;transform:rotate(-8deg)}
+.geo-4{top:15%;right:12%;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(91,160,216,0.12),transparent);max-width:300px}
+.geo-5{bottom:25%;left:15%;width:60px;height:60px;border:1px solid rgba(91,160,216,0.07);border-radius:50%}
+.geo-corner{position:absolute;pointer-events:none}
+.geo-corner-tl{top:20px;left:20px;width:32px;height:32px;border-top:1.5px solid rgba(110,180,240,0.28);border-left:1.5px solid rgba(110,180,240,0.28)}
+.geo-corner-br{bottom:20px;right:20px;width:32px;height:32px;border-bottom:1.5px solid rgba(110,180,240,0.28);border-right:1.5px solid rgba(110,180,240,0.28)}
+
+/* ── Section Wrapper ── */
+.section{padding:76px 28px}
+.section-inner{max-width:880px;margin:0 auto}
+.section-alt{background:var(--bg-soft)}
+.sec-label{display:block;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:10px}
+.sec-title{font-size:clamp(1.45rem,3.5vw,1.9rem);font-weight:900;color:var(--text);line-height:1.2;margin-bottom:10px}
+.sec-sub{font-size:1rem;color:var(--text-muted);margin-bottom:44px;line-height:1.7;max-width:640px}
+.sec-header{margin-bottom:44px}
+
+/* ── Reveal Animation ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.hero-tag,.hero h1,.hero-sub,.hero-meta,.hero-cta,.hero-nav{opacity:1;transform:none;animation:none;transition:none}
+}
+
+/* ── Timeline ── */
+.timeline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;position:relative}
+.timeline::before{content:'';position:absolute;top:32px;left:calc(100%/6);right:calc(100%/6);height:2px;background:linear-gradient(90deg,var(--warn-text),#888,var(--primary));z-index:0;opacity:.3}
+.tl-item{position:relative;padding-top:56px}
+.tl-item:not(:last-child){padding-right:16px}
+.tl-item:not(:first-child){padding-left:16px}
+.tl-dot{position:absolute;top:24px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;border:2px solid;z-index:1}
+.tl-dot.fail{background:rgba(200,80,80,0.18);border-color:rgba(180,50,50,0.55)}
+.tl-dot.win{background:rgba(74,143,197,0.18);border-color:var(--primary)}
+details.tl-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh);overflow:hidden;transition:box-shadow .2s}
+details.tl-card[open]{box-shadow:var(--sh-md)}
+details.tl-card summary{padding:18px 20px;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;user-select:none;transition:background .15s}
+details.tl-card summary:hover{background:var(--bg-soft)}
+details.tl-card summary:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
+.tl-badge{font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px;flex-shrink:0;margin-top:2px}
+.tl-badge.v1,.tl-badge.v2{background:var(--warn-bg);color:var(--warn-text)}
+.tl-badge.v3{background:var(--primary-lt);color:var(--primary-dk)}
+.tl-sum-text{font-size:.875rem;font-weight:700;color:var(--text);flex:1;line-height:1.4}
+.tl-status{font-size:.7rem;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:99px;flex-shrink:0;margin-top:2px;text-transform:uppercase}
+.tl-status.fail{background:rgba(180,50,50,0.1);color:#A02020}
+.tl-status.win{background:rgba(74,143,197,0.14);color:var(--primary-dk)}
+.tl-icon{font-size:.85rem;margin-left:auto;color:var(--text-dim);transition:transform .25s;flex-shrink:0;margin-top:1px}
+details.tl-card[open] .tl-icon{transform:rotate(180deg)}
+.tl-body{padding:16px 20px 20px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:12px}
+
+/* ── Problem Block ── */
+.prob-block{border-left:3px solid rgba(180,50,50,0.45);background:rgba(200,80,80,0.05);padding:12px 14px;border-radius:0 6px 6px 0}
+.prob-label{font-size:.72rem;font-weight:700;letter-spacing:.09em;color:#A02020;text-transform:uppercase;margin-bottom:5px}
+.prob-text{font-size:.875rem;color:var(--text);line-height:1.7}
+
+/* ── Prompt Block ── */
+.pb{background:var(--dark-deeper);border-radius:8px;padding:16px 20px;margin:4px 0}
+.pb-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(192,220,242,0.6);margin-bottom:8px}
+.pb-text{font-size:.85rem;color:#BDD8F0;line-height:1.85;white-space:pre-wrap;font-family:'Noto Sans TC',monospace}
+.pb-why{border-top:1px solid rgba(192,220,242,0.14);margin-top:12px;padding-top:12px;font-size:.8rem;color:#7BADD4;line-height:1.6}
+
+/* ── Result / Next Block ── */
+.res-block{font-size:.875rem;color:var(--text-muted);line-height:1.65;background:var(--bg-soft);padding:11px 14px;border-radius:6px;border-left:3px solid var(--border-strong)}
+.res-label{font-size:.72rem;font-weight:700;letter-spacing:.09em;color:var(--text-dim);text-transform:uppercase;margin-bottom:5px}
+.next-block{font-size:.875rem;font-weight:700;color:var(--primary-dk);background:rgba(192,220,242,0.4);padding:11px 14px;border-radius:6px;border-left:3px solid var(--primary)}
+
+/* ── Methods ── */
+.methods-grid{display:flex;flex-direction:column;gap:22px}
+.method-card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:0 var(--r-lg) var(--r-lg) 0;padding:24px 26px;box-shadow:var(--sh);position:relative}
+.method-num{position:absolute;top:18px;right:20px;font-size:3rem;font-weight:900;color:rgba(74,143,197,0.07);line-height:1;pointer-events:none;user-select:none}
+.method-title{font-size:1.05rem;font-weight:900;color:var(--text);margin-bottom:16px;padding-right:52px;line-height:1.35}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}
+.cmp{padding:12px 14px;border-radius:8px;font-size:.85rem;line-height:1.65}
+.cmp-no{background:rgba(180,50,50,0.06);border:1px solid rgba(180,50,50,0.16)}
+.cmp-yes{background:rgba(28,90,42,0.06);border:1px solid rgba(28,90,42,0.16)}
+.cmp-tag{font-size:.72rem;font-weight:700;letter-spacing:.05em;display:block;margin-bottom:6px}
+.cmp-no .cmp-tag{color:#A02020}
+.cmp-yes .cmp-tag{color:var(--ok-text)}
+.cmp-text{color:var(--text);font-size:.835rem;line-height:1.65}
+.diff{font-size:.835rem;color:var(--text-muted);background:var(--bg-soft);padding:10px 14px;border-radius:6px;line-height:1.6}
+.diff strong{color:var(--text);font-weight:700}
+
+/* ── Tools ── */
+.tools-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:start;gap:0}
+.tool-arrow{display:flex;align-items:flex-start;justify-content:center;padding-top:30px;color:var(--primary);font-size:1.4rem;opacity:.45}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px 22px;box-shadow:var(--sh);height:100%}
+.tool-icon{font-size:1.7rem;margin-bottom:10px;line-height:1}
+.tool-name{font-size:1rem;font-weight:900;color:var(--text);margin-bottom:3px}
+.tool-role{font-size:.75rem;font-weight:700;letter-spacing:.07em;color:var(--primary);text-transform:uppercase;margin-bottom:16px}
+.tool-row{font-size:.85rem;color:var(--text);line-height:1.6;margin-bottom:6px}
+.tool-row-label{font-size:.72rem;font-weight:700;letter-spacing:.07em;color:var(--text-dim);text-transform:uppercase;margin-bottom:4px}
+.tool-no{font-size:.835rem;color:#8A2020;background:rgba(180,50,50,0.06);border-radius:6px;padding:9px 12px;margin-top:12px;line-height:1.55}
+.tool-no-label{font-size:.72rem;font-weight:700;letter-spacing:.07em;color:#8A2020;text-transform:uppercase;margin-bottom:4px}
+.flow-step{display:flex;flex-direction:column;gap:6px}
+
+/* ── Improvements ── */
+.improve-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.improve-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.improve-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary-lt),var(--primary))}
+.improve-num{font-size:3.2rem;font-weight:900;color:rgba(74,143,197,0.09);line-height:1;margin-bottom:4px;user-select:none}
+.improve-title{font-size:.95rem;font-weight:900;color:var(--text);margin-bottom:13px;line-height:1.35}
+.improve-body{font-size:.875rem;color:var(--text-muted);line-height:1.75}
+
+/* ── Advanced Cards ── */
+.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.adv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px 24px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.adv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-dk))}
+.adv-num{font-size:2.5rem;font-weight:900;color:rgba(74,143,197,0.08);line-height:1;margin-bottom:4px;user-select:none}
+.adv-ctx{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.07em;color:var(--primary-dk);background:rgba(74,143,197,0.1);padding:3px 10px;border-radius:99px;margin-bottom:12px}
+.adv-title{font-size:.95rem;font-weight:900;color:var(--text);margin-bottom:14px;line-height:1.35}
+.adv-cmp{font-size:.835rem;line-height:1.65;padding:10px 12px;border-radius:7px;margin-bottom:8px}
+.adv-cmp-no{background:rgba(180,50,50,0.06);border:1px solid rgba(180,50,50,0.14)}
+.adv-cmp-yes{background:rgba(28,90,42,0.06);border:1px solid rgba(28,90,42,0.14)}
+.adv-cmp-tag{font-size:.72rem;font-weight:700;display:block;margin-bottom:5px}
+.adv-cmp-no .adv-cmp-tag{color:#A02020}
+.adv-cmp-yes .adv-cmp-tag{color:var(--ok-text)}
+.adv-diff{font-size:.825rem;color:var(--text-muted);margin-top:10px;line-height:1.6}
+.adv-diff strong{color:var(--text);font-weight:700}
+.mod-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:12px 0 14px}
+.mod-item{background:rgba(74,143,197,0.06);border:1px solid rgba(80,140,200,0.14);border-radius:7px;padding:8px 12px}
+.mod-code{font-size:.72rem;font-weight:900;color:var(--primary-dk);letter-spacing:.04em;display:block;margin-bottom:2px}
+.mod-desc{font-size:.8rem;color:var(--text-muted);line-height:1.4}
+.docs-rec{background:var(--bg-soft);border:1px solid var(--border);border-radius:7px;padding:12px 14px;margin:12px 0}
+.docs-rec-label{font-size:.72rem;font-weight:700;letter-spacing:.09em;color:var(--text-dim);text-transform:uppercase;margin-bottom:9px}
+.docs-rec-row{font-size:.835rem;color:var(--text);line-height:1.55;margin-bottom:5px;display:flex;align-items:baseline;gap:8px}
+.docs-rec-row:last-child{margin-bottom:0}
+.doc-tag{font-size:.72rem;font-weight:700;font-family:'Noto Sans TC',monospace;color:var(--primary-dk);background:rgba(74,143,197,0.12);padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+
+/* ── Manifesto ── */
+.manifesto{background:var(--dark);padding:56px 28px;text-align:center}
+.manifesto-inner{max-width:580px;margin:0 auto}
+.manifesto-text{font-size:clamp(1.15rem,3.2vw,1.55rem);font-weight:900;color:#fff;line-height:1.5;letter-spacing:-.01em}
+.manifesto-text em{color:var(--primary-lt);font-style:normal}
+
+/* ── Feedback ── */
+.feedback-section-wrap{max-width:640px;margin:0 auto}
+.feedback-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 32px;box-shadow:var(--sh)}
+.feedback-teaser{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.feedback-teaser-text{font-size:1rem;font-weight:700;color:var(--text)}
+.btn-fb-open{font-size:.875rem;font-weight:700;color:var(--primary);border:1.5px solid var(--primary);border-radius:99px;padding:8px 20px;background:transparent;cursor:pointer;transition:background .18s,color .18s;touch-action:manipulation}
+.btn-fb-open:hover{background:var(--primary);color:#fff}
+.btn-fb-open:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:99px}
+.feedback-form-wrap{max-height:0;overflow:hidden;opacity:0;transition:max-height 450ms ease,opacity 320ms ease}
+.feedback-form-wrap.expanded{max-height:960px;opacity:1}
+.feedback-form-title{font-size:1.05rem;font-weight:900;color:var(--text);margin:20px 0 5px}
+.feedback-intro{font-size:.9rem;color:var(--text-muted);margin-bottom:22px;line-height:1.6}
+.feedback-q{border:none;padding:0;margin-bottom:22px}
+.feedback-q legend{font-size:.875rem;font-weight:700;color:var(--text);margin-bottom:10px;display:block}
+.feedback-opts{display:flex;flex-wrap:wrap;gap:8px}
+.feedback-opt{cursor:pointer;font-size:.85rem;font-weight:700;padding:8px 18px;border-radius:99px;border:1.5px solid var(--border-strong);color:var(--text);background:transparent;transition:background .15s,border-color .15s,color .15s;touch-action:manipulation;user-select:none}
+.feedback-opt:hover{border-color:var(--primary);background:var(--primary-lt);color:var(--primary-dk)}
+.feedback-opt.selected{background:var(--primary-lt);border-color:var(--primary);color:var(--primary-dk)}
+.feedback-opt.dimmed{opacity:.32}
+.feedback-tags{display:flex;flex-wrap:wrap;gap:8px}
+.feedback-tag{cursor:pointer;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:7px;border:1.5px solid var(--border);color:var(--text-muted);background:transparent;transition:background .15s,border-color .15s,color .15s,transform .12s;touch-action:manipulation;user-select:none}
+.feedback-tag:hover{border-color:var(--primary);color:var(--primary-dk)}
+.feedback-tag.selected{background:var(--primary-lt);border-color:var(--primary);color:var(--primary-dk);transform:scale(1.05)}
+.feedback-tag.dimmed{opacity:.32}
+.feedback-textarea{width:100%;border:1.5px solid var(--border-strong);border-radius:var(--r);padding:12px 14px;font-family:'Noto Sans TC',sans-serif;font-size:.875rem;color:var(--text);resize:vertical;min-height:82px;transition:border-color .2s;line-height:1.65}
+.feedback-textarea:focus{outline:none;border-color:var(--primary)}
+.btn-fb-submit{display:inline-flex;align-items:center;gap:7px;background:var(--primary);color:#fff;font-weight:700;font-size:.9rem;padding:12px 26px;border-radius:99px;border:none;cursor:pointer;transition:background .2s,transform .18s;touch-action:manipulation}
+.btn-fb-submit:hover{background:var(--primary-dk);transform:translateY(-1px)}
+.btn-fb-submit:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:99px}
+.btn-fb-submit:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.feedback-thanks{display:none;text-align:center;padding:20px 0 6px}
+.feedback-thanks.visible{display:block;animation:fadeUp .5s ease both}
+.thanks-icon{font-size:2.2rem;color:var(--primary);margin-bottom:10px;font-weight:900;line-height:1}
+.feedback-thanks p{font-size:.925rem;color:var(--text-muted);line-height:1.75;margin-bottom:6px}
+.btn-fb-back{display:inline-block;margin-top:14px;font-size:.85rem;font-weight:700;color:var(--primary);border:1.5px solid var(--primary);border-radius:99px;padding:8px 22px;background:transparent;cursor:pointer;transition:background .18s,color .18s;touch-action:manipulation}
+.btn-fb-back:hover{background:var(--primary);color:#fff}
+@media(max-width:767px){
+  .feedback-card{padding:20px 18px}
+  .feedback-opts,.feedback-tags{flex-direction:column}
+}
+
+/* ── Footer ── */
+footer{background:var(--dark);color:rgba(192,220,242,0.7);padding:56px 28px 36px}
+.footer-inner{max-width:880px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1fr auto 1fr;gap:36px;align-items:center;margin-bottom:44px}
+.footer-left p{font-size:.875rem;line-height:1.75;margin-bottom:13px}
+.footer-tools{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.footer-tool-tag{font-size:.72rem;font-weight:700;letter-spacing:.05em;padding:4px 11px;border-radius:99px;background:rgba(74,143,197,0.18);color:rgba(192,220,242,0.9);border:1px solid rgba(74,143,197,0.3)}
+.footer-cta{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.footer-btn{display:inline-flex;align-items:center;gap:7px;background:var(--primary);color:#fff;font-weight:700;font-size:.9rem;padding:12px 24px;border-radius:99px;transition:background .2s,transform .18s;white-space:nowrap;touch-action:manipulation}
+.footer-btn:hover{background:var(--primary-dk);transform:translateY(-2px)}
+.footer-btn:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:99px}
+.footer-url{font-size:.75rem;color:rgba(192,220,242,0.5);word-break:break-all;max-width:200px;text-align:center;line-height:1.5}
+.footer-right p{font-size:.875rem;line-height:1.75;text-align:right}
+.footer-divider{height:1px;background:rgba(74,143,197,0.18);margin-bottom:26px}
+.footer-bottom{text-align:center;font-size:.78rem;color:rgba(192,220,242,0.38);letter-spacing:.04em}
+
+/* ── Keyframes ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ── Mobile ── */
+@media(max-width:767px){
+  .timeline{grid-template-columns:1fr;gap:16px}
+  .timeline::before{display:none}
+  .tl-item{padding-top:0;padding-left:0!important;padding-right:0!important}
+  .tl-dot{display:none}
+  .compare{grid-template-columns:1fr}
+  .tools-flow{grid-template-columns:1fr;gap:16px}
+  .tool-arrow{display:none}
+  .improve-grid{grid-template-columns:1fr}
+  .adv-grid{grid-template-columns:1fr}
+  .mod-list{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .footer-right p{text-align:left}
+  .footer-cta{align-items:flex-start}
+  .footer-url{text-align:left}
+  nav{padding:0 16px}
+  .section{padding:56px 16px}
+  .sec-sub{max-width:100%}
+}
+@media(max-width:560px){
+  .hero{padding:80px 20px 64px}
+  .method-card{padding:20px 18px}
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip">跳至主要內容</a>
+
+<!-- Nav -->
+<nav aria-label="網站導覽">
+  <a href="https://jovial-sprite-41d8ad.netlify.app/" class="nav-back" aria-label="回臉部平權網站">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 2L4 7l5 5"/></svg>
+    回臉部平權網站
+  </a>
+  <span class="nav-title">AI 協作學習紀錄分享</span>
+</nav>
+
+<main id="main">
+
+<!-- ── Hero ── -->
+<section class="hero" aria-label="介紹">
+  <div class="geo geo-1" aria-hidden="true"></div>
+  <div class="geo geo-2" aria-hidden="true"></div>
+  <div class="geo geo-3" aria-hidden="true"></div>
+  <div class="geo geo-4" aria-hidden="true"></div>
+  <div class="geo geo-5" aria-hidden="true"></div>
+  <div class="geo-corner geo-corner-tl" aria-hidden="true"></div>
+  <div class="geo-corner geo-corner-br" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <span class="hero-tag">2026 經驗分享 學生製作</span>
+    <h1>我用 AI 做了一個網站，<br>中間失敗了三次</h1>
+    <p class="hero-sub">失敗三次，學到這些</p>
+    <p class="hero-meta">工具：Perplexity&thinsp;+&thinsp;Claude Chat&thinsp;+&thinsp;Claude Code&thinsp;+&thinsp;Netlify<br>主題：臉部平權倡議宣傳</p>
+    <a href="https://jovial-sprite-41d8ad.netlify.app/" class="hero-cta">
+      看成果網站
+      <svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 7.5h9M8 3.5l4 4-4 4"/></svg>
+    </a>
+    <p class="hero-audience">適合：沒有寫程式經驗、想用 AI 從零完成一個完整網站專案的人</p>
+    <div class="hero-nav" role="navigation" aria-label="頁面章節">
+      <a href="#tools" class="hnav">三個工具</a>
+      <a href="#timeline" class="hnav">版本演進</a>
+      <a href="#improve" class="hnav">回顧改進</a>
+      <a href="#methods" class="hnav">溝通技巧</a>
+      <a href="#adv" class="hnav">進階技巧</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tools（先看工具分工）── -->
+<section class="section" id="tools" aria-labelledby="tools-title">
+  <div class="section-inner">
+    <div class="sec-header reveal">
+      <span class="sec-label">工具分工</span>
+      <h2 class="sec-title" id="tools-title">三個工具，三種角色</h2>
+      <p class="sec-sub">每個工具有它擅長的事，找到每個AI的專業，才能實現相互疊加</p>
+    </div>
+    <div class="tools-flow reveal">
+
+      <div class="flow-step">
+        <div class="tool-card">
+          <div class="tool-icon" aria-hidden="true">🔍</div>
+          <div class="tool-name">Perplexity</div>
+          <div class="tool-role">研究員</div>
+          <div class="tool-row-label">做什麼</div>
+          <div class="tool-row">查台灣的真實數據案例、查找網站的不足點</div>
+          <div class="tool-row-label" style="margin-top:12px">什麼時候用</div>
+          <div class="tool-row">開始任何新區塊之前，先在這裡把內容研究清楚</div>
+          <div class="tool-no">
+            <div class="tool-no-label">不要用它做</div>
+            直接生成 HTML 或設計版面
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-arrow" aria-hidden="true">→</div>
+
+      <div class="flow-step">
+        <div class="tool-card">
+          <div class="tool-icon" aria-hidden="true">💬</div>
+          <div class="tool-name">Claude Chat</div>
+          <div class="tool-role">設計師 + 策略師</div>
+          <div class="tool-row-label">做什麼</div>
+          <div class="tool-row">討論整體方向、寫修改計畫書、決定哪些東西要改、怎麼改</div>
+          <div class="tool-row-label" style="margin-top:12px">什麼時候用</div>
+          <div class="tool-row">有了研究資料後，先在這裡討論「要怎麼做」，產出計畫書</div>
+          <div class="tool-no">
+            <div class="tool-no-label">不要用它做</div>
+            直接修改程式碼（它無法直接動你的檔案）
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-arrow" aria-hidden="true">→</div>
+
+      <div class="flow-step">
+        <div class="tool-card">
+          <div class="tool-icon" aria-hidden="true">⚙️</div>
+          <div class="tool-name">Claude Code</div>
+          <div class="tool-role">工程師</div>
+          <div class="tool-row-label">做什麼</div>
+          <div class="tool-row">按照計劃書執行實際修改計畫</div>
+          <div class="tool-row-label" style="margin-top:12px">什麼時候用</div>
+          <div class="tool-row">計畫書確定了、任務範圍說清楚了，才把任務交給它</div>
+          <div class="tool-no">
+            <div class="tool-no-label">不要用它做</div>
+            同時查資料又寫程式（容易「幻想」出不存在的數據）
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Timeline（版本演進）── -->
+<section class="section section-alt" id="timeline" aria-labelledby="tl-title">
+  <div class="section-inner">
+    <div class="sec-header reveal">
+      <span class="sec-label">版本演進</span>
+      <h2 class="sec-title" id="tl-title">三次失敗，三次升級</h2>
+      <p class="sec-sub">每個版本都有一個「我以為這樣就夠了」的想法，撞牆之後，才知道哪裡要被改正</p>
+    </div>
+    <div class="timeline reveal">
+
+      <!-- v1 -->
+      <div class="tl-item">
+        <div class="tl-dot fail" aria-hidden="true"></div>
+        <details class="tl-card" open>
+          <summary>
+            <span class="tl-badge v1">v1</span>
+            <span class="tl-sum-text">初版：直接叫 AI 做</span>
+            <span class="tl-status fail">失敗</span>
+            <span class="tl-icon" aria-hidden="true">▾</span>
+          </summary>
+          <div class="tl-body">
+            <div class="prob-block">
+              <div class="prob-label">遇到的問題</div>
+              <p class="prob-text">我直接說「幫我做一個臉部平權的網站」，<strong>沒有說給誰看、要達到什麼目的</strong>，AI 做出來的東西資訊很多，但沒有核心</p>
+            </div>
+            <div class="pb">
+              <div class="pb-label">我當初是怎麼說才錯誤的</div>
+              <div class="pb-text">「幫我做一個關於臉部平權的網站，
+包含基本介紹、數據和相關資源」</div>
+            </div>
+            <div class="res-block">
+              <div class="res-label">AI 給了什麼</div>
+              做出來了，但像一面玩偶收藏櫃，沒有主次，太過雜亂
+            </div>
+            <div class="next-block">→ 沒有明確的目標讀者，每個設計和決定都是讓AI猜，太過雜亂，進入 v2</div>
+          </div>
+        </details>
+      </div>
+
+      <!-- v2 -->
+      <div class="tl-item">
+        <div class="tl-dot fail" aria-hidden="true"></div>
+        <details class="tl-card">
+          <summary>
+            <span class="tl-badge v2">v2</span>
+            <span class="tl-sum-text">第一版：計畫書放在資料夾裡</span>
+            <span class="tl-status fail">失敗</span>
+            <span class="tl-icon" aria-hidden="true">▾</span>
+          </summary>
+          <div class="tl-body">
+            <div class="prob-block">
+              <div class="prob-label">遇到的問題</div>
+              <p class="prob-text">我花整理一份詳細的修改計畫書，但每次進行新對話，AI都完全不知道這份文件的存在，所有詳細訂好的規則，AI 根本沒看到</p>
+            </div>
+            <div class="pb">
+              <div class="pb-label">我是怎麼說的（錯誤方式）</div>
+              <div class="pb-text">「修改hero首屏的資料」 AI 的反應：「好的你有提要改按鈕，要改配色，我隨便幫你改一種適合的」，已經訂好的資料全都沒看到</div>
+            </div>
+            <div class="res-block">
+              <div class="res-label">AI 給了什麼</div>
+              AI 不知道我們之前談好的設計方向和內容
+            </div>
+            <div class="next-block">→ 修改計畫書要給AI看到，不是存在資料夾裡以為他會自己讀，進入 v3</div>
+          </div>
+        </details>
+      </div>
+
+      <!-- v3 -->
+      <div class="tl-item">
+        <div class="tl-dot win" aria-hidden="true"></div>
+        <details class="tl-card">
+          <summary>
+            <span class="tl-badge v3">v3</span>
+            <span class="tl-sum-text">第三版：說太模糊，AI 改到不該改的地方</span>
+            <span class="tl-status win">突破</span>
+            <span class="tl-icon" aria-hidden="true">▾</span>
+          </summary>
+          <div class="tl-body">
+            <div class="prob-block">
+              <div class="prob-label">還有一個問題</div>
+              <p class="prob-text">說「幫我改情境區」，但連三不三要都一起改動了</p>
+            </div>
+            <div class="pb">
+              <div class="pb-label">改進後的說法</div>
+              <div class="pb-text">「只修改情境區塊，<strong>不要動其他任何未提到的區塊</strong>，修改目標：新增可點擊內頁」</div>
+              <div class="pb-why">✓ 這樣說讓AI知道只能動這裡</div>
+            </div>
+            <div class="next-block">→ 確定一切都符合修改書，改排版回饋後就能上線啦</div>
+          </div>
+        </details>
+      </div>
+
+    </div><!-- /timeline -->
+  </div>
+</section>
+
+<!-- ── Improvements（如果重來）── -->
+<section class="section" id="improve" aria-labelledby="improve-title">
+  <div class="section-inner">
+    <div class="sec-header reveal">
+      <span class="sec-label">AI 協作流程改進</span>
+      <h2 class="sec-title" id="improve-title">如果重來，我會更早做的三件事</h2>
+      <p class="sec-sub">這些事能先被訂好能省力很多</p>
+    </div>
+    <div class="improve-grid">
+
+      <div class="improve-card reveal">
+        <div class="improve-num" aria-hidden="true">01</div>
+        <h3 class="improve-title">第一版就確定「這給誰看、在什麼情況下看」</h3>
+        <p class="improve-body">直到後來，我才想清楚這個網站的定位：完全沒聽過這個議題的人，用手機看，這一個決定影響了後面所有的選擇，包括字體多大、放多少資訊、第一句話要說什麼等等，<br><strong>其實這件事一開始就要被決定</strong></p>
+      </div>
+
+      <div class="improve-card reveal">
+        <div class="improve-num" aria-hidden="true">02</div>
+        <h3 class="improve-title">建立一份開場規則</h3>
+        <p class="improve-body">現在每次新對話，第一件事是把固定的開場 context 貼進去：參考修改書去書寫，這次的目標，要改那些檔案，這個習慣我到 v3 才養成，能讓AI 每次都有足夠的背景，亂改的情況少很多</p>
+      </div>
+
+      <div class="improve-card reveal">
+        <div class="improve-num" aria-hidden="true">03</div>
+        <h3 class="improve-title">每次在新增修改書時問：「有甚麼資料是需要我來處理更好的嗎？」</h3>
+        <p class="improve-body">這句話一問，AI 會自己說出身為AI目前無法幫忙的地方，或是這裡由我們來處理更好，不是等出來的成果有一堆與現實脫節的元素</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Methods（溝通技巧）── -->
+<section class="section section-alt" id="methods" aria-labelledby="methods-title">
+  <div class="section-inner">
+    <div class="sec-header reveal">
+      <span class="sec-label">AI 溝通技巧</span>
+      <h2 class="sec-title" id="methods-title">讓我少走很多彎路的四個點</h2>
+      <p class="sec-sub">換個說法，結果能不一樣</p>
+    </div>
+    <div class="methods-grid">
+
+      <article class="method-card reveal">
+        <span class="method-num" aria-hidden="true">1</span>
+        <h3 class="method-title">給 AI 一個真實存在的參考例子</h3>
+        <div class="compare">
+          <div class="cmp cmp-no"><span class="cmp-tag">❌ 以前這樣說</span><span class="cmp-text">「幫我做一個專業的宣導網站，要有設計感」</span></div>
+          <div class="cmp cmp-yes"><span class="cmp-tag">✅ 後來改成這樣說</span><span class="cmp-text">「參考這個網站，我喜歡它這幾點：① 10 秒內就能看出主題 ② 卡片可以摺疊展開 ③ 版面不雜亂，請以這些特點為方向設計」</span></div>
+        </div>
+        <div class="diff"><strong>差在哪裡：</strong>AI 不知道你心裡的「想法」長什麼樣，給一個真實例子，它才有具體目標</div>
+      </article>
+
+      <article class="method-card reveal">
+        <span class="method-num" aria-hidden="true">2</span>
+        <h3 class="method-title">定義這次改哪裡，不動其他</h3>
+        <div class="compare">
+          <div class="cmp cmp-no"><span class="cmp-tag">❌ 以前這樣說</span><span class="cmp-text">「幫我改一下版面，他有點雜亂不好閱讀」</span></div>
+          <div class="cmp cmp-yes"><span class="cmp-tag">✅ 後來改成這樣說</span><span class="cmp-text">「只修改第三區塊（六張議題卡片），不要動其他區塊，目標：讓卡片在手機上一欄顯示，桌機兩欄」</span></div>
+        </div>
+        <div class="diff"><strong>差在哪裡：</strong>說「改一下」，AI 可能改了 10 個地方，你不知道哪裡變了、哪裡壞了</div>
+      </article>
+
+      <article class="method-card reveal">
+        <span class="method-num" aria-hidden="true">3</span>
+        <h3 class="method-title">計畫書要進對話，不是存在資料夾</h3>
+        <div class="compare">
+          <div class="cmp cmp-no"><span class="cmp-tag">❌ 以前這樣說</span><span class="cmp-text">「修改情境區塊，新增按鈕和不同情境」（詳細的計畫書在資料夾，AI 看不到）</span></div>
+          <div class="cmp cmp-yes"><span class="cmp-tag">✅ 後來改成這樣說</span><span class="cmp-text">「參考檔案<strong>計畫書</strong>，這次的目標，可以動那些地方，進行執行第四部分的修改」</span></div>
+        </div>
+        <div class="diff"><strong>差在哪裡：</strong>每次新對話，AI 都是全新的，你說要新增的東西，我幫你處理，但規格不是你已經訂好的</div>
+      </article>
+
+      <article class="method-card reveal">
+        <span class="method-num" aria-hidden="true">4</span>
+        <h3 class="method-title">問 AI「你需要我補充什麼」</h3>
+        <div class="compare">
+          <div class="cmp cmp-no"><span class="cmp-tag">❌ 以前這樣做</span><span class="cmp-text">自己猜 AI 可能需要什麼資訊，一直猜，一直補充，還是猜不準</span></div>
+          <div class="cmp cmp-yes"><span class="cmp-tag">✅ 後來改成這樣說</span><span class="cmp-text">「幫我找出你無法確認的部分，以及需要我補充才能繼續的資料」</span></div>
+        </div>
+        <div class="diff"><strong>差在哪裡：</strong>AI 知道自己缺什麼，但不會主動說，問它，它就會告訴你，省掉很多時間</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Advanced（進階技巧）── -->
+<section class="section" id="adv" aria-labelledby="adv-title">
+  <div class="section-inner">
+    <div class="sec-header reveal">
+      <span class="sec-label">進階技巧</span>
+      <h2 class="sec-title" id="adv-title">做到後面才學到的五件事</h2>
+      <p class="sec-sub">這些是整個工作流程怎麼組織的問題</p>
+    </div>
+    <div class="adv-grid">
+
+      <article class="adv-card reveal">
+        <div class="adv-num" aria-hidden="true">1</div>
+        <span class="adv-ctx">開新對話時</span>
+        <h3 class="adv-title">每次開工前，先餵三份文件</h3>
+        <div class="adv-cmp adv-cmp-no"><span class="adv-cmp-tag">❌ 以前</span>「繼續幫我修改網站的下一區塊」</div>
+        <div class="adv-cmp adv-cmp-yes"><span class="adv-cmp-tag">✅ 後來</span>「請先閱讀：詳細計劃書、最近幾次的修改紀錄、待改進的紀錄，讀完後依據內容修改這次的目標，完成後記錄本次修改」</div>
+        <p class="adv-diff"><strong>差在哪裡：</strong>新對話是全新的 AI，它不記得上次做了什麼，這三份文件讓它幾秒內知道整個專案在哪個狀態</p>
+      </article>
+
+      <article class="adv-card reveal">
+        <div class="adv-num" aria-hidden="true">2</div>
+        <span class="adv-ctx">要改多個區塊時</span>
+        <h3 class="adv-title">大改版前，先叫 AI 幫你拆步驟</h3>
+        <div class="adv-cmp adv-cmp-no"><span class="adv-cmp-tag">❌ 以前</span>「按照這份計畫書，把網站更新一遍」</div>
+        <div class="adv-cmp adv-cmp-yes"><span class="adv-cmp-tag">✅ 後來</span>「先不要動程式碼，把這次改版計畫拆成幾個步驟：每步只改一個區塊、從影響全頁的地方開始、每步說明怎麼驗收完成，只幫我拆分並確定修改的區塊」</div>
+        <p class="adv-diff"><strong>差在哪裡：</strong>一次改太多，出問題不知道是哪裡出狀況，先拆再改，追溯問題就很容易</p>
+      </article>
+
+      <article class="adv-card reveal">
+        <div class="adv-num" aria-hidden="true">3</div>
+        <span class="adv-ctx">需要分析整個網站時</span>
+        <h3 class="adv-title">讓 Perplexity 先扮演一個專業的角色再問</h3>
+        <div class="adv-cmp adv-cmp-no"><span class="adv-cmp-tag">❌ 以前</span>「幫我看看這個網站哪裡做得不好？」</div>
+        <div class="adv-cmp adv-cmp-yes"><span class="adv-cmp-tag">✅ 後來</span>「你是一位專業網頁設計師，這是一個臉部平權宣導頁，給完全不了解的人，目標是...，請按每個區塊，列出應刪除、更正、加入的具體項目，網址：https://jovial-sprite-41d8ad.netlify.app/」</div>
+        <p class="adv-diff"><strong>差在哪裡：</strong>不指定角色，答案很通用，指定角色和情境之後，它才能從那個角度說出有用的東西</p>
+      </article>
+
+      <article class="adv-card reveal">
+        <div class="adv-num" aria-hidden="true">4</div>
+        <span class="adv-ctx">寫頁面文案時</span>
+        <h3 class="adv-title">讓文字想繼續看下去</h3>
+        <div class="adv-cmp adv-cmp-no"><span class="adv-cmp-tag">❌ 以前</span>「幫我寫一段臉部平權的介紹」</div>
+        <div class="adv-cmp adv-cmp-yes"><span class="adv-cmp-tag">✅ 後來</span>「文字格式追求：先講人的處境，不是制度，每段只留一個核心畫面，句子短、有後果，揭露問題的一半，留一點讓人想繼續看的懸念」</div>
+        <p class="adv-diff"><strong>差在哪裡：</strong>列知識沒人看完，先讓人看到人的處境，他才有理由繼續往下滑</p>
+      </article>
+
+      <article class="adv-card reveal" style="grid-column:1/-1">
+        <div class="adv-num" aria-hidden="true">5</div>
+        <span class="adv-ctx">網站有多個獨立區塊時</span>
+        <h3 class="adv-title">把網站切成幾塊，再叫 AI 一塊一塊改</h3>
+        <p style="font-size:.875rem;color:var(--text-muted);line-height:1.7;margin-bottom:4px">最終心法，請AI幫我拆分整個目前網站，依區塊分成多檔案，以下舉例：</p>
+        <div class="mod-list" aria-label="模組分區範例">
+          <div class="mod-item"><span class="mod-code">01-hero-and-nav</span><span class="mod-desc">導覽列、首屏、主按鈕</span></div>
+          <div class="mod-item"><span class="mod-code">02-intro-and-principles</span><span class="mod-desc">新手理解區（三要三不這種）</span></div>
+          <div class="mod-item"><span class="mod-code">03-six-cards-and-overlay</span><span class="mod-desc">六張議題卡片與展開後的內容</span></div>
+          <div class="mod-item"><span class="mod-code">04-stories-video-links</span><span class="mod-desc">故事、影片、快速連結</span></div>
+          <div class="mod-item"><span class="mod-code">05-footer</span><span class="mod-desc">頁尾、聯絡方式、資源來源</span></div>
+          <div class="mod-item"><span class="mod-code">06-design-system</span><span class="mod-desc">全站 CSS、色彩、字級、無障礙規則</span></div>
+        </div>
+        <div class="docs-rec">
+          <div class="docs-rec-label">同時建立這三份文件，AI 才不會「失憶」</div>
+          <div class="docs-rec-row"><span class="doc-tag">change-brief.md</span>改版的目標、問題清單、要刪／要加的項目</div>
+          <div class="docs-rec-row"><span class="doc-tag">changelog.md</span>每次 AI 實際改了什麼，按時間記</div>
+          <div class="docs-rec-row"><span class="doc-tag">todo.md</span>還沒改的事，像待辦清單</div>
+        </div>
+        <div class="adv-cmp adv-cmp-no"><span class="adv-cmp-tag">❌ 以前</span>「幫我優化整個網站，讓它更好用」</div>
+        <div class="adv-cmp adv-cmp-yes"><span class="adv-cmp-tag">✅ 後來</span>「今天只改「影片和快速連結區」，不動其他模組」</div>
+        <p class="adv-diff"><strong>差在哪裡：</strong>說「整個」，AI 不知道邊界，可能亂動，指定「第四區塊」，它才清楚自己的活動範圍，出問題也知道相關修改在哪個區塊可以找到</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Manifesto ── -->
+<div class="manifesto" aria-hidden="false">
+  <div class="manifesto-inner reveal">
+    <p class="manifesto-text">不是等到準備好才出發，<br><em>先開始，才知道要準備什麼</em></p>
+  </div>
+</div>
+
+<!-- ── Feedback ── -->
+<section class="section section-alt" aria-labelledby="feedback-label">
+  <div class="feedback-section-wrap">
+    <div class="feedback-card reveal">
+
+      <!-- 收起狀態 -->
+      <div class="feedback-teaser">
+        <p class="feedback-teaser-text" id="feedback-label">看到這裡，有什麼想說的嗎？</p>
+        <button id="fb-open" class="btn-fb-open" aria-expanded="false" aria-controls="fb-form-wrap">想說說看</button>
+      </div>
+
+      <!-- 展開後的表單 -->
+      <div id="fb-form-wrap" class="feedback-form-wrap" aria-hidden="true">
+        <h2 class="feedback-form-title">一分鐘就好，留個回饋給我</h2>
+        <p class="feedback-intro">不用寫很多，一句話就夠了</p>
+
+        <form id="fb-form" name="summary-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="summary-feedback" />
+          <p hidden><input name="bot-field" /></p>
+
+          <!-- Q1 -->
+          <fieldset class="feedback-q">
+            <legend>這個頁面有幫你更了解怎麼跟 AI 合作嗎？</legend>
+            <div class="feedback-opts" data-fb-group="q1">
+              <button type="button" class="feedback-opt" data-fb-opt data-value="very">很有幫助</button>
+              <button type="button" class="feedback-opt" data-fb-opt data-value="bit">有一點點</button>
+              <button type="button" class="feedback-opt" data-fb-opt data-value="known">早就在用了</button>
+            </div>
+            <input type="hidden" name="helpfulness" id="fb-q1-val" />
+          </fieldset>
+
+          <!-- Q2 -->
+          <fieldset class="feedback-q">
+            <legend>哪個部分對你最有用？</legend>
+            <div class="feedback-tags" data-fb-group="q2">
+              <button type="button" class="feedback-tag" data-fb-opt data-value="tools">工具分工</button>
+              <button type="button" class="feedback-tag" data-fb-opt data-value="timeline">版本演進</button>
+              <button type="button" class="feedback-tag" data-fb-opt data-value="methods">溝通技巧</button>
+              <button type="button" class="feedback-tag" data-fb-opt data-value="advanced">進階技巧</button>
+            </div>
+            <input type="hidden" name="section" id="fb-q2-val" />
+          </fieldset>
+
+          <!-- Q3 選填 -->
+          <fieldset class="feedback-q">
+            <legend>有什麼想對我說的嗎，留一句真心的想法吧（選填）</legend>
+            <textarea class="feedback-textarea" name="suggestion" maxlength="300"
+              placeholder="想說就說，沒人評分的" aria-label="建議或感想"></textarea>
+          </fieldset>
+
+          <button type="submit" id="fb-submit" class="btn-fb-submit">
+            送出回饋
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- 送出成功 -->
+      <div id="fb-thanks" class="feedback-thanks" aria-live="polite">
+        <div class="thanks-icon" aria-hidden="true">✓</div>
+        <p>謝謝你</p>
+        <p>你的回饋有幫助，讓我知道哪裡說得清楚、哪裡還不夠</p>
+        <a href="#main" class="btn-fb-back">回到頂端</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer aria-label="頁尾">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-left">
+        <p>這是對於整個專案的總結，我也是第一次建立網站，在最後我想和大家分享這一路上的事，如果對你有用的話，也請分享出去讓更多人看見吧</p>
+      </div>
+      <div class="footer-cta">
+        <a href="https://jovial-sprite-41d8ad.netlify.app/" class="footer-btn">
+          查看最終成果
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg>
+        </a>
+        <span class="footer-url">jovial-sprite-41d8ad.netlify.app</span>
+      </div>
+      <div class="footer-right">
+        <p>主題：臉部平權網站總結（學生自製宣導）</p>
+      </div>
+    </div>
+    <div class="footer-divider" aria-hidden="true"></div>
+    <div class="footer-bottom">
+      淡江大學學生製作&ensp;·&ensp;2026&ensp;·&ensp;非商業用途&ensp;·&ensp;全程以自然語言指揮 AI 完成
+      <br>
+      本頁為個人學習紀錄，AI 工具相關功能以各工具官方說明為準
+      <br>
+      聯絡：<a href="mailto:efacee0401@gmail.com" style="color:inherit;text-decoration:underline;">efacee0401@gmail.com</a>
+      &ensp;·&ensp;
+      <a href="https://jovial-sprite-41d8ad.netlify.app/privacy.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">隱私政策</a>
+      <br>
+      臉部平權學生倡議專案，2026
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 確保每次進入頁面都從最頂端開始 */
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+if (!window.location.hash) window.scrollTo(0, 0);
+
+/* ── Feedback Form ── */
+(function(){
+  var openBtn = document.getElementById('fb-open');
+  var wrap    = document.getElementById('fb-form-wrap');
+  var form    = document.getElementById('fb-form');
+  var thanks  = document.getElementById('fb-thanks');
+  var submit  = document.getElementById('fb-submit');
+  if(!openBtn) return;
+
+  openBtn.addEventListener('click', function(){
+    wrap.classList.add('expanded');
+    wrap.setAttribute('aria-hidden','false');
+    openBtn.setAttribute('aria-expanded','true');
+    openBtn.style.display = 'none';
+  });
+
+  /* pill + tag selection */
+  document.querySelectorAll('[data-fb-group]').forEach(function(grp){
+    var opts = grp.querySelectorAll('[data-fb-opt]');
+    var hiddenId = grp.getAttribute('data-fb-group') === 'q1' ? 'fb-q1-val' : 'fb-q2-val';
+    var hidden = document.getElementById(hiddenId);
+    opts.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        opts.forEach(function(o){ o.classList.remove('selected'); o.classList.add('dimmed'); });
+        opt.classList.add('selected'); opt.classList.remove('dimmed');
+        if(hidden) hidden.value = opt.getAttribute('data-value');
+      });
+    });
+  });
+
+  /* submit via fetch (Netlify Forms AJAX) */
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    submit.disabled = true;
+    submit.textContent = '送出中…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:body })
+      .then(showThanks).catch(showThanks);
+  });
+
+  function showThanks(){
+    wrap.style.transition = 'opacity 300ms';
+    wrap.style.opacity = '0';
+    setTimeout(function(){
+      wrap.style.display = 'none';
+      thanks.classList.add('visible');
+    }, 320);
+  }
+})();
+
+/* ── Scroll Reveal ── */
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  },{threshold:0.07,rootMargin:'0px 0px -36px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+})();
+</script>
+</body>
+</html>
