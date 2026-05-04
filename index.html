@@ -47,8 +47,83 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/sections.css">
 <link rel="stylesheet" href="css/components.css">
+<style>
+/* ══ QUIZ MODAL ══ */
+.quiz-overlay{position:fixed;inset:0;background:rgba(15,10,8,.52);backdrop-filter:blur(6px) saturate(.8);-webkit-backdrop-filter:blur(6px) saturate(.8);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.quiz-overlay.active{opacity:1;pointer-events:auto}
+.quiz-overlay.closing{opacity:0;pointer-events:none}
+.quiz-card{position:relative;width:100%;max-width:500px;background:radial-gradient(ellipse at 25% 15%,#2b1f17 0%,#1c1917 55%,#171411 100%);border-radius:22px;padding:38px 30px 30px;box-shadow:0 0 0 1px rgba(255,255,255,.06),0 40px 90px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.08);transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.22,.68,0,1.2),opacity .35s ease;opacity:0;overflow:hidden}
+.quiz-overlay.active .quiz-card{transform:translateY(0) scale(1);opacity:1}
+.quiz-card::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:260px;height:120px;background:radial-gradient(ellipse,rgba(232,103,10,.18) 0%,transparent 70%);pointer-events:none}
+.qz-corner{position:absolute;width:20px;height:20px}
+.qz-corner::before,.qz-corner::after{content:'';position:absolute}
+.qz-corner--tl{top:13px;left:13px}.qz-corner--tl::before{top:0;left:0;width:100%;height:2px;background:rgba(255,255,255,.28);border-radius:2px 2px 0 0}.qz-corner--tl::after{top:0;left:0;width:2px;height:100%;background:rgba(255,255,255,.28);border-radius:2px 0 0 2px}
+.qz-corner--tr{top:13px;right:13px}.qz-corner--tr::before{top:0;right:0;width:100%;height:2px;background:rgba(255,255,255,.28);border-radius:2px 2px 0 0}.qz-corner--tr::after{top:0;right:0;width:2px;height:100%;background:rgba(255,255,255,.28);border-radius:0 2px 2px 0}
+.qz-corner--bl{bottom:13px;left:13px}.qz-corner--bl::before{bottom:0;left:0;width:100%;height:2px;background:rgba(255,255,255,.28);border-radius:0 0 2px 2px}.qz-corner--bl::after{bottom:0;left:0;width:2px;height:100%;background:rgba(255,255,255,.28);border-radius:0 0 0 2px}
+.qz-corner--br{bottom:13px;right:13px}.qz-corner--br::before{bottom:0;right:0;width:100%;height:2px;background:rgba(255,255,255,.28);border-radius:0 0 2px 2px}.qz-corner--br::after{bottom:0;right:0;width:2px;height:100%;background:rgba(255,255,255,.28);border-radius:0 2px 2px 0}
+.quiz-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.07);border:none;width:28px;height:28px;border-radius:50%;color:rgba(255,255,255,.45);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;z-index:2;font-family:inherit}
+.quiz-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.quiz-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.15em;color:#e8670a;text-transform:uppercase;margin-bottom:16px;position:relative;z-index:1}
+.quiz-progress{display:flex;gap:6px;margin-bottom:22px}
+.quiz-dot{height:3px;border-radius:2px;flex:1;background:rgba(255,255,255,.12);transition:background .4s}
+.quiz-dot.active{background:#e8670a}.quiz-dot.done{background:rgba(232,103,10,.4)}
+.quiz-q{font-size:1.35rem;font-weight:900;color:#f5f0e8;line-height:1.5;margin-bottom:22px;letter-spacing:-.01em;position:relative;z-index:1}
+.quiz-options{display:flex;flex-direction:column;gap:9px;position:relative;z-index:1}
+.quiz-opt{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:13px;padding:12px 16px;color:#c8bfb6;font-size:.95rem;font-weight:500;font-family:inherit;cursor:pointer;transition:border-color .18s,background .18s,color .18s,transform .12s;text-align:left;line-height:1.5}
+.quiz-opt:hover:not(:disabled){border-color:rgba(232,103,10,.6);background:rgba(232,103,10,.08);color:#f5f0e8;transform:translateX(3px)}
+.quiz-opt.qz-correct{border-color:#22c55e;background:rgba(34,197,94,.1);color:#86efac;transform:none}
+.quiz-opt.qz-wrong{border-color:rgba(239,68,68,.5);background:rgba(239,68,68,.07);color:rgba(252,165,165,.8);transform:none}
+.quiz-opt:disabled{cursor:default}
+.quiz-feedback{margin-top:16px;padding:12px 15px;border-radius:11px;font-size:.93rem;font-weight:600;line-height:1.5;display:none;position:relative;z-index:1}
+.quiz-feedback.qz-show{display:block;animation:qzFbIn .2s ease}
+@keyframes qzFbIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.quiz-feedback.qz-cfb{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:#86efac}
+.quiz-feedback.qz-wfb{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#fca5a5}
+.quiz-next{margin-top:18px;width:100%;background:#e8670a;color:#fff;border:none;border-radius:13px;padding:13px;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;display:none;transition:background .2s,transform .12s;position:relative;z-index:1}
+.quiz-next:hover{background:#d45c08;transform:translateY(-1px)}
+.quiz-next.qz-show{display:block;animation:qzFbIn .2s ease}
+.quiz-result{display:none;text-align:center;position:relative;z-index:1}
+.quiz-result.qz-show{display:block;animation:qzFbIn .3s ease}
+.qz-result-emoji{font-size:2.8rem;margin-bottom:12px;line-height:1}
+.qz-result-title{font-size:1.4rem;font-weight:900;color:#f5f0e8;line-height:1.4;margin-bottom:8px}
+.qz-result-sub{font-size:.9rem;color:#8a8078;line-height:1.6;margin-bottom:26px}
+.qz-result-cta{background:#e8670a;color:#fff;border:none;border-radius:13px;padding:14px 24px;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;width:100%;transition:background .2s,transform .12s}
+.qz-result-cta:hover{background:#d45c08;transform:translateY(-1px)}
+.qz-result-skip{margin-top:13px;font-size:.82rem;color:#5a5450;cursor:pointer;background:none;border:none;font-family:inherit;display:block;width:100%;text-align:center;transition:color .2s}
+.qz-result-skip:hover{color:#8a8078}
+</style>
 </head>
 <body>
+
+<!-- QUIZ MODAL -->
+<div class="quiz-overlay" id="quizOverlay" role="dialog" aria-modal="true" aria-label="快速測驗">
+  <div class="quiz-card">
+    <div class="qz-corner qz-corner--tl"></div>
+    <div class="qz-corner qz-corner--tr"></div>
+    <div class="qz-corner qz-corner--bl"></div>
+    <div class="qz-corner qz-corner--br"></div>
+    <button class="quiz-close" id="quizClose" aria-label="關閉測驗">✕</button>
+    <div id="quizBody">
+      <div class="quiz-eyebrow">快速測驗 · 3 題</div>
+      <div class="quiz-progress">
+        <div class="quiz-dot" id="qzdot0"></div>
+        <div class="quiz-dot" id="qzdot1"></div>
+        <div class="quiz-dot" id="qzdot2"></div>
+      </div>
+      <p class="quiz-q" id="quizQuestion"></p>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <button class="quiz-next" id="quizNext"></button>
+    </div>
+    <div class="quiz-result" id="quizResult">
+      <div class="qz-result-emoji" id="qzEmoji"></div>
+      <div class="qz-result-title" id="qzTitle"></div>
+      <div class="qz-result-sub"   id="qzSub"></div>
+      <button class="qz-result-cta"  id="qzCta">看看我們的網站吧～</button>
+      <button class="qz-result-skip" id="qzSkip">可以跳過…但我會難過的 (´；ω；`)</button>
+    </div>
+  </div>
+</div>
 
 
 <!-- ======================================
@@ -74,8 +149,6 @@
   <p class="hero-credibility">本頁為淡江大學學生整理製作<br>引用陽光基金會公開資料</p>
   <h1>不要看一張臉<br><span class="hl">要看一個人</span></h1>
   <p class="hero-def"><strong>臉部平權</strong>是不以外貌評斷一個人的價值，讓每張臉都能在生活、就學、就業中被「<strong>公平對待</strong>」</p>
-  <p class="hero-bridge">也許你不一定認識顏面傷者</p>
-  <p class="hero-bridge">但生活在「<strong>以貌取人</strong>」的社會裡</p>
   <ul class="hero-bullets" aria-label="三個關鍵訊息">
     <li>每 5 人就有 1 人曾受到外貌歧視</li>
     <li>它可能發生在捷運、職場、每一句玩笑裡</li>
@@ -96,25 +169,25 @@
 <div class="reveal">
   <div class="sl"><span aria-hidden="true">▍</span>認識臉部平權</div>
   <h2 class="st">這裡有 <strong>8</strong> 個問題，<br>帶你認識臉部平權</h2>
-  <p class="sd">你是第一次接觸這個主題嗎？<strong>不到十分鐘</strong>，就能從「這是什麼」一路到「我可以做什麼」</p>
+  <p class="sd"><strong>如果你也是第一次接觸，<br>點擊來看看你我的想法(๑Ő௰Ő๑)</strong></p>
 </div>
 
 <div class="acc-list reveal">
 
-  <details class="acc-card" open>
+  <details class="acc-card">
     <summary class="acc-summary">
       <h3 class="acc-title">什麼是臉部平權？</h3>
       <span class="acc-icon" aria-hidden="true"></span>
     </summary>
     <div class="acc-body">
       <p>外貌不是衡量一個人的標準——每張臉，都值得被平等對待</p>
-      <p>臉部平權的核心很直接：外貌不應該成為評價一個人能力或價值的依據。不論燒傷、疤痕或疾病痕跡，他也依然和你一樣，應該被尊重、被公平對待</p>
-      <p>每張臉都不一樣，但每個人都值得被尊重</p>
+      <p>臉部平權的核心很直接：<strong>外貌不應該成為評價一個人能力或價值的依據</strong>。不論燒傷、疤痕或疾病痕跡，他也依然和你一樣，應該被尊重、被公平對待</p>
+      <p><strong>每張臉都不一樣，但每個人都值得被尊重</strong></p>
       <p class="acc-source">本站依陽光基金會公開資料整理</p>
     </div>
   </details>
 
-  <details class="acc-card" open>
+  <details class="acc-card">
     <summary class="acc-summary">
       <h3 class="acc-title">為什麼這件事和你有關？</h3>
       <span class="acc-icon" aria-hidden="true"></span>
@@ -126,7 +199,7 @@
     </div>
   </details>
 
-  <details class="acc-card" open>
+  <details class="acc-card">
     <summary class="acc-summary">
       <h3 class="acc-title">這種事常發生嗎？</h3>
       <span class="acc-icon" aria-hidden="true"></span>
@@ -139,7 +212,7 @@
     </div>
   </details>
 
-  <details class="acc-card" open>
+  <details class="acc-card">
     <summary class="acc-summary">
       <h3 class="acc-title">有些傷害，為什麼真的傷到人？</h3>
       <span class="acc-icon" aria-hidden="true"></span>
@@ -197,7 +270,7 @@
     </div>
   </details>
 
-  <details class="acc-card">
+  <details class="acc-card" open>
     <summary class="acc-summary">
       <h3 class="acc-title">如果想更深入，從哪裡開始？</h3>
       <span class="acc-icon" aria-hidden="true"></span>
@@ -281,7 +354,6 @@
 <div class="reveal">
   <h2 class="st">這些情境，<br>就可能發生在你我身邊</h2>
   <p class="sd">「<strong>某些傷害，不是因為惡意</strong>」——而是「<strong>因為大家都習慣是這樣了</strong>」，習慣多看一眼，習慣不說什麼，習慣讓這種事繼續發生</p>
-  <p class="sd">從面試、校園到日常對話，這些故事也許「<strong>離你沒有那麼遠</strong>」</p>
 </div>
 <div class="story-list reveal">
 
@@ -549,7 +621,7 @@
 ====================================== -->
 <section id="interaction-guide" aria-label="互動原則">
 <div class="reveal">
-  <h2 class="st">不需要準備什麼，只要記住這幾件事</h2>
+  <h2 class="st">只要記住這幾件事</h2>
   <p class="sd"><strong>很多傷害不是出於惡意，而是沒有意識到，知道了，就能不一樣</strong></p>
 </div>
 <div class="ig-columns reveal">
@@ -649,7 +721,7 @@
 <section id="do-section" aria-label="你今天就能做到的事">
 <div class="reveal">
   <h2 class="st">你今天就能做到的事</h2>
-  <p class="sd">不需要參加倡議，只需要從你自己開始，從你的每一次轉發開始</p>
+  <p class="sd">只需要從你自己開始，從你的每一次轉發開始</p>
 </div>
 <ol class="do-list reveal">
   <li class="do-item">
@@ -835,5 +907,100 @@
 
 
 <script src="js/main.js" defer></script>
+<script>
+(function(){
+  var QZ={
+    questions:[
+      {q:"台灣這麼大，你猜有多少人曾因外貌被差別對待過？",opts:[
+        {text:"應該超少！大家人都很好啊",correct:false,fb:"你對人類社會也太有信心了 🥹　其實每 5 人就有 1 人哦"},
+        {text:"每 10 個人裡大概 1 個？",correct:false,fb:"比這還多！其實每 5 人就有 1 個"},
+        {text:"每 5 人就有 1 個！",correct:true,fb:"對！比多數人想的還要普遍"},
+        {text:"我朋友就是呀…但應該少數吧",correct:false,fb:"欸，是你朋友還是你本人說的 🫵　每 5 人就有 1 個哦"}
+      ]},
+      {q:"下面哪個行為，你覺得「還好、不算歧視」？",opts:[
+        {text:"多瞄幾眼，只是好奇嘛",correct:false,fb:"被盯著的人不一定覺得還好 👀"},
+        {text:"說個玩笑，大家笑笑就好",correct:false,fb:"只有說的人覺得是玩笑…"},
+        {text:"心裡偷偷評論，但沒說出口",correct:false,fb:"沒說出口也算哦"},
+        {text:"齁，以上通通都算啦",correct:true,fb:"對！就是這樣 💡"}
+      ]},
+      {q:"讓臉部平權進步，你覺得需要做什麼？",opts:[
+        {text:"等政府立法再說吧…",correct:false,fb:"等到花謝了再說吧 😬　其實今天就能開始"},
+        {text:"靠我一個人改變不了什麼，算了",correct:false,fb:"別這樣說！你比你想的更有力量 🥺"},
+        {text:"從今天改掉一個小習慣就夠了",correct:true,fb:"就是這個！從今天開始 💪"},
+        {text:"要接受專業訓練才有資格",correct:false,fb:"門檻沒那麼高！一個小習慣就夠了"}
+      ]}
+    ],
+    results:[
+      {emoji:"😅",title:"沒關係，來對地方了！",sub:"看完這個網站，你會有不同的想法。"},
+      {emoji:"👍",title:"答對一題，還有很多等你發現",sub:"有些事看起來沒什麼，其實影響比你想的深遠。"},
+      {emoji:"🎯",title:"差一題就全壘打！",sub:"你已經比多數人更了解這件事了。"},
+      {emoji:"🎉",title:"你全對了！臉部平權小達人出現了",sub:"繼續往下，看你今天可以做什麼。"}
+    ],
+    cur:0,score:0,done:false,
+    $:function(id){return document.getElementById(id)},
+    render:function(){
+      var s=this;s.done=false;
+      var q=s.questions[s.cur];
+      s.$('quizQuestion').textContent=q.q;
+      s.$('quizFeedback').className='quiz-feedback';
+      s.$('quizFeedback').textContent='';
+      s.$('quizNext').className='quiz-next';
+      for(var i=0;i<3;i++){
+        var d=s.$('qzdot'+i);
+        d.className='quiz-dot'+(i<s.cur?' done':i===s.cur?' active':'');
+      }
+      var c=s.$('quizOptions');c.innerHTML='';
+      q.opts.forEach(function(o,i){
+        var b=document.createElement('button');
+        b.className='quiz-opt';b.textContent=o.text;b.type='button';
+        b.addEventListener('click',function(){s.pick(i);});
+        c.appendChild(b);
+      });
+    },
+    pick:function(i){
+      var s=this;if(s.done)return;s.done=true;
+      var q=s.questions[s.cur];
+      var bs=document.querySelectorAll('.quiz-opt');
+      bs.forEach(function(b){b.disabled=true;});
+      var ok=q.opts[i].correct;if(ok)s.score++;
+      var ci=q.opts.findIndex(function(o){return o.correct;});
+      bs[ci].classList.add('qz-correct');
+      if(!ok)bs[i].classList.add('qz-wrong');
+      var fb=s.$('quizFeedback');
+      fb.className='quiz-feedback qz-show '+(ok?'qz-cfb':'qz-wfb');
+      fb.textContent=q.opts[i].fb;
+      var n=s.$('quizNext');
+      n.className='quiz-next qz-show';
+      n.textContent=s.cur<2?'下一題 →':'看結果 →';
+    },
+    next:function(){
+      var s=this;s.cur++;
+      if(s.cur<3){s.render();}
+      else{
+        var r=s.results[s.score];
+        s.$('quizBody').style.display='none';
+        s.$('qzEmoji').textContent=r.emoji;
+        s.$('qzTitle').textContent=r.title;
+        s.$('qzSub').textContent=r.sub;
+        s.$('quizResult').className='quiz-result qz-show';
+      }
+    },
+    close:function(){
+      var o=document.getElementById('quizOverlay');
+      o.classList.add('closing');o.classList.remove('active');
+      setTimeout(function(){o.style.display='none';},320);
+    },
+    init:function(){
+      var s=this;s.render();
+      s.$('quizNext').addEventListener('click',function(){s.next();});
+      s.$('quizClose').addEventListener('click',function(){s.close();});
+      s.$('qzCta').addEventListener('click',function(){s.close();});
+      s.$('qzSkip').addEventListener('click',function(){s.close();});
+      setTimeout(function(){document.getElementById('quizOverlay').classList.add('active');},400);
+    }
+  };
+  document.addEventListener('DOMContentLoaded',function(){QZ.init();});
+})();
+</script>
 </body>
 </html>

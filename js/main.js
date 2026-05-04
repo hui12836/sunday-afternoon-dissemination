@@ -280,19 +280,19 @@ document.querySelectorAll('.reveal').forEach(function (el) {
 
   var scenarios = [
     {
-      situation: '捷運上，你注意到對方臉上有明顯的痕跡。',
-      options: ['移開視線', '忍不住多看', '視線不自然'],
-      feedback: ['這點不是完全不對，而是讓視線不要固定。', '自然地移開視線，就已經是一種尊重。']
+      situation: '通勤的捷運上，對面坐著一個陌生人，<strong>臉上有明顯的燒傷痕跡</strong>，你的第一反應是',
+      options: ['忍不住多瞄幾眼', '自然移開視線', '假裝在看手機'],
+      feedback: ['視線停太久，對方其實感覺得到', '自然移開，不特別盯著，就已經是一種尊重']
     },
     {
-      situation: '孩子大聲問「那個人臉怎麼了？」',
-      options: ['輕聲帶離', '假裝沒聽', '大聲阻止'],
-      feedback: ['孩子的好奇心是自然的，需要的是大人怎麼回應。', '不需要讓場面難堪，輕聲帶離、事後說明，就已經很好了。']
+      situation: '走在路上，身邊的孩子突然指著說：<strong>「那個人的臉怎麼了？」</strong>你會',
+      options: ['輕聲帶走，事後說明', '假裝沒聽到', '馬上喝止孩子'],
+      feedback: ['孩子好奇很正常，重點是大人怎麼接', '輕聲帶開、事後說明，不讓場面難堪，就夠了']
     },
     {
-      situation: '朋友對別人的外貌缺陷笑，大家都在笑。',
-      options: ['沉默不笑', '跟著附和', '輕聲發言'],
-      feedback: ['不跟著笑，已經是一種立場。', '如果可以，一句「這樣說好嗎」不需要大聲，但會讓人知道有人在意。']
+      situation: '吃飯時，朋友模仿某人的<strong>外貌開起玩笑</strong>，大家都笑了，你會',
+      options: ['跟著附和', '沉默不笑', '輕聲說一句'],
+      feedback: ['不跟著笑，已經是一種立場', '一句「欸，這樣說好嗎」不需要大聲，但有人在意就不一樣']
     }
   ];
 
@@ -321,7 +321,7 @@ document.querySelectorAll('.reveal').forEach(function (el) {
 
     var sit = document.createElement('p');
     sit.className   = 'scenario-situation';
-    sit.textContent = sc.situation;
+    sit.innerHTML = sc.situation;
 
     var opts = document.createElement('div');
     opts.className = 'scenario-options';
