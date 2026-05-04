@@ -276,8 +276,41 @@ section { padding: var(--section-py) var(--section-px); }
     grid-column: 1 / -1;
   }
 }
-@media (max-width: 600px) {
-  .story-body { padding: 16px; }
+
+/* ── 手機端：2 並排 + 1 全寬 ── */
+@media (max-width: 767px) {
+  .story-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .story-list .story-card:last-child {
+    grid-column: 1 / -1;
+  }
+  /* 前兩張：改為 4:5 直式圖，隱藏次要文字 */
+  .story-list .story-card:not(:last-child) .story-img {
+    aspect-ratio: 4 / 5;
+  }
+  .story-list .story-card:not(:last-child) .story-harm,
+  .story-list .story-card:not(:last-child) .story-law {
+    display: none;
+  }
+  .story-list .story-card:not(:last-child) .story-body {
+    padding: 12px;
+  }
+  .story-list .story-card:not(:last-child) .story-card-title {
+    font-size: var(--fs-sm);
+    margin-bottom: 6px;
+  }
+  .story-list .story-card:not(:last-child) .story-cta-hint {
+    font-size: 0.72rem;
+    margin-top: 6px;
+  }
+  /* 最後一張：維持 16:9 橫式 */
+  .story-list .story-card:last-child .story-img {
+    aspect-ratio: 16 / 9;
+  }
+  .story-body { padding: 14px; }
 }
 
 /* ---- 08 Footer 三層結構 ---- */
@@ -481,8 +514,8 @@ details[open] .acc-title { color: var(--primary-hover); }
   display: flex; align-items: center; justify-content: center;
   transition: transform .2s; user-select: none;
 }
-.acc-icon::before { content: '+'; }
-details[open] .acc-icon { transform: rotate(45deg); }
+.acc-icon::before { content: '▾'; font-size: 1.2rem; }
+details[open] .acc-icon { transform: rotate(180deg); }
 
 .acc-body {
   padding: 4px 20px 20px;
