@@ -13,7 +13,7 @@
 .bc:hover { background: var(--primary-hover); }
 .bm {
   background: none; border: none; cursor: pointer;
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
 }
 .bm span { display: block; width: 24px; height: 2.5px; background: var(--text); border-radius: 2px; }
@@ -76,8 +76,9 @@
 #poll-section { background: var(--bg-soft); }
 
 .poll-card {
-  background: var(--card);
+  background: linear-gradient(135deg, var(--card) 85%, var(--primary-soft) 100%);
   border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
   border-radius: var(--r-md);
   padding: 36px 32px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
@@ -139,7 +140,7 @@
   font-weight: 600;
 }
 .poll-btn--selected::before { content: '✓ '; color: var(--primary); }
-.poll-btn--dimmed { opacity: 0.35; }
+.poll-btn--dimmed { opacity: 0.55; }
 
 .poll-result { margin-top: 28px; }
 
@@ -272,6 +273,13 @@
   justify-content: center;
   margin-bottom: 16px;
 }
+@media (min-width: 768px) {
+  .scenario-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    justify-content: unset;
+  }
+}
 
 .scenario-btn {
   flex: 1 1 auto;
@@ -319,9 +327,9 @@
 }
 
 .scenario-feedback.open {
-  max-height: 200px;
+  max-height: 240px;
   opacity: 1;
-  padding: 14px 16px;
+  padding: 16px 18px;
   margin-bottom: 12px;
 }
 
@@ -336,8 +344,8 @@
 
 /* ── Next button ── */
 .scenario-next {
-  margin-top: 12px;
-  padding: 10px 24px;
+  margin-top: 20px;
+  padding: 11px 32px;
   background: var(--primary);
   color: var(--text-inverse);
   border: none;
@@ -346,6 +354,17 @@
   font-weight: 700;
   cursor: pointer;
   transition: background 150ms, transform 100ms;
+  position: relative;
+}
+.scenario-next::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: var(--divider);
 }
 
 .scenario-next:hover { background: var(--primary-hover); }
@@ -353,11 +372,27 @@
 
 /* ── Done card ── */
 .scenario-done { text-align: center; padding-top: 8px; }
+.scenario-done::before {
+  content: '✓';
+  display: block;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--secondary);
+  line-height: 1;
+  margin-bottom: 16px;
+}
 
+.scenario-done-inner {
+  background: var(--primary-soft);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
 .scenario-done-checks {
   list-style: none;
   padding: 0;
-  margin: 0 auto 20px;
+  margin: 0;
   display: inline-block;
   text-align: left;
 }
@@ -378,7 +413,8 @@
 }
 
 .scenario-done-text {
-  font-size: var(--fs-base);
+  font-size: var(--fs-xl);
+  font-weight: 900;
   color: var(--text);
   margin-bottom: 6px;
 }

@@ -79,18 +79,43 @@ document.querySelectorAll('.reveal').forEach(function (el) {
 
 /* ---- 04 Story Overlay ---- */
 (function () {
-  function openOverlay(id) {
+  var lastTrigger = null;
+
+  function getFocusable(el) {
+    return Array.from(el.querySelectorAll(
+      'a[href],button:not([disabled]),input:not([disabled]),textarea:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])'
+    )).filter(function (n) { return !n.closest('[hidden]'); });
+  }
+
+  function trapFocus(ol, e) {
+    var focusable = getFocusable(ol);
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+    }
+  }
+
+  function openOverlay(id, trigger) {
     var ol = document.getElementById(id);
     if (!ol) return;
+    lastTrigger = trigger || null;
     ol.classList.add('open');
     document.body.style.overflow = 'hidden';
     var closeBtn = ol.querySelector('.overlay-close');
     if (closeBtn) closeBtn.focus();
+    ol._trapHandler = function (e) { if (e.key === 'Tab') trapFocus(ol, e); };
+    ol.addEventListener('keydown', ol._trapHandler);
   }
 
   function closeOverlay(ol) {
     ol.classList.remove('open');
     document.body.style.overflow = '';
+    if (ol._trapHandler) { ol.removeEventListener('keydown', ol._trapHandler); delete ol._trapHandler; }
+    if (lastTrigger) { lastTrigger.focus(); lastTrigger = null; }
   }
 
   document.querySelectorAll('.story-overlay').forEach(function (ol) {
@@ -109,12 +134,12 @@ document.querySelectorAll('.reveal').forEach(function (el) {
 
   document.querySelectorAll('[data-overlay]').forEach(function (card) {
     card.addEventListener('click', function () {
-      openOverlay(card.getAttribute('data-overlay'));
+      openOverlay(card.getAttribute('data-overlay'), card);
     });
     card.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        openOverlay(card.getAttribute('data-overlay'));
+        openOverlay(card.getAttribute('data-overlay'), card);
       }
     });
   });
@@ -187,6 +212,24 @@ document.querySelectorAll('.reveal').forEach(function (el) {
         return function () { a.style.strokeDashoffset = String(t); };
       }(arc, targetOffset), 80 + i * 120);
     });
+
+    /* 中央顯示投票選項的百分比 */
+    var votedPct = total > 0 ? Math.round(counts[voted] / total * 100) : 0;
+    var txtBg = document.createElementNS(SVG_NS, 'circle');
+    txtBg.setAttribute('cx', CX); txtBg.setAttribute('cy', CY); txtBg.setAttribute('r', 18);
+    txtBg.setAttribute('fill', '#FCF8F3');
+    svg.appendChild(txtBg);
+
+    var txt = document.createElementNS(SVG_NS, 'text');
+    txt.setAttribute('x', CX); txt.setAttribute('y', CY);
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('dominant-baseline', 'central');
+    txt.setAttribute('font-size', '13');
+    txt.setAttribute('font-weight', '900');
+    txt.setAttribute('fill', '#C97B1E');
+    txt.setAttribute('font-family', 'Noto Sans TC, sans-serif');
+    txt.textContent = votedPct + '%';
+    svg.appendChild(txt);
 
     return svg;
   }

@@ -302,7 +302,7 @@
     <div class="poll-card reveal">
       <p class="poll-label">閱讀前</p>
       <h2 class="poll-title">你本來認識臉部平權嗎？</h2>
-      <p class="poll-sub">每台裝置限投一次</p>
+      <p class="poll-sub">每台裝置限投一次（以瀏覽器記憶為準）</p>
 
       <div id="poll-options" class="poll-options" role="group" aria-label="投票選項">
         <button class="poll-btn" data-value="know">早就知道</button>
@@ -337,11 +337,13 @@
       <div class="scenario-stage" aria-live="polite"><!-- JS 動態產生題目 --></div>
 
       <div class="scenario-done" hidden>
-        <ul class="scenario-done-checks" aria-label="完成項目">
-          <li>✓ 你已想過第一個情境</li>
-          <li>✓ 你已想過第二個情境</li>
-          <li>✓ 你已想過第三個情境</li>
-        </ul>
+        <div class="scenario-done-inner">
+          <ul class="scenario-done-checks" aria-label="完成項目">
+            <li>✓ 你已想過第一個情境</li>
+            <li>✓ 你已想過第二個情境</li>
+            <li>✓ 你已想過第三個情境</li>
+          </ul>
+        </div>
         <p class="scenario-done-text">你已經想過三個情境了</p>
         <p class="scenario-done-sub">真實的場景可能更複雜，但能停下來想一秒，這個網站就有意義</p>
         <a href="#stories" class="scenario-done-cta">繼續閱讀</a>
